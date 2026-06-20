@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dmuihmi77leto"]
+
+[ext_resource type="Script" path="res://enemies/enemy_basic.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://bstjs0ypcyrsr" path="res://assets/Ultimate Space Kit-glb/Enemy Large.glb" id="2_model"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_enemy"]
+radius = 0.5
+height = 1.8
+
+[node name="EnemyLarge" type="CharacterBody3D"]
+script = ExtResource("1_script")
+
+[node name="EnemyModel" parent="." instance=ExtResource("2_model")]
+# escala calculada para que o modelo (originalmente ~3.8m de altura
+# com a escala embutida de 100x do glTF) fique com ~1.8m, do mesmo
+# tamanho aproximado do jogador
+transform = Transform3D(47.306, 0, 0, 0, 47.306, 0, 0, 0, 47.306, 0, -0.9, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_enemy")

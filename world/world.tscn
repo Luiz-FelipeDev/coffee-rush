@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://b74xcutef4bcx" path="res://assets/nature/stones/stone_5.tscn" id="10_h8lre"]
 [ext_resource type="PackedScene" uid="uid://tw256hryko4w" path="res://assets/nature/stones/stone_6.tscn" id="11_ysn08"]
 [ext_resource type="PackedScene" uid="uid://jfihh0eik04r" path="res://assets/nature/stones/stone_7.tscn" id="12_m0cxt"]
-[ext_resource type="PackedScene" uid="uid://dfjcr4iicg7nk" path="res://enemies/enemy_basic.tscn" id="13_ocfjn"]
+[ext_resource type="PackedScene" path="res://enemies/enemy_large.tscn" id="13_ocfjn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6xmxd"]
 sky_top_color = Color(0.3991176, 0.6658924, 0.90956515, 1)
