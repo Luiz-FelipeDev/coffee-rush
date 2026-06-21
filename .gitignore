@@ -1,15 +1,30 @@
-# Arquivos de build e temporários da Godot
+### Godot Engine ###
+
+# Arquivos de build e temporários (Godot 4+ e versões anteriores)
 .godot/
 .import/
+
+# Configurações de exportação
+export.cfg
 export_presets.cfg
 
-# Configurações específicas do seu editor local
+# Traduções importadas (geradas automaticamente de arquivos CSV)
+*.translation
+
+### Mono / C# ###
+
+# Arquivos e configurações específicas do Mono
 .mono/
 data_*/
+mono_crash.*.json
 mono_crash_release_*.json
 
-# Arquivos de sistema e builds finais (opcional, mas recomendado)
+### Sistema, Logs e Builds Finais ###
+
+# Arquivos temporários e de log
 *.tmp
 *.log
+
+# Pastas de build e exportação final
 android/
 build/

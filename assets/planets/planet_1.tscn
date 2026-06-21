@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dov01qmb8iw6l"]
+[gd_scene format=3 uid="uid://dov01qmb8iw6l"]
 
-[ext_resource type="PackedScene" uid="uid://dryaf5vnepsfi" path="res://assets/Ultimate Space Kit-glb/Planet-IVnmauIgWX.glb" id="1_ufepd"]
+[ext_resource type="PackedScene" uid="uid://dryaf5vnepsfi" path="res://assets/third_party/Ultimate Space Kit-glb/Planet-IVnmauIgWX.glb" id="1_ufepd"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_i033y"]
 radius = 0.019189388

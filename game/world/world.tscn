@@ -1,0 +1,126 @@
+[gd_scene format=3 uid="uid://dd5714fc5hq6p"]
+
+[ext_resource type="Script" uid="uid://7ref5bmqsrxm" path="res://game/world/island_generator.gd" id="1_6xmxd"]
+[ext_resource type="Shader" uid="uid://to3x8w6kc18r" path="res://game/world/water/water.gdshader" id="1_h5o24"]
+[ext_resource type="Script" uid="uid://ysahirsqleq0" path="res://game/world/game_manager.gd" id="3_4717r"]
+[ext_resource type="PackedScene" uid="uid://micgwbpw0qyy" path="res://addons/DestroHook-92375b3855cdce01155e40cd475beaaae12722a2/addons/destrohook/scenes/player.tscn" id="4_mad0u"]
+[ext_resource type="Resource" uid="uid://cta73kl0xa5fn" path="res://game/world/biomes/biome_spike.tres" id="5_prd21"]
+[ext_resource type="PackedScene" uid="uid://dhx2mx20t554b" path="res://assets/nature/stones/stone_1.tscn" id="6_mad0u"]
+[ext_resource type="PackedScene" uid="uid://wynna8ewp8aq" path="res://assets/nature/stones/stone_2.tscn" id="7_ocfjn"]
+[ext_resource type="PackedScene" uid="uid://cjl5fnywswnn5" path="res://assets/nature/stones/stone_3.tscn" id="8_dqqhb"]
+[ext_resource type="PackedScene" uid="uid://cturila3jdj3t" path="res://assets/nature/stones/stone_4.tscn" id="9_b2suy"]
+[ext_resource type="PackedScene" uid="uid://b74xcutef4bcx" path="res://assets/nature/stones/stone_5.tscn" id="10_h8lre"]
+[ext_resource type="PackedScene" uid="uid://tw256hryko4w" path="res://assets/nature/stones/stone_6.tscn" id="11_ysn08"]
+[ext_resource type="PackedScene" uid="uid://jfihh0eik04r" path="res://assets/nature/stones/stone_7.tscn" id="12_m0cxt"]
+[ext_resource type="PackedScene" uid="uid://dmuihmi77leto" path="res://game/enemies/enemy_large.tscn" id="13_ocfjn"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6xmxd"]
+sky_top_color = Color(0.3991176, 0.6658924, 0.90956515, 1)
+sky_horizon_color = Color(0.7514591, 0.8293523, 0.90057766, 1)
+ground_bottom_color = Color(0.09005489, 0.13485283, 0.1760816, 1)
+ground_horizon_color = Color(0.7514591, 0.8293523, 0.90057766, 1)
+
+[sub_resource type="Sky" id="Sky_tcf2h"]
+sky_material = SubResource("ProceduralSkyMaterial_6xmxd")
+
+[sub_resource type="Environment" id="Environment_4717r"]
+background_mode = 2
+sky = SubResource("Sky_tcf2h")
+ambient_light_sky_contribution = 0.3
+tonemap_mode = 2
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.7008488, 0.81366724, 0.97763175, 1)
+fog_light_energy = 0.98
+fog_sun_scatter = 0.04
+fog_density = 0.001
+fog_sky_affect = 0.247
+fog_height = -44.04
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0005
+volumetric_fog_albedo = Color(0.93248576, 0.9441769, 0.9610897, 1)
+volumetric_fog_emission_energy = 0.0
+volumetric_fog_gi_inject = 0.11
+volumetric_fog_anisotropy = -0.03
+volumetric_fog_length = 403.25
+volumetric_fog_detail_spread = 2.5226896
+volumetric_fog_ambient_inject = 1.66
+volumetric_fog_sky_affect = 0.613
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_h5o24"]
+noise_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mmdvd"]
+noise = SubResource("FastNoiseLite_h5o24")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fn3g3"]
+noise_type = 2
+frequency = 0.0045
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sc4t8"]
+noise = SubResource("FastNoiseLite_fn3g3")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4717r"]
+render_priority = 0
+shader = ExtResource("1_h5o24")
+shader_parameter/surface_noise = SubResource("NoiseTexture2D_sc4t8")
+shader_parameter/distort_noise = SubResource("NoiseTexture2D_mmdvd")
+shader_parameter/beer_factor = 0.8
+shader_parameter/foam_distance = 0.01
+shader_parameter/foam_max_distance = 0.4
+shader_parameter/foam_min_distance = 0.04
+shader_parameter/foam_color = Color(1, 1, 1, 1)
+shader_parameter/surface_noise_tiling = Vector2(10, 10)
+shader_parameter/surface_noise_scroll = Vector3(0.03, 0.03, 0)
+shader_parameter/surface_noise_cutoff = 0.777
+shader_parameter/surface_distortion_amount = 0.27
+shader_parameter/depth_gradient_shallow = Color(0.325, 0.807, 0.971, 0.725)
+shader_parameter/depth_gradient_deep = Color(0.086, 0.407, 1, 0.749)
+shader_parameter/depth_max_distance = 1.0
+shader_parameter/depth_factor = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4717r"]
+material = SubResource("ShaderMaterial_4717r")
+size = Vector2(1000, 1000)
+subdivide_width = 600
+subdivide_depth = 600
+
+[node name="world" type="Node3D" unique_id=1197569230]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=31193522]
+environment = SubResource("Environment_4717r")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1112935314]
+transform = Transform3D(1, 0, 0, 0, 0.80509055, 0.5931519, 0, -0.5931519, 0.80509055, 0, 2.8788564, 0)
+shadow_enabled = true
+
+[node name="water" type="MeshInstance3D" parent="." unique_id=570586039]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)
+mesh = SubResource("PlaneMesh_4717r")
+
+[node name="islandGenerator" type="MeshInstance3D" parent="." unique_id=1422276875]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.381706, 0)
+script = ExtResource("1_6xmxd")
+island_size = 600.0
+
+[node name="gameManager" type="Node" parent="." unique_id=609329406 node_paths=PackedStringArray("terrain_generator", "world_environment")]
+script = ExtResource("3_4717r")
+player_scene = ExtResource("4_mad0u")
+terrain_generator = NodePath("../islandGenerator")
+world_environment = NodePath("../WorldEnvironment")
+current_biome = ExtResource("5_prd21")
+tree_count = 300
+min_tree_scale = 1.0
+max_tree_scale = 4.0
+surface_rock_scenes = Array[PackedScene]([ExtResource("6_mad0u"), ExtResource("7_ocfjn"), ExtResource("8_dqqhb"), ExtResource("9_b2suy"), ExtResource("10_h8lre")])
+surface_rock_count = 150
+max_surface_scale = 1.3
+floating_rock_scenes = Array[PackedScene]([ExtResource("6_mad0u"), ExtResource("7_ocfjn"), ExtResource("8_dqqhb"), ExtResource("9_b2suy"), ExtResource("10_h8lre"), ExtResource("11_ysn08"), ExtResource("12_m0cxt")])
+floating_cluster_count = 8
+rocks_per_cluster = 10
+cluster_radius = 50.0
+min_floating_height = 25.0
+max_floating_height = 150.0
+max_floating_scale = 7.0
+enemy_scene = ExtResource("13_ocfjn")
