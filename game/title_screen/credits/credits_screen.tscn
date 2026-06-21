@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://3lq6ljq1sdji"]
+
+[ext_resource type="Texture2D" uid="uid://dwj2bj36knny2" path="res://assets/images/title_screen_backgrounds/lava_biome_screen.png" id="1_58fj6"]
+[ext_resource type="Script" uid="uid://c7kjcfd1q23qi" path="res://game/title_screen/credits/credits_screen.gd" id="1_pcvnh"]
+[ext_resource type="Texture2D" uid="uid://bnp3d66m5y0oq" path="res://assets/images/coffee_rush_logo.png" id="2_pcvnh"]
+
+[node name="CreditsScreen" type="Control" unique_id=1436805252]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pcvnh")
+
+[node name="Bg" type="TextureRect" parent="." unique_id=1866477478]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("1_58fj6")
+expand_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1433924399]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5882353)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=966412179]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=12326401]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1383614027]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="game_logo" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=562288732]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_pcvnh")
+
+[node name="equipe" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=447420077]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0.99607843, 0.49803922, 0.05490196, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 60
+text = "EQUIPE"
+horizontal_alignment = 1
+
+[node name="membros" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1518758708]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 30
+text = "CAUA VICTOR
+GERALDO
+IARLEY
+JOAO PEDRO
+JOEL
+LARA
+LUIZ FELIPE "
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=2094126134]
+layout_mode = 2
+
+[node name="return_btn" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=657221649]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "RETURN"
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/return_btn" to="." method="_on_return_btn_pressed"]

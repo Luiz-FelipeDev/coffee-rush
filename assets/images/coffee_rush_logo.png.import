@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://df4mnsiubpq5s"
-path="res://.godot/imported/title_screen_3000_blau.png-dc81e89ee6c917f8145a3c88a9f903aa.ctex"
+uid="uid://bnp3d66m5y0oq"
+path="res://.godot/imported/coffee_rush_logo.png-04ef86ee0ee456927891ad86a954fbda.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/title_screen/title_screen_3000_blau.png"
-dest_files=["res://.godot/imported/title_screen_3000_blau.png-dc81e89ee6c917f8145a3c88a9f903aa.ctex"]
+source_file="res://assets/images/coffee_rush_logo.png"
+dest_files=["res://.godot/imported/coffee_rush_logo.png-04ef86ee0ee456927891ad86a954fbda.ctex"]
 
 [params]
 

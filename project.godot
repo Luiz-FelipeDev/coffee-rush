@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="coffee-rush"
-run/main_scene="uid://dd5714fc5hq6p"
+run/main_scene="uid://calq74itf5ujh"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 

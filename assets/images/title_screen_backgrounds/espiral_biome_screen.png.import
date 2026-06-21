@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnp3d66m5y0oq"
-path="res://.godot/imported/coffee_rush_logo.png-0653212eb5bb9948c50cbd38aa9841a0.ctex"
+uid="uid://de01hwq58w028"
+path="res://.godot/imported/espiral_biome_screen.png-4dbd5b6fbe076bf2db396fb3c29c9c53.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/title_screen/coffee_rush_logo.png"
-dest_files=["res://.godot/imported/coffee_rush_logo.png-0653212eb5bb9948c50cbd38aa9841a0.ctex"]
+source_file="res://assets/images/title_screen_backgrounds/espiral_biome_screen.png"
+dest_files=["res://.godot/imported/espiral_biome_screen.png-4dbd5b6fbe076bf2db396fb3c29c9c53.ctex"]
 
 [params]
 

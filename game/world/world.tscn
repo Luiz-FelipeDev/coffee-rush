@@ -4,7 +4,7 @@
 [ext_resource type="Shader" uid="uid://to3x8w6kc18r" path="res://game/world/water/water.gdshader" id="1_h5o24"]
 [ext_resource type="Script" uid="uid://ysahirsqleq0" path="res://game/world/game_manager.gd" id="3_4717r"]
 [ext_resource type="PackedScene" uid="uid://micgwbpw0qyy" path="res://addons/DestroHook-92375b3855cdce01155e40cd475beaaae12722a2/addons/destrohook/scenes/player.tscn" id="4_mad0u"]
-[ext_resource type="Resource" uid="uid://cta73kl0xa5fn" path="res://game/world/biomes/biome_spike.tres" id="5_prd21"]
+[ext_resource type="Resource" uid="uid://xmfc3ulr0r5m" path="res://game/world/biomes/biome_spiral.tres" id="5_prd21"]
 [ext_resource type="PackedScene" uid="uid://dhx2mx20t554b" path="res://assets/nature/stones/stone_1.tscn" id="6_mad0u"]
 [ext_resource type="PackedScene" uid="uid://wynna8ewp8aq" path="res://assets/nature/stones/stone_2.tscn" id="7_ocfjn"]
 [ext_resource type="PackedScene" uid="uid://cjl5fnywswnn5" path="res://assets/nature/stones/stone_3.tscn" id="8_dqqhb"]

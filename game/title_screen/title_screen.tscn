@@ -1,9 +1,8 @@
 [gd_scene format=3 uid="uid://calq74itf5ujh"]
 
-[ext_resource type="Texture2D" uid="uid://bnp3d66m5y0oq" path="res://game/title_screen/coffee_rush_logo.png" id="1_nv36f"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cgk2s"]
-load_path = "res://.godot/imported/title_screen_3000_blau.png-1bf2690ffd782d7a1299808ae21f5bce.ctex"
+[ext_resource type="Script" uid="uid://vvds2frmqmi6" path="res://game/title_screen/title_screen.gd" id="1_g0tek"]
+[ext_resource type="Texture2D" uid="uid://bnp3d66m5y0oq" path="res://assets/images/coffee_rush_logo.png" id="1_nv36f"]
+[ext_resource type="Texture2D" uid="uid://de01hwq58w028" path="res://assets/images/title_screen_backgrounds/espiral_biome_screen.png" id="2_50scn"]
 
 [node name="TitleScreen" type="Control" unique_id=183833914]
 layout_mode = 3
@@ -12,12 +11,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_g0tek")
 
 [node name="Bg" type="TextureRect" parent="." unique_id=929387515]
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
-texture = SubResource("CompressedTexture2D_cgk2s")
+texture = ExtResource("2_50scn")
 expand_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=582971060]
@@ -45,20 +45,26 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("1_nv36f")
 
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1230851370]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 3
+
 [node name="start_btn" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=821927697]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "START"
-
-[node name="quit_btn" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=44388107]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "QUIT"
 
 [node name="credits_btn" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=429910774]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "CREDITS"
 
-[node name="mochi" type="TextureRect" parent="MarginContainer/HBoxContainer" unique_id=346859132]
+[node name="quit_btn" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=44388107]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "QUIT"
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/start_btn" to="." method="_on_start_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/credits_btn" to="." method="_on_credits_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/quit_btn" to="." method="_on_quit_btn_pressed"]
