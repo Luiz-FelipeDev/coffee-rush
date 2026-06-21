@@ -45,6 +45,11 @@ O projeto segue o padrão de Versionamento Semântico (SemVer).
 
 ---
 
+### [1.2.0]
+
+**Features**
+* Adição da randomização do bioma ao iniciar uma partida: Existem 5 biomas possíveis e, a cada novo jogo, um deles será escolhido.
+
 ### [1.1.0]
 
 **Features**
