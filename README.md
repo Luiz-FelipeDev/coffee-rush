@@ -38,3 +38,33 @@ O controlador base e o algoritmo geográfico estão estruturados. As tarefas seg
 * Configurar o sistema de saúde do jogador no GameManager. A integridade estrutural deve ser limitada para punir aproximações estáticas e favorecer a mobilidade.
 * Distribuir os consumíveis pelo mapa. O jogador precisará localizar o café (que pode utilizar sprites em billboard para otimização). 
 * Atrelar a coleta do café à manipulação da escala de tempo da engine, ativando a câmera lenta vitalícia para lidar com o combate de alta velocidade. A arquitetura futura poderá suportar múltiplos grãos com modificadores de status diferentes.
+
+## 5. Histórico de Versões (Changelog)
+
+O projeto segue o padrão de Versionamento Semântico (SemVer). 
+
+---
+
+### [1.1.0]
+
+**Features**
+* Adição de um novo tipo de inimigo (`EnemyAstronaut`), reutilizando a IA e estrutura de cena já existentes.
+* Refatoração do sistema de spawn de inimigos em `game_manager.gd`: substituição do campo único `enemy_scene` por `enemy_scenes: Array[PackedScene]`, permitindo múltiplos tipos de inimigo sorteados aleatoriamente a cada spawn.
+
+**Fixes**
+* Substituição de raycasts verticais redundantes pelo sistema nativo de colisão da Godot para otimização de performance.
+* Aplicação do parâmetro `floor_snap_length` para estabilizar o movimento de entidades em declives acentuados no terreno procedural.
+* Descomentada a função de spawn das rochas no céu.
+
+---
+
+### [1.0.0]
+
+**Features**
+* Estruturação da arquitetura base do projeto e diretórios (`world/`, `nature/`, `player/`).
+* Geração procedural de terreno utilizando `FastNoiseLite`.
+* Instanciamento seguro de objetos (flora e pedras) via raycasting e registro espacial.
+* Criação do controlador em primeira pessoa com física de parkour aéreo e gancho.
+* Implementação do sistema de física nativa para a movimentação dos inimigos utilizando `CharacterBody3D`.
+* Adição da rotina de inteligência artificial básica para detecção e perseguição do jogador.
+* Integração de lógica de alteração de cores dinâmicas nos materiais dos modelos inimigos instanciados.

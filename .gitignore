@@ -28,3 +28,12 @@ mono_crash_release_*.json
 # Pastas de build e exportação final
 android/
 build/
+
+### Arquivos específicos do SO ###
+.DS_Store
+Thumbs.db
+desktop.ini
+
+### IDEs e Editores ###
+.vscode/
+.idea/

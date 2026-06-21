@@ -45,13 +45,13 @@ func _physics_process(delta: float) -> void:
 	else:
 		_apply_gravity_only(delta)
 
-	_stick_to_ground(delta)
 	move_and_slide()
 	
-	if velocity.length() > 0:
-		anim_player.play("CharacterArmature|Walk") 
-	else:
-		anim_player.play("CharacterArmature|Idle")
+	if anim_player:
+		if velocity.length() > 0:
+			anim_player.play("CharacterArmature|Walk") 
+		else:
+			anim_player.play("CharacterArmature|Idle")
 
 func _find_player() -> void:
 	var players: Array = get_tree().get_nodes_in_group("player")
@@ -105,32 +105,33 @@ func _apply_gravity_only(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
-func _stick_to_ground(delta: float) -> void:
-	# e disparado um raycast vertical para encontrar a altura real do terreno
-	# logo abaixo do inimigo, permitindo que ele suba e desca o relevo
-	# procedural sem atravessar o chao nem flutuar sobre ele
-	var ray_origin: Vector3 = global_position + Vector3.UP * ground_probe_height
-	var ray_end: Vector3 = global_position - Vector3.UP * ground_probe_depth
-
-	var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
-	query.collide_with_bodies = true
-	# e excluido o proprio corpo da consulta para nao colidir consigo mesmo
-	query.exclude = [self]
-
-	var result: Dictionary = _space_state.intersect_ray(query)
-
-	if result:
-		var hit_position: Vector3 = result["position"]
-		var hit_normal: Vector3 = result["normal"]
-
-		# e ignorada a "colagem" caso a superficie seja ingreme demais para subir
-		if hit_normal.dot(Vector3.UP) >= max_slope_dot:
-			var height_diff: float = hit_position.y - global_position.y
-
-			# e suavizado o ajuste vertical para evitar tremulacao em terrenos irregulares
-			if abs(height_diff) > 0.01:
-				global_position.y = lerpf(global_position.y, hit_position.y, 15.0 * delta)
-				velocity.y = 0.0
+#func _stick_to_ground(delta: float) -> void:
+	## e disparado um raycast vertical para encontrar a altura real do terreno
+	## logo abaixo do inimigo, permitindo que ele suba e desca o relevo
+	## procedural sem atravessar o chao nem flutuar sobre ele
+	#var ray_origin: Vector3 = global_position + Vector3.UP * ground_probe_height
+	#var ray_end: Vector3 = global_position - Vector3.UP * ground_probe_depth
+#
+	#var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
+	#query.collide_with_bodies = true
+	## e excluido o proprio corpo da consulta para nao colidir consigo mesmo
+	#query.exclude = [self]
+#
+	#var result: Dictionary = _space_state.intersect_ray(query)
+#
+	#if result:
+		#var hit_position: Vector3 = result["position"]
+		#var hit_normal: Vector3 = result["normal"]
+#
+		## e ignorada a "colagem" caso a superficie seja ingreme demais para subir
+		#if hit_normal.dot(Vector3.UP) >= max_slope_dot:
+			#var height_diff: float = hit_position.y - global_position.y
+#
+			## e suavizado o ajuste vertical para evitar tremulacao em terrenos irregulares
+			#if abs(height_diff) > 0.01:
+				#global_position.y = lerpf(global_position.y, hit_position.y, 15.0 * delta)
+				#velocity.y = 0.0
+				#
 				
 func apply_color(new_color: Color) -> void:
 	# ATENÇÃO: Substitua o caminho abaixo pelo caminho exato da sua malha 3D

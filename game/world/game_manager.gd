@@ -36,7 +36,7 @@ extends Node
 @export var max_floating_scale: float = 8.0
 
 @export_group("enemy generation")
-@export var enemy_scene: PackedScene
+@export var enemy_scenes: Array[PackedScene]
 @export var enemy_count: int = 80
 @export var enemy_min_distance_from_player: float = 30.0
 
@@ -86,7 +86,7 @@ func _on_terrain_generated() -> void:
 		
 	# são gerados os elementos globais na mesma lista de verificação de espaço
 	spawn_surface_props(rng, surface_rock_scenes, surface_rock_count, min_surface_scale, max_surface_scale, occupied_positions)
-	#spawn_floating_rocks(rng)
+	spawn_floating_rocks(rng)
 	
 	# é gerado o jogador e guardada a sua posição no mundo
 	var player_pos: Vector3 = spawn_player()
@@ -172,45 +172,45 @@ func spawn_surface_props(rng: RandomNumberGenerator, prop_scenes: Array[PackedSc
 				props_planted += 1
 
 
-#func spawn_floating_rocks(rng: RandomNumberGenerator) -> void:
-	#if floating_rock_scenes.is_empty() or floating_cluster_count <= 0:
-		#return
-#
-	#var base_sky_height: float = terrain_generator.height_multiplier
-#
-	#for i: int in range(floating_cluster_count):
-		#var angle: float = rng.randf_range(0.0, TAU)
-		#var distance: float = sqrt(rng.randf_range(0.0, 1.0)) * max_floating_spawn_radius
-		#
-		#var cluster_center_x: float = cos(angle) * distance
-		#var cluster_center_z: float = sin(angle) * distance
-		#var cluster_center_y: float = base_sky_height + rng.randf_range(min_floating_height, max_floating_height)
-		#var cluster_center: Vector3 = Vector3(cluster_center_x, cluster_center_y, cluster_center_z)
-#
-		#for j: int in range(rocks_per_cluster):
-			#var offset_x: float = rng.randf_range(-cluster_radius, cluster_radius)
-			#var offset_y: float = rng.randf_range(-cluster_radius / 2.0, cluster_radius / 2.0)
-			#var offset_z: float = rng.randf_range(-cluster_radius, cluster_radius)
-			#var spawn_pos: Vector3 = cluster_center + Vector3(offset_x, offset_y, offset_z)
-#
-			#var random_scene: PackedScene = floating_rock_scenes.pick_random()
-			#var prop_instance: Node3D = random_scene.instantiate()
-#
-			#add_child(prop_instance)
-			#prop_instance.global_position = spawn_pos
-			#prop_instance.rotate_y(rng.randf_range(0.0, TAU))
-#
-			#var random_scale: float = rng.randf_range(min_floating_scale, max_floating_scale)
-			#prop_instance.scale = Vector3(random_scale, random_scale, random_scale)
-#
-			#var hover_amplitude: float = rng.randf_range(1.0, 2.5)
-			#var hover_duration: float = rng.randf_range(2.0, 4.0)
-			#var start_y: float = spawn_pos.y
-			#var up_y: float = start_y + hover_amplitude
-			#
-			#var tween: Tween = prop_instance.create_tween().set_loops()
-			#tween.tween_property(prop_instance, "global_position:y", up_y, hover_duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-			#tween.tween_property(prop_instance, "global_position:y", start_y, hover_duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+func spawn_floating_rocks(rng: RandomNumberGenerator) -> void:
+	if floating_rock_scenes.is_empty() or floating_cluster_count <= 0:
+		return
+
+	var base_sky_height: float = terrain_generator.height_multiplier
+
+	for i: int in range(floating_cluster_count):
+		var angle: float = rng.randf_range(0.0, TAU)
+		var distance: float = sqrt(rng.randf_range(0.0, 1.0)) * max_floating_spawn_radius
+		
+		var cluster_center_x: float = cos(angle) * distance
+		var cluster_center_z: float = sin(angle) * distance
+		var cluster_center_y: float = base_sky_height + rng.randf_range(min_floating_height, max_floating_height)
+		var cluster_center: Vector3 = Vector3(cluster_center_x, cluster_center_y, cluster_center_z)
+
+		for j: int in range(rocks_per_cluster):
+			var offset_x: float = rng.randf_range(-cluster_radius, cluster_radius)
+			var offset_y: float = rng.randf_range(-cluster_radius / 2.0, cluster_radius / 2.0)
+			var offset_z: float = rng.randf_range(-cluster_radius, cluster_radius)
+			var spawn_pos: Vector3 = cluster_center + Vector3(offset_x, offset_y, offset_z)
+
+			var random_scene: PackedScene = floating_rock_scenes.pick_random()
+			var prop_instance: Node3D = random_scene.instantiate()
+
+			add_child(prop_instance)
+			prop_instance.global_position = spawn_pos
+			prop_instance.rotate_y(rng.randf_range(0.0, TAU))
+
+			var random_scale: float = rng.randf_range(min_floating_scale, max_floating_scale)
+			prop_instance.scale = Vector3(random_scale, random_scale, random_scale)
+
+			var hover_amplitude: float = rng.randf_range(1.0, 2.5)
+			var hover_duration: float = rng.randf_range(2.0, 4.0)
+			var start_y: float = spawn_pos.y
+			var up_y: float = start_y + hover_amplitude
+			
+			var tween: Tween = prop_instance.create_tween().set_loops()
+			tween.tween_property(prop_instance, "global_position:y", up_y, hover_duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			tween.tween_property(prop_instance, "global_position:y", start_y, hover_duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 
 # ========================================================== #
@@ -237,7 +237,7 @@ func spawn_player() -> Vector3:
 
 
 func spawn_enemies(rng: RandomNumberGenerator, occupied_positions: Array[Vector3], player_pos: Vector3) -> void:
-	if not enemy_scene or enemy_count <= 0:
+	if enemy_scenes.is_empty() or enemy_count <= 0:
 		return
 
 	var space_state: PhysicsDirectSpaceState3D = terrain_generator.get_world_3d().direct_space_state
@@ -293,7 +293,8 @@ func spawn_enemies(rng: RandomNumberGenerator, occupied_positions: Array[Vector3
 					continue
 
 				# instanciação e configuração do inimigo
-				var enemy_instance: Node3D = enemy_scene.instantiate()
+				var random_enemy_scene: PackedScene = enemy_scenes.pick_random()
+				var enemy_instance: Node3D = random_enemy_scene.instantiate()
 				add_child(enemy_instance)
 				enemy_instance.global_position = hit_position
 
