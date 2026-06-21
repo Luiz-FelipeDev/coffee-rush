@@ -45,6 +45,15 @@ O projeto segue o padrão de Versionamento Semântico (SemVer).
 
 ---
 
+### [1.3.0]
+
+**Features**
+* Finalmente os inimigos atacam, inclusive foi sincronizado o ataque com a animação usando uma função de callback que é disparada em no keyframe específico do braço esticado (atacando, né)
+
+**TO-DO**
+- [ ] Incluir dano dos disparos do astronauta.
+- [ ] Aumentar o dano do alienígena, já que ele é mais lento.
+
 ### [1.2.0]
 
 **Features**

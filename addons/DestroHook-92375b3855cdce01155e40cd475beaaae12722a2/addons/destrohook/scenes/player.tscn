@@ -124,13 +124,14 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_b8m46")
 
-[node name="Player" type="CharacterBody3D" unique_id=301777954 node_paths=PackedStringArray("camera", "hook_raycast", "crosshair", "hook_controller", "left_wall_raycast", "right_wall_raycast")]
+[node name="Player" type="CharacterBody3D" unique_id=301777954 node_paths=PackedStringArray("camera", "hook_raycast", "crosshair", "health_bar", "hook_controller", "left_wall_raycast", "right_wall_raycast")]
 script = ExtResource("1_5t7oi")
 hook_available_texture = ExtResource("3_k3ota")
 hook_not_available_texture = ExtResource("3_ee8s0")
 camera = NodePath("CameraHolder/Camera")
 hook_raycast = NodePath("CameraHolder/Camera/Hook Raycast")
 crosshair = NodePath("HUD/Crosshair")
+health_bar = NodePath("HUD/ProgressBar")
 hook_controller = NodePath("HookController")
 jump_force = 18.0
 max_jumps = 3
@@ -204,6 +205,12 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("3_k3ota")
+
+[node name="ProgressBar" type="ProgressBar" parent="HUD" unique_id=1280412375]
+offset_left = 80.0
+offset_top = 956.0
+offset_right = 418.0
+offset_bottom = 992.0
 
 [node name="ODM" type="Node3D" parent="." unique_id=166023740]
 transform = Transform3D(-0.75, 0, -6.55671e-08, 0, 0.75, 0, 6.55671e-08, 0, -0.75, -0.025331, 1, 0.153343)

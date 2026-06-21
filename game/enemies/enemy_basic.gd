@@ -7,9 +7,19 @@ extends CharacterBody3D
 # raycast vertical -- a mesma tecnica usada pelo game_manager para plantar
 # arvores -- para "grudar" no chao a cada frame fisico.
 
+enum EnemyRole { MELEE, RANGED }
+@export var role: EnemyRole = EnemyRole.MELEE
+
 @export_group("deteccao")
 @export var detection_radius: float = 20.0
 @export var lose_target_radius: float = 30.0 
+
+@export_group("combate")
+@export var attack_range: float = 2.5
+@export var aim_range: float = 15.0
+@export var shoot_range: float = 10.0
+@export var attack_damage: int = 10
+@export var attack_cooldown: float = 1.5
 
 @export_group("movimento")
 @export var move_speed: float = 6.0
@@ -28,6 +38,7 @@ extends CharacterBody3D
 
 var player: Node3D = null
 var _space_state: PhysicsDirectSpaceState3D
+var _time_since_last_attack: float = 0.0
 
 func _ready() -> void:
 	# e adicionado a um grupo proprio para facilitar contagem/gerenciamento futuro
@@ -36,6 +47,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	
+	_time_since_last_attack += delta
 		
 	if not is_instance_valid(player):
 		_find_player()
@@ -46,12 +58,6 @@ func _physics_process(delta: float) -> void:
 		_apply_gravity_only(delta)
 
 	move_and_slide()
-	
-	if anim_player:
-		if velocity.length() > 0:
-			anim_player.play("CharacterArmature|Walk") 
-		else:
-			anim_player.play("CharacterArmature|Idle")
 
 func _find_player() -> void:
 	var players: Array = get_tree().get_nodes_in_group("player")
@@ -84,10 +90,38 @@ func _chase_player(delta: float) -> void:
 	direction.y = 0.0
 	direction = direction.normalized()
 
-	# e aplicada a aceleracao horizontal em direcao ao jogador
-	var target_velocity: Vector3 = direction * move_speed
-	velocity.x = lerpf(velocity.x, target_velocity.x, acceleration * delta)
-	velocity.z = lerpf(velocity.z, target_velocity.z, acceleration * delta)
+	var current_anim: String = "CharacterArmature|Idle"
+	var is_attacking: bool = false
+	var should_move: bool = true
+
+	if role == EnemyRole.MELEE:
+		if distance <= attack_range:
+			should_move = false
+			current_anim = "CharacterArmature|Punch"
+			is_attacking = true
+		else:
+			current_anim = "CharacterArmature|Walk"
+	elif role == EnemyRole.RANGED:
+		if distance <= attack_range:
+			should_move = false
+			current_anim = "CharacterArmature|Punch"
+			is_attacking = true
+		elif distance <= shoot_range:
+			current_anim = "CharacterArmature|Run_Gun_Shoot"
+			is_attacking = true
+		elif distance <= aim_range:
+			current_anim = "CharacterArmature|Run_Gun"
+		else:
+			current_anim = "CharacterArmature|Run"
+
+	if should_move:
+		# e aplicada a aceleracao horizontal em direcao ao jogador
+		var target_velocity: Vector3 = direction * move_speed
+		velocity.x = lerpf(velocity.x, target_velocity.x, acceleration * delta)
+		velocity.z = lerpf(velocity.z, target_velocity.z, acceleration * delta)
+	else:
+		velocity.x = lerpf(velocity.x, 0.0, acceleration * delta)
+		velocity.z = lerpf(velocity.z, 0.0, acceleration * delta)
 
 	# e rotacionado o corpo do inimigo suavemente para encarar o alvo
 	if direction.length_squared() > 0.001:
@@ -97,6 +131,9 @@ func _chase_player(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
+	if anim_player:
+		anim_player.play(current_anim)
+
 func _apply_gravity_only(delta: float) -> void:
 	# e desacelerado o movimento horizontal quando nao ha alvo para perseguir
 	velocity.x = lerpf(velocity.x, 0.0, acceleration * delta)
@@ -104,6 +141,9 @@ func _apply_gravity_only(delta: float) -> void:
 
 	if not is_on_floor():
 		velocity.y -= gravity * delta
+
+	if anim_player:
+		anim_player.play("CharacterArmature|Idle")
 
 #func _stick_to_ground(delta: float) -> void:
 	## e disparado um raycast vertical para encontrar a altura real do terreno
@@ -151,3 +191,18 @@ func apply_color(new_color: Color) -> void:
 			
 			# Aplica o material exclusivo de volta na malha
 			mesh_instance.set_surface_override_material(0, unique_material)
+
+func perform_attack() -> void:
+	if not player or not is_instance_valid(player):
+		return
+		
+	var dist: float = global_position.distance_to(player.global_position)
+	var can_hit: bool = false
+	
+	if role == EnemyRole.MELEE and dist <= attack_range:
+		can_hit = true
+	elif role == EnemyRole.RANGED and dist <= shoot_range:
+		can_hit = true
+		
+	if can_hit and player.has_method("take_damage"):
+		player.take_damage(attack_damage)
