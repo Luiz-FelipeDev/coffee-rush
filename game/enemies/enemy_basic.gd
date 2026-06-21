@@ -134,11 +134,6 @@ func _chase_player(delta: float) -> void:
 	if anim_player:
 		anim_player.play(current_anim)
 
-	if is_attacking and _time_since_last_attack >= attack_cooldown:
-		_time_since_last_attack = 0.0
-		if player.has_method("take_damage"):
-			player.take_damage(attack_damage)
-
 func _apply_gravity_only(delta: float) -> void:
 	# e desacelerado o movimento horizontal quando nao ha alvo para perseguir
 	velocity.x = lerpf(velocity.x, 0.0, acceleration * delta)
@@ -196,3 +191,18 @@ func apply_color(new_color: Color) -> void:
 			
 			# Aplica o material exclusivo de volta na malha
 			mesh_instance.set_surface_override_material(0, unique_material)
+
+func perform_attack() -> void:
+	if not player or not is_instance_valid(player):
+		return
+		
+	var dist: float = global_position.distance_to(player.global_position)
+	var can_hit: bool = false
+	
+	if role == EnemyRole.MELEE and dist <= attack_range:
+		can_hit = true
+	elif role == EnemyRole.RANGED and dist <= shoot_range:
+		can_hit = true
+		
+	if can_hit and player.has_method("take_damage"):
+		player.take_damage(attack_damage)

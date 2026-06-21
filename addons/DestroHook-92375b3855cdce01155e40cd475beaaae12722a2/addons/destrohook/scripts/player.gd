@@ -1,5 +1,9 @@
 extends CharacterBody3D
 
+@export_group("health settings")
+@export var max_health: int = 100
+var current_health: int
+
 @export_group("misc settings")
 @export var hook_available_texture: CompressedTexture2D
 @export var hook_not_available_texture: CompressedTexture2D
@@ -7,6 +11,7 @@ extends CharacterBody3D
 @export var camera: Camera3D 
 @export var hook_raycast: RayCast3D 
 @export var crosshair: TextureRect 
+@export var health_bar: ProgressBar
 @export var hook_controller: HookController 
 
 @export var mouse_sensitivity: float = 1.0 
@@ -58,6 +63,11 @@ var current_control: float = 1.0
 var current_jumps: int = 0
 
 func _ready() -> void:
+	current_health = max_health
+	if health_bar:
+		health_bar.max_value = max_health
+		health_bar.value = current_health
+		
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	if camera:
 		camera.fov = base_fov
@@ -207,3 +217,16 @@ func update_ui() -> void:
 		crosshair.texture = hook_available_texture
 	else:
 		crosshair.texture = hook_not_available_texture
+
+func take_damage(amount: int) -> void:
+	current_health -= amount
+	
+	if health_bar:
+		health_bar.value = current_health
+		
+	if current_health <= 0:
+		die()
+
+func die() -> void:
+	# Restarts the current scene on death
+	get_tree().reload_current_scene()
