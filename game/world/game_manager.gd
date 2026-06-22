@@ -281,6 +281,8 @@ func spawn_enemies(rng: RandomNumberGenerator, occupied_positions: Array[Vector3
 		"ff9900",   # Laranja
 		"8a2be2"   # Roxo
 	]
+	
+	var paintable_mobs: Array[String] = ["enemy_basic", "enemy_large"]
 
 	while enemies_planted < enemy_count and attempts < max_attempts:
 		attempts += 1
@@ -325,7 +327,7 @@ func spawn_enemies(rng: RandomNumberGenerator, occupied_positions: Array[Vector3
 				var chosen_color: String = color_options[random_index]
 
 				if enemy_instance.has_method("apply_color"):
-					enemy_instance.apply_color(chosen_color)
+					enemy_instance.apply_color(Color(chosen_color), paintable_mobs)
 
 				occupied_positions.append(hit_position)
 				enemies_planted += 1

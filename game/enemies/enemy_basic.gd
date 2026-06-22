@@ -148,7 +148,12 @@ func _apply_gravity_only(delta: float) -> void:
 	if anim_player:
 		anim_player.play(anim_idle)
 
-func apply_color(new_color: Color) -> void:
+func apply_color(new_color: Color, allowed_mobs: Array[String]) -> void:
+	var current_mob_name: String = scene_file_path.get_file().get_basename()
+	
+	if not current_mob_name in allowed_mobs:
+		return
+
 	var mesh_instance: MeshInstance3D = $EnemyModel/RootNode/CharacterArmature/Skeleton3D/Enemy
 
 	if mesh_instance:
