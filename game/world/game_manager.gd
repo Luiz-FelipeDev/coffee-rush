@@ -25,6 +25,10 @@ extends Node
 @export var min_surface_scale: float = 0.5
 @export var max_surface_scale: float = 1.5
 
+@export_group("chest generation")
+@export var chest_scenes: Array[PackedScene]
+@export var chest_count: int = 40
+
 @export_group("floating clusters generation")
 @export var floating_rock_scenes: Array[PackedScene]
 @export var floating_cluster_count: int = 6
@@ -94,6 +98,10 @@ func _on_terrain_generated() -> void:
 		
 	# são gerados os elementos globais na mesma lista de verificação de espaço
 	spawn_surface_props(rng, surface_rock_scenes, surface_rock_count, min_surface_scale, max_surface_scale, occupied_positions)
+	
+	# Spawns chests globally using a fixed scale to preserve Kenney asset proportions
+	spawn_surface_props(rng, chest_scenes, chest_count, 1.0, 1.0, occupied_positions)
+	
 	spawn_floating_rocks(rng)
 	
 	# é gerado o jogador e guardada a sua posição no mundo
