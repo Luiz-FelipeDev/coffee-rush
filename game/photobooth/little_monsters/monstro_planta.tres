@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3 uid="uid://qrxchqa1t3tm"]
+
+[ext_resource type="PackedScene" uid="uid://dmuihmi77leto" path="res://game/enemies/enemy_large.tscn" id="1_mo2ae"]
+[ext_resource type="Script" uid="uid://blygghmfw06be" path="res://game/photobooth/creature_data.gd" id="1_qnjff"]
+
+[resource]
+script = ExtResource("1_qnjff")
+creature_name = "SeedSprout"
+model_scene = ExtResource("1_mo2ae")
+is_discovered = true
+isInverted = true
+metadata/_custom_type_script = "uid://blygghmfw06be"

@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://ck58fatpumeu5"]
+
+[ext_resource type="Script" uid="uid://bq84k11sdxm2y" path="res://atlas_menu.gd" id="1_46nce"]
+[ext_resource type="Script" uid="uid://blygghmfw06be" path="res://game/photobooth/creature_data.gd" id="2_64u8n"]
+[ext_resource type="Resource" uid="uid://4rc6fcqlhjj6" path="res://game/photobooth/little_monsters/monstro_sapo.tres" id="3_hqbvf"]
+[ext_resource type="Resource" uid="uid://qrxchqa1t3tm" path="res://game/photobooth/little_monsters/monstro_planta.tres" id="4_2t1tp"]
+[ext_resource type="PackedScene" uid="uid://dmx51sg6x4wo" path="res://game/photobooth/little_monsters/atlas_slot.tscn" id="5_mtlti"]
+[ext_resource type="PackedScene" uid="uid://cxy8r106iarvf" path="res://game/photobooth/photobooth.tscn" id="6_66a56"]
+
+[node name="AtlasMenu" type="Control" unique_id=1888481577]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_46nce")
+lista_criaturas = Array[ExtResource("2_64u8n")]([ExtResource("3_hqbvf"), ExtResource("4_2t1tp")])
+slot_prefab = ExtResource("5_mtlti")
+photobooth_scene = ExtResource("6_66a56")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1368137431]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GradeItens" type="GridContainer" parent="ScrollContainer" unique_id=2018238269]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 4
