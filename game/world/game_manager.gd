@@ -45,6 +45,11 @@ extends Node
 #@export var world_seed: int = 98765
 @export var world_seed: int = 0
 
+# caminho de spawn próprio e separado para o boss
+@export_group("boss")
+@export var boss_scene: PackedScene
+@export var boss_min_distance_from_player: float = 50.0
+
 
 # ========================================================== #
 # INICIALIZAÇÃO
@@ -101,6 +106,7 @@ func _on_terrain_generated() -> void:
 
 	# são gerados os inimigos recebendo a posição do jogador como referência
 	spawn_enemies(rng, occupied_positions, player_pos)
+	spawn_boss(rng, occupied_positions, player_pos)
 
 # ========================================================== #
 # FUNÇÕES DE CONFIGURAÇÃO
@@ -315,3 +321,57 @@ func spawn_enemies(rng: RandomNumberGenerator, occupied_positions: Array[Vector3
 
 				occupied_positions.append(hit_position)
 				enemies_planted += 1
+
+
+func spawn_boss(rng: RandomNumberGenerator, occupied_positions: Array[Vector3], player_pos: Vector3) -> void:
+	# tenta até 200 vezes achar um ponto válido (longe do jogador, 
+	#sem sobrepor outro objeto) e, ao conseguir, instancia o Boss uma única vez 
+	
+	
+	if not boss_scene:
+		return
+
+	var space_state: PhysicsDirectSpaceState3D = terrain_generator.get_world_3d().direct_space_state
+	var half_size: float = terrain_generator.island_size / 2.0
+	var max_height: float = terrain_generator.height_multiplier + 20.0
+	var player_spawn_pos_2d: Vector2 = Vector2(player_pos.x, player_pos.z)
+
+	var attempts: int = 0
+	var max_attempts: int = 200
+
+	while attempts < max_attempts:
+		attempts += 1
+
+		var rand_x: float = rng.randf_range(-half_size, half_size)
+		var rand_z: float = rng.randf_range(-half_size, half_size)
+
+		var ray_origin: Vector3 = Vector3(rand_x, max_height, rand_z)
+		var ray_end: Vector3 = Vector3(rand_x, -50.0, rand_z)
+		var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
+		var result: Dictionary = space_state.intersect_ray(query)
+
+		if result:
+			var hit_position: Vector3 = result["position"]
+			var hit_normal: Vector3 = result["normal"]
+
+			if hit_position.y >= min_spawn_height and hit_normal.dot(Vector3.UP) >= max_slope_angle:
+				var hit_pos_2d: Vector2 = Vector2(hit_position.x, hit_position.z)
+
+				if hit_pos_2d.distance_to(player_spawn_pos_2d) < boss_min_distance_from_player:
+					continue
+
+				var is_too_close: bool = false
+				for pos in occupied_positions:
+					var occupied_pos_2d: Vector2 = Vector2(pos.x, pos.z)
+					if hit_pos_2d.distance_to(occupied_pos_2d) < minimum_prop_spacing:
+						is_too_close = true
+						break
+
+				if is_too_close:
+					continue
+
+				var boss_instance: Node3D = boss_scene.instantiate()
+				add_child(boss_instance)
+				boss_instance.global_position = hit_position
+				occupied_positions.append(hit_position)
+				return
