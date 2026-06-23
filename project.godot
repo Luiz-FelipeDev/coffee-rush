@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 SlowMotionManager="*uid://boydrg0j2lx4s"
+LoadingScreen="*res://game/ui/loading_screen.tscn"
 
 [display]
 

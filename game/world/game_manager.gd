@@ -119,7 +119,7 @@ func _on_terrain_generated() -> void:
 	# são gerados os inimigos recebendo a posição do jogador como referência
 	spawn_enemies(rng, occupied_positions, player_pos)
 	spawn_boss(rng, occupied_positions, player_pos)
-
+	LoadingScreen.hide_loading()
 # ========================================================== #
 # FUNÇÕES DE CONFIGURAÇÃO
 # ========================================================== #
