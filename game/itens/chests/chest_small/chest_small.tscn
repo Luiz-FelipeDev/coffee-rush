@@ -76,10 +76,10 @@ shape = SubResource("SphereShape3D_4lji1")
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
 
 [node name="crate-small" parent="CollisionShape3D/crate-small2" index="0" unique_id=519215821]
-transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+transform = Transform3D(0.9999756, -0.00024364244, 0.006977007, 0, 0.9993908, 0.03489949, -0.00698126, -0.034898642, 0.9993664, 0, 0, 0)
 
 [node name="lid" parent="CollisionShape3D/crate-small2/crate-small" index="0" unique_id=1501712052]
-transform = Transform3D(0.9999999, 5.231802e-16, 0, -5.231802e-16, 0.9999999, 0, 0, 0, 1, 0.25, 0.19, -7.219114e-16)
+transform = Transform3D(0.5232371, 0.852187, 0, -0.852187, 0.5232371, 0, 0, 0, 1, 0.25, 0.19, -7.219114e-16)
 
 [node name="AnimationPlayer" parent="CollisionShape3D/crate-small2" index="1" unique_id=1870485826]
 autoplay = &"close"

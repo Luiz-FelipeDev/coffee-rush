@@ -76,10 +76,10 @@ shape = SubResource("SphereShape3D_4lji1")
 [node name="crate-wide2" parent="CollisionShape3D" unique_id=156888443 instance=ExtResource("7_amxt5")]
 
 [node name="crate-wide" parent="CollisionShape3D/crate-wide2" index="0" unique_id=1523153803]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+transform = Transform3D(1.9999512, -0.0004872849, 0.0139540145, 0, 1.9987817, 0.06979899, -0.01396252, -0.06979729, 1.9987329, 0, 0, 0)
 
 [node name="lid" parent="CollisionShape3D/crate-wide2/crate-wide" index="0" unique_id=1157089133]
-transform = Transform3D(0.9999999, 5.231802e-16, 0, -5.231802e-16, 0.9999999, 0, 0, 0, 1, 0.25, 0.19, -5.4143357e-16)
+transform = Transform3D(0.85113716, 0.5249431, 0, -0.5249431, 0.85113716, 0, 0, 0, 1, 0.25, 0.19, -5.4143357e-16)
 
 [node name="AnimationPlayer" parent="CollisionShape3D/crate-wide2" index="1" unique_id=1061714914]
 autoplay = &"close"
