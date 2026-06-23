@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://wkat6qv1qlf"]
+
+[ext_resource type="Script" uid="uid://c1g6v10gllcpb" path="res://game/enemies/enemy_basic.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://chly3lxfn0o78" path="res://assets/Ultimate Space Kit-glb/Mech-lagarta.glb" id="2_model"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v14hl"]
+size = Vector3(10.915033, 10.562016, 7.1280575)
+
+[node name="EnemyBoss" type="CharacterBody3D" unique_id=1838477112]
+script = ExtResource("1_script")
+detection_radius = 35.0
+lose_target_radius = 45.0
+attack_range = 3.5
+attack_damage = 35
+attack_cooldown = 2.0
+move_speed = 5.0
+anim_idle = "RobotArmature|Idle"
+anim_walk = "RobotArmature|Walk"
+anim_attack_melee = "RobotArmature|Kick"
+
+[node name="EnemyModel" parent="." unique_id=2095454321 instance=ExtResource("2_model")]
+transform = Transform3D(-3.4965022, 0, -0.15642804, 0, 3.5, 0, 0.15642804, 0, -3.4965022, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1198162226]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.050035834, 5.2487926, -0.81777465)
+shape = SubResource("BoxShape3D_v14hl")
