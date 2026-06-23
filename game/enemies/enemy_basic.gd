@@ -197,7 +197,7 @@ func _can_see_target(target: Node3D) -> bool:
 	if angle_to_target <= half_fov_radians:
 		return true
 		
-	# Proximity/Hearing check from behind if the player is not stealthing
+	# Proximity/Hearing check from behind if the player is moving and not stealthing
 	if distance_to_target <= proximity_detection_radius:
 		var is_sneaking: bool = false
 		if target.get("is_crouching") != null:
@@ -205,7 +205,12 @@ func _can_see_target(target: Node3D) -> bool:
 		elif Input.is_action_pressed("action_stealth"):
 			is_sneaking = true
 			
-		if not is_sneaking:
+		var is_moving: bool = false
+		if target is CharacterBody3D:
+			var horizontal_velocity: Vector2 = Vector2(target.velocity.x, target.velocity.z)
+			is_moving = horizontal_velocity.length() > 0.1
+			
+		if is_moving and not is_sneaking:
 			return true
 
 	return false
