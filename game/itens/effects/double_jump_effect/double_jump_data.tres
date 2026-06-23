@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://ccmprx0rod87j"]
+
+[ext_resource type="Script" uid="uid://d2belrt1kfdg5" path="res://game/itens/effects/item_effect.gd" id="1_22l2q"]
+[ext_resource type="Resource" uid="uid://bvmeuholtffwc" path="res://game/itens/effects/double_jump_effect/double_jump_effect.tres" id="2_36j27"]
+[ext_resource type="Script" uid="uid://mp155plrfswe" path="res://game/itens/item_data.gd" id="2_y0xjj"]
+
+[resource]
+script = ExtResource("2_y0xjj")
+item_id = &"pulo_duplo"
+display_name = "Ovo de sapo"
+effects = Array[ExtResource("1_22l2q")]([ExtResource("2_36j27")])
+metadata/_custom_type_script = "uid://mp155plrfswe"

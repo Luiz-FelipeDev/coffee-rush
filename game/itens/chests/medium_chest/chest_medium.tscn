@@ -2,9 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://c8licq83ppq6m" path="res://assets/third_party/Kenney/crate-medium.glb" id="1_rsjhs"]
 [ext_resource type="Script" uid="uid://b8hc2twjfj24t" path="res://game/itens/chests/chest.gd" id="1_vpgk5"]
-[ext_resource type="PackedScene" uid="uid://n15d4lp3bu81" path="res://assets/third_party/Ultimate Space Kit-glb/Pickup Thunder.glb" id="3_1t17y"]
-[ext_resource type="PackedScene" uid="uid://cbfbxbsrq7fwe" path="res://assets/third_party/Ultimate Space Kit-glb/Pickup Key Card.glb" id="4_5c55c"]
-[ext_resource type="PackedScene" uid="uid://dqi3him8mspaj" path="res://assets/third_party/Ultimate Space Kit-glb/Planet.glb" id="4_rgplj"]
+[ext_resource type="PackedScene" uid="uid://cq3awo8nhsmxr" path="res://game/itens/effects/slow_motion_effect/slow_motion.tscn" id="3_wi2p0"]
+[ext_resource type="PackedScene" uid="uid://do7xxg1xyntrb" path="res://game/itens/effects/double_jump_effect/double_jump.tscn" id="4_1t17y"]
 [ext_resource type="ArrayMesh" uid="uid://3hyitn42tv8g" path="res://game/particles/smoke.res" id="7_fuf00"]
 
 [sub_resource type="Curve" id="Curve_fuf00"]
@@ -39,7 +38,7 @@ collision_layer = 0
 script = ExtResource("1_vpgk5")
 smoke_particles = NodePath("ItemSpawnMarker/SmokeParticles")
 animation_player = NodePath("CollisionShape3D/crate-medium3/AnimationPlayer")
-item_scenes = Array[PackedScene]([ExtResource("4_5c55c"), ExtResource("3_1t17y"), ExtResource("4_rgplj")])
+item_scenes = Array[PackedScene]([ExtResource("4_1t17y"), ExtResource("3_wi2p0")])
 item_spawn_marker = NodePath("ItemSpawnMarker")
 interact_prompt = NodePath("InteractPromp")
 
@@ -81,7 +80,7 @@ transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 transform = Transform3D(1.9999999, 0, 0, 0, 2.0000007, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="lid" parent="CollisionShape3D/crate-medium3/crate-medium" index="0" unique_id=1005272879]
-transform = Transform3D(0.9999999, 5.231802e-16, 0, -5.231802e-16, 0.9999999, 0, 0, 0, 1, 0.25, 0.19, -5.4143357e-16)
+transform = Transform3D(-0.7071067, 0.7071067, 0, -0.7071067, -0.7071067, 0, 0, 0, 1, 0.25, 0.19, -5.4143357e-16)
 
 [node name="AnimationPlayer" parent="CollisionShape3D/crate-medium3" index="1" unique_id=813266011]
 autoplay = &"close"

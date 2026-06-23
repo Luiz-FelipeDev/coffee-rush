@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="DoubleJumpEffect" format=3 uid="uid://bvmeuholtffwc"]
+
+[ext_resource type="Script" uid="uid://cc3g52ghey2wg" path="res://game/itens/effects/double_jump_effect/double_jump_effect.gd" id="1_4u81h"]
+
+[resource]
+script = ExtResource("1_4u81h")
+metadata/_custom_type_script = "uid://cc3g52ghey2wg"

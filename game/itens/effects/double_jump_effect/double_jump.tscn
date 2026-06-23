@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://do7xxg1xyntrb"]
+
+[ext_resource type="Script" uid="uid://dqyyptwgkrql1" path="res://game/itens/item_pickup.gd" id="1_3rxo4"]
+[ext_resource type="Resource" uid="uid://ccmprx0rod87j" path="res://game/itens/effects/double_jump_effect/double_jump_data.tres" id="2_qkajw"]
+[ext_resource type="PackedScene" uid="uid://s1ysycgmsh2i" path="res://assets/third_party/Ultimate Space Kit-glb/Pickup Sphere.glb" id="3_8mfg8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4lji1"]
+
+[node name="DoubleJump" type="Area3D" unique_id=87030438]
+transform = Transform3D(1.045, 0, 0, 0, 1.045, 0, 0, 0, 1.045, 0, 0, 0)
+script = ExtResource("1_3rxo4")
+item_data = ExtResource("2_qkajw")
+
+[node name="Root Scene" parent="." unique_id=456915846 instance=ExtResource("3_8mfg8")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1748554833]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+shape = SubResource("BoxShape3D_4lji1")

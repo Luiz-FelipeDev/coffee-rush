@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dq8eu5lh5c8pd"]
+
+[ext_resource type="Script" uid="uid://d2belrt1kfdg5" path="res://game/itens/effects/item_effect.gd" id="1_y2n2x"]
+[ext_resource type="Script" uid="uid://mp155plrfswe" path="res://game/itens/item_data.gd" id="2_85dqb"]
+[ext_resource type="Resource" uid="uid://c3t85f0nduout" path="res://game/itens/effects/slow_motion_effect/slow_motion_effect.tres" id="2_t8dnc"]
+
+[resource]
+script = ExtResource("2_85dqb")
+item_id = &"slow_motion"
+display_name = "Relógio Quebrado"
+item_type = 1
+effects = Array[ExtResource("1_y2n2x")]([ExtResource("2_t8dnc")])
+metadata/_custom_type_script = "uid://mp155plrfswe"

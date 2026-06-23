@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+@onready var status_manager: StatusEffectManager = $StatusEffectManager
+
 @export_group("health settings")
 @export var max_health: int = 100
 var current_health: int
@@ -8,13 +10,13 @@ var current_health: int
 @export var hook_available_texture: CompressedTexture2D
 @export var hook_not_available_texture: CompressedTexture2D
 
-@export var camera: Camera3D 
-@export var hook_raycast: RayCast3D 
-@export var crosshair: TextureRect 
+@export var camera: Camera3D
+@export var hook_raycast: RayCast3D
+@export var crosshair: TextureRect
 @export var health_bar: ProgressBar
-@export var hook_controller: HookController 
+@export var hook_controller: HookController
 
-@export var mouse_sensitivity: float = 1.0 
+@export var mouse_sensitivity: float = 1.0
 
 @export_group("ui settings")
 # IMPORTANTE: Confirme se o caminho do AnimationPlayer está correto na sua árvore!
@@ -25,11 +27,11 @@ var is_book_open: bool = false
 @export var walk_speed: float = 10.0
 @export var run_speed: float = 20.0
 @export var hook_speed: float = 40.0
-@export var jump_force: float = 10.0 
-@export var max_jumps: int = 2 
-@export var gravity: float = 20.0 
-@export var acceleration: float = 25.0  
-@export var deceleration: float = 30.0  
+@export var jump_force: float = 10.0
+@export var max_jumps: int = 2
+@export var gravity: float = 20.0
+@export var acceleration: float = 25.0
+@export var deceleration: float = 30.0
 
 @export_group("control settings")
 @export var max_control: float = 1.0
@@ -67,7 +69,8 @@ var bob_time: float = 0.0
 @export var attack_range: float = 3.0
 var attack_hold_time: float = 0.0
 var is_charging_attack: bool = false
-var has_branch: bool = true
+var has_branch: bool = false # jogador começa sem o galho
+var equipped_item: ItemData = null
 
 # Referências para a arma visual e o animador
 @onready var weapon_mesh: MeshInstance3D = $CameraHolder/Camera/WeaponBranch
@@ -109,7 +112,7 @@ func handle_attack(delta: float) -> void:
 	if Input.is_action_just_released("LMB") and is_charging_attack:
 		is_charging_attack = false
 		
-		var damage: int = 50 
+		var damage: int = 50
 
 		if attack_hold_time >= 0.5:
 			# Define o dano pesado e toca a animação do golpe forte
@@ -120,6 +123,10 @@ func handle_attack(delta: float) -> void:
 			# Toca a animação do golpe rápido caso o clique tenha sido curto
 			if weapon_anim:
 				weapon_anim.play("quick_swing")
+
+		# Applies damage multiplier from status manager
+		if status_manager:
+			damage = int(damage * status_manager.damage_multiplier)
 
 		perform_melee_attack(damage)
 
@@ -160,6 +167,23 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	update_ui()
 
+func equip_item(item: ItemData) -> void:
+	equipped_item = item
+	print("New equipment stored: ", item.display_name)
+
+func use_equipped_item() -> void:
+	if not equipped_item:
+		print("No equipment available to trigger.")
+		return
+		
+	print("Activating equipment: ", equipped_item.display_name)
+	for effect in equipped_item.effects:
+		if effect:
+			effect.apply(self)
+	
+	# Clear the slot after consumption
+	equipped_item = null
+
 func _unhandled_input(event: InputEvent) -> void:
 	# é processada a rotação da câmera baseada no movimento do mouse
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and not is_book_open:
@@ -167,9 +191,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		camera.rotation_degrees.x -= event.relative.y * 0.06 * mouse_sensitivity
 		camera.rotation_degrees.x = clamp(camera.rotation_degrees.x, -90.0, 90.0)
 		
-	# === NOVA PARTE: Detecta o botão que acabamos de criar no Input Map ===
+	# === Detectção de eventos de teclado ===
 	if event.is_action_pressed("action_toggle_book"):
 		toggle_book()
+
+	if event.is_action_pressed("action_use_item"):
+		use_equipped_item()
 
 func handle_state_speeds() -> void:
 	# é definida a velocidade máxima baseada no estado atual
@@ -179,6 +206,10 @@ func handle_state_speeds() -> void:
 		current_max_speed = run_speed
 	else:
 		current_max_speed = walk_speed
+
+	# Applies speed multiplier from status manager
+	if status_manager:
+		current_max_speed *= status_manager.speed_multiplier
 
 	# é calculado o nível de controle aéreo
 	if is_on_floor():
@@ -216,9 +247,14 @@ func handle_movement_and_gravity(movement_direction: Vector2, movement_vector: V
 	if not is_on_floor() and not is_wallrunning:
 		velocity.y -= gravity * delta
 
+	# Calculates total available jumps including dynamic status effects
+	var total_jumps: int = max_jumps
+	if status_manager:
+		total_jumps += status_manager.extra_jumps
+
 	# é validada a execução do pulo com base no limite configurado
 	if Input.is_action_just_pressed("action_jump") and not is_wallrunning and not is_book_open:
-		if current_jumps < max_jumps:
+		if current_jumps < total_jumps:
 			velocity.y = jump_force
 			current_jumps += 1
 
@@ -232,7 +268,7 @@ func handle_dash(movement_vector: Vector3) -> void:
 		var dash_dir: Vector3 = movement_vector
 		
 		if dash_dir == Vector3.ZERO:
-			dash_dir = -transform.basis.z.normalized()
+			dash_dir = - transform.basis.z.normalized()
 			
 		velocity += dash_dir * dash_force
 		current_dash_cooldown = dash_cooldown
@@ -247,7 +283,7 @@ func handle_wallrun(movement_direction: Vector2, delta: float) -> void:
 	# é ativado o estado de corrida na parede reduzindo a gravidade local
 	if not is_on_floor() and is_touching_wall and is_moving_forward:
 		is_wallrunning = true
-		current_jumps = 0 
+		current_jumps = 0
 		
 		if left_wall_raycast.is_colliding():
 			wall_normal = left_wall_raycast.get_collision_normal()
@@ -261,7 +297,7 @@ func handle_wallrun(movement_direction: Vector2, delta: float) -> void:
 			velocity.y = jump_force
 			velocity += wall_normal * walljump_side_force
 			is_wallrunning = false
-			current_jumps = 1 
+			current_jumps = 1
 	else:
 		is_wallrunning = false
 
@@ -289,7 +325,7 @@ func handle_camera_effects(movement_direction: Vector2, delta: float) -> void:
 		target_tilt = clamp(-lateral_velocity * hook_tilt_multiplier, -30.0, 30.0)
 		target_fov = hook_fov
 	else:
-		target_tilt = -movement_direction.x * base_tilt_angle
+		target_tilt = - movement_direction.x * base_tilt_angle
 		
 	# são interpolados os valores de rotação e campo de visão simultaneamente
 	camera.rotation_degrees.z = lerpf(camera.rotation_degrees.z, target_tilt, tilt_speed * delta)
@@ -303,11 +339,15 @@ func update_ui() -> void:
 		crosshair.texture = hook_not_available_texture
 
 func take_damage(amount: int) -> void:
+	# Blocks incoming damage if player is currently invincible
+	if status_manager and status_manager.is_invincible:
+		return
+
 	current_health -= amount
-	
+
 	if health_bar:
 		health_bar.value = current_health
-		
+
 	if current_health <= 0:
 		die()
 
@@ -331,7 +371,7 @@ func toggle_book() -> void:
 	# SEGURO DE VIDA: Se o AnimationPlayer não estiver linkado direito, avisa no console e cancela!
 	if animation_player == null:
 		print("🚨 [ERRO FATAL] AnimationPlayer não encontrado! O caminho '$CameraHolder/Camera/AnimationPlayer' está errado. Arraste ele de novo pro script!")
-		return 
+		return
 
 	is_book_open = !is_book_open
 	
@@ -340,7 +380,7 @@ func toggle_book() -> void:
 		animation_player.play("open_book")
 		
 		# Solta o mouse para clicar na interface do livro
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE 
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	else:
 		# Toca a mesma animação de trás pra frente! (Livro fechando)
 		animation_player.play_backwards("open_book")

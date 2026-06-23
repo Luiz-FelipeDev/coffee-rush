@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="SlowMotionEffect" format=3 uid="uid://c3t85f0nduout"]
+
+[ext_resource type="Script" uid="uid://dnb2vbdfff031" path="res://game/itens/effects/slow_motion_effect/slow_motion_effect.gd" id="1_q87wt"]
+
+[resource]
+script = ExtResource("1_q87wt")
+duration = 5.0
+metadata/_custom_type_script = "uid://dnb2vbdfff031"

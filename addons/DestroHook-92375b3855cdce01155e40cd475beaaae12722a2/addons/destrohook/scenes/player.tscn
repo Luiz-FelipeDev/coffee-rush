@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://djo0ecnrdrmih" path="res://assets/hud/Book.glb" id="5_ktl0y"]
 [ext_resource type="Texture2D" uid="uid://dw00efp6b3fn8" path="res://addons/DestroHook-92375b3855cdce01155e40cd475beaaae12722a2/addons/destrohook/textures/gray_checkers.png" id="5_wmoau"]
 [ext_resource type="PackedScene" uid="uid://brisgcwe5iemd" path="res://assets/hud/Book Open.glb" id="6_f7dls"]
+[ext_resource type="Script" uid="uid://ch6wyuf836qgv" path="res://game/world/status_effect_manager.gd" id="10_njh6e"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iop0k"]
 
@@ -207,7 +208,7 @@ crosshair = NodePath("HUD/Crosshair")
 health_bar = NodePath("HUD/ProgressBar")
 hook_controller = NodePath("HookController")
 jump_force = 18.0
-max_jumps = 3
+max_jumps = 1
 gravity = 40.0
 acceleration = 30.0
 deceleration = 25.0
@@ -238,6 +239,7 @@ libraries/ = SubResource("AnimationLibrary_w8m1i")
 
 [node name="side_book" parent="CameraHolder/Camera" unique_id=757882049 instance=ExtResource("5_ktl0y")]
 transform = Transform3D(0.7811144, -0.17280146, 0, 0.17280146, 0.7811144, 0, 0, 0, 0.8, -0.6503899, -0.38311207, -0.8502871)
+visible = false
 
 [node name="open_book" parent="CameraHolder/Camera" unique_id=813934692 instance=ExtResource("6_f7dls")]
 transform = Transform3D(1.3, 0, 0, 0, 0.36308804, -1.2482655, 0, 1.2482655, 0.36308804, 0.0041728616, -1.1411821, -0.5267042)
@@ -253,6 +255,7 @@ target_position = Vector3(0, 0, -50)
 
 [node name="WeaponBranch" type="MeshInstance3D" parent="CameraHolder/Camera" unique_id=63734454]
 transform = Transform3D(0.98810476, -0.06887776, -0.13749151, 0.088053085, 0.986419, 0.13865156, 0.1260742, -0.1491089, 0.98075056, 0.4608845, -0.32398582, -0.6772031)
+visible = false
 mesh = SubResource("CylinderMesh_ay61g")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CameraHolder/Camera/WeaponBranch" unique_id=708577427]
@@ -334,3 +337,6 @@ skeleton = NodePath("")
 
 [node name="HookRopeStart" type="Marker3D" parent="ODM" unique_id=506216371]
 transform = Transform3D(-1.33333, 3.01689e-08, 1.12592e-07, 0, 1.2879, -0.345092, -1.1656401e-07, -0.345092, -1.2879, -0.99470806, 0.48226082, 0.1817645)
+
+[node name="StatusEffectManager" type="Node" parent="." unique_id=1827387287]
+script = ExtResource("10_njh6e")

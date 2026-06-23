@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cq3awo8nhsmxr"]
+
+[ext_resource type="Script" uid="uid://dqyyptwgkrql1" path="res://game/itens/item_pickup.gd" id="1_8p37v"]
+[ext_resource type="PackedScene" uid="uid://n15d4lp3bu81" path="res://assets/third_party/Ultimate Space Kit-glb/Pickup Thunder.glb" id="1_nrj76"]
+[ext_resource type="Resource" uid="uid://dq8eu5lh5c8pd" path="res://game/itens/effects/slow_motion_effect/slow_motion_data.tres" id="2_0w08r"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4lji1"]
+
+[node name="SlowMotion" type="Area3D" unique_id=1177119822]
+script = ExtResource("1_8p37v")
+item_data = ExtResource("2_0w08r")
+
+[node name="Root Scene" parent="." unique_id=2083361067 instance=ExtResource("1_nrj76")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1817560630]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_4lji1")
