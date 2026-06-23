@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://b2xun8cy31yhi"]
+[gd_scene format=3 uid="uid://e7aqmpe7yc8q"]
 
-[ext_resource type="Script" path="res://game/itens/branch.tscn.gd" id="1_6eh42"]
+[ext_resource type="Script" uid="uid://b565lbuder0it" path="res://game/itens/branch.tscn.gd" id="1_6eh42"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jhopr"]
 radius = 0.1

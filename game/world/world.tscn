@@ -15,6 +15,7 @@
 [ext_resource type="Resource" uid="uid://c3tuhmb6d41tv" path="res://game/world/biomes/biome_lava.tres" id="9_par4i"]
 [ext_resource type="PackedScene" uid="uid://b74xcutef4bcx" path="res://assets/nature/stones/stone_5.tscn" id="10_h8lre"]
 [ext_resource type="Resource" uid="uid://cta73kl0xa5fn" path="res://game/world/biomes/biome_spike.tres" id="10_m774e"]
+[ext_resource type="PackedScene" uid="uid://e7aqmpe7yc8q" path="res://game/itens/branch.tscn" id="11_lj0gc"]
 [ext_resource type="PackedScene" uid="uid://tw256hryko4w" path="res://assets/nature/stones/stone_6.tscn" id="11_ysn08"]
 [ext_resource type="PackedScene" uid="uid://jfihh0eik04r" path="res://assets/nature/stones/stone_7.tscn" id="12_m0cxt"]
 [ext_resource type="PackedScene" uid="uid://dmuihmi77leto" path="res://game/enemies/enemy_large.tscn" id="13_ocfjn"]
@@ -130,6 +131,7 @@ terrain_generator = NodePath("../islandGenerator")
 world_environment = NodePath("../WorldEnvironment")
 current_biome = ExtResource("5_prd21")
 available_biomes = Array[ExtResource("6_mqk4b")]([ExtResource("7_lj0gc"), ExtResource("8_3rfcy"), ExtResource("9_par4i"), ExtResource("10_m774e"), ExtResource("5_prd21")])
+branch_scenes = Array[PackedScene]([ExtResource("11_lj0gc")])
 tree_count = 300
 min_tree_scale = 1.0
 max_tree_scale = 4.0

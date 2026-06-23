@@ -3,7 +3,7 @@ class_name HookController
 extends Node
 
 @export_group("controls")
-@export var launch_action_name: String = "LMB"
+@export var launch_action_name: String = "RMB"
 @export var thrust_action_name: String = "action_jump"
 
 @export_group("references")

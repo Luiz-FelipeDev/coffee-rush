@@ -1,5 +1,3 @@
-#branch.tscn.gd
-
 extends Area3D
 
 var _is_collected: bool = false
