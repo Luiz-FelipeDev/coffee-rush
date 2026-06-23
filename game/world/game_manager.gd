@@ -41,6 +41,12 @@ extends Node
 @export var enemy_count: int = 80
 @export var enemy_min_distance_from_player: float = 30.0
 
+@export_group("portal configuration")
+@export var portal_scene: PackedScene
+@export var portal_min_distance: float = 15.0
+@export var portal_max_distance: float = 40.0 # Controla o limite máximo para não nascer tão longe
+@export var portal_y_offset: float = 1.0 # Altura para compensar a metade que fica no chão
+
 @export_subgroup("randomization control")
 #@export var world_seed: int = 98765
 @export var world_seed: int = 0
@@ -98,6 +104,9 @@ func _on_terrain_generated() -> void:
 	
 	# é gerado o jogador e guardada a sua posição no mundo
 	var player_pos: Vector3 = spawn_player()
+
+	# é gerada UMA porta longe do jogador
+	spawn_portal(rng, occupied_positions, player_pos)
 
 	# são gerados os inimigos recebendo a posição do jogador como referência
 	spawn_enemies(rng, occupied_positions, player_pos)
@@ -315,3 +324,73 @@ func spawn_enemies(rng: RandomNumberGenerator, occupied_positions: Array[Vector3
 
 				occupied_positions.append(hit_position)
 				enemies_planted += 1
+
+
+func spawn_portal(rng: RandomNumberGenerator, occupied_positions: Array[Vector3], player_pos: Vector3) -> void:
+	if not portal_scene:
+		push_error("Portal scene not assigned!")
+		return
+
+	var space_state: PhysicsDirectSpaceState3D = terrain_generator.get_world_3d().direct_space_state
+	var max_height: float = terrain_generator.height_multiplier + 20.0
+
+	var attempts: int = 0
+	var max_attempts: int = 300
+
+	while attempts < max_attempts:
+		attempts += 1
+
+		# NOVA LÓGICA (Coordenadas Polares): Sorteia um ângulo e um raio a partir do jogador
+		var angle: float = rng.randf_range(0.0, TAU)
+		var distance: float = rng.randf_range(portal_min_distance, portal_max_distance)
+
+		# Converte de volta para coordenadas cartesianas somando a posição do jogador
+		var rand_x: float = player_pos.x + (cos(angle) * distance)
+		var rand_z: float = player_pos.z + (sin(angle) * distance)
+
+		# O RayCast agora atira de cima para baixo apenas na área permitida
+		var ray_origin: Vector3 = Vector3(rand_x, max_height, rand_z)
+		var ray_end: Vector3 = Vector3(rand_x, -50.0, rand_z)
+		var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
+		var result: Dictionary = space_state.intersect_ray(query)
+
+		if result:
+			var hit_position: Vector3 = result["position"]
+			var hit_normal: Vector3 = result["normal"]
+
+			# Regra 1: Altura e inclinação (evita água e paredes muito íngremes)
+			if hit_position.y >= min_spawn_height and hit_normal.dot(Vector3.UP) >= max_slope_angle:
+
+				# Regra 2: Verifica a distância em relação às árvores e pedras (Prop spacing)
+				var hit_pos_2d: Vector2 = Vector2(hit_position.x, hit_position.z)
+				var is_too_close: bool = false
+				
+				for pos in occupied_positions:
+					var occupied_pos_2d: Vector2 = Vector2(pos.x, pos.z)
+					if hit_pos_2d.distance_to(occupied_pos_2d) < minimum_prop_spacing:
+						is_too_close = true
+						break
+
+				if is_too_close:
+					continue
+
+				# ==========================================
+				# SUCESSO! Instancia o portal
+				# ==========================================
+				var portal_instance: Node3D = portal_scene.instantiate()
+				add_child(portal_instance)
+				
+				# Aplica o Offset no eixo Y para tirar a caixa de dentro da terra
+				var final_pos: Vector3 = hit_position
+				final_pos.y += portal_y_offset
+				
+				portal_instance.global_position = final_pos
+				
+				# Mantém o modelo reto em relação ao mundo, mas gira para um lado aleatório
+				portal_instance.rotate_y(rng.randf_range(0.0, TAU))
+
+				occupied_positions.append(hit_position)
+				print("🚪 Portal gerado com sucesso na posição: ", portal_instance.global_position)
+				return
+
+	push_error("Portal não gerado! Verifique se max_distance permite espaço suficiente sem água.")

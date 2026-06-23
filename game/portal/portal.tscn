@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://2vt6g7da0ffd"]
+
+[ext_resource type="Script" uid="uid://dvfpqx5xxyqj" path="res://game/portal/portal.gd" id="1_yv4rs"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yv4rs"]
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_eokv6"]
+material = SubResource("StandardMaterial3D_yv4rs")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eokv6"]
+
+[node name="Portal" type="Area3D" unique_id=1587692271]
+script = ExtResource("1_yv4rs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=745118844]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 4, 0)
+mesh = SubResource("BoxMesh_eokv6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=816938317]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 4, 0)
+shape = SubResource("BoxShape3D_eokv6")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
