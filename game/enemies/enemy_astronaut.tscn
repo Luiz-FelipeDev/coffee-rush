@@ -65,6 +65,7 @@ height = 0.42269105
 script = ExtResource("1_le8aq")
 role = 1
 detection_radius = 30.0
+fov_angle_degrees = 180.0
 proximity_detection_radius = 8.0
 attack_damage = 1
 move_speed = 9.0
@@ -155,10 +156,10 @@ transform = Transform3D(1, -7.105428e-14, -7.1525596e-07, -7.152558e-07, 3.57627
 [node name="PhysicalBoneSimulator3D" type="PhysicalBoneSimulator3D" parent="EnemyModel/RootNode/CharacterArmature/Skeleton3D" index="17" unique_id=1402323206]
 
 [node name="Physical Bone Root" type="PhysicalBone3D" parent="EnemyModel/RootNode/CharacterArmature/Skeleton3D/PhysicalBoneSimulator3D" unique_id=1400829401]
-transform = Transform3D(0.12699102, -0.12096445, -0.9845004, -0.9919039, -0.015486434, -0.1260432, 3.4670433e-07, 0.99253607, -0.121951744, 0.17468747, 0.25796598, 0.019379037)
+transform = Transform3D(0.12699102, -0.12096445, -0.9845004, -0.9919039, -0.015486435, -0.1260432, 3.4634883e-07, 0.99253607, -0.121951744, 0.17468747, 0.25796598, 0.019379037)
 joint_type = 5
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.22496e-06, 6.7344226e-06, 0.17876817)
-body_offset = Transform3D(0.12699056, -0.12096446, -0.9845005, -8.028167e-09, 0.9925362, -0.1219518, 0.99190414, 0.015486733, 0.12604271, 0.17599896, 0.021794416, -0.022526354)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.22496e-06, 6.7344517e-06, 0.17876817)
+body_offset = Transform3D(0.12699056, -0.12096446, -0.9845005, -8.383665e-09, 0.9925362, -0.1219518, 0.99190414, 0.015486734, 0.12604271, 0.17599896, 0.021794416, -0.022526354)
 linear_damp = 1.0
 angular_damp = 1.0
 bone_name = "Root"
@@ -231,10 +232,10 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_le8aq")
 
 [node name="Physical Bone Body" type="PhysicalBone3D" parent="EnemyModel/RootNode/CharacterArmature/Skeleton3D/PhysicalBoneSimulator3D" unique_id=400777388]
-transform = Transform3D(0.99997115, -0.0052063596, 0.005551996, 0.007611232, 0.6840169, -0.72942644, -2.7219174e-09, 0.7294477, 0.6840366, 0.00010165549, 0.16511862, 1.3204533)
+transform = Transform3D(0.99997115, -0.0052063596, 0.005551996, 0.007611232, 0.6840169, -0.72942644, -2.7219174e-09, 0.7294477, 0.6840366, 0.000101596816, 0.16511862, 1.3211988)
 joint_type = 5
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9493822e-07, -0.002609849, 0.13087958)
-body_offset = Transform3D(0.9999712, -0.0052058706, 0.0055514737, 2.220446e-16, 0.72944796, 0.6840364, -0.007610517, -0.6840166, 0.7294266, -0.00073986605, -0.08762264, -0.09725223)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.363231e-07, -0.0031536594, 0.1303696)
+body_offset = Transform3D(0.9999712, -0.0052058706, 0.0055514737, 2.220446e-16, 0.72944796, 0.6840364, -0.007610517, -0.6840166, 0.7294266, -0.0007399246, -0.08687711, -0.09725221)
 linear_damp = 1.0
 angular_damp = 1.0
 bone_name = "Body"
@@ -687,10 +688,10 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_hcs40")
 
 [node name="Physical Bone UpperArm_L" type="PhysicalBone3D" parent="EnemyModel/RootNode/CharacterArmature/Skeleton3D/PhysicalBoneSimulator3D" unique_id=549749320]
-transform = Transform3D(-0.18896626, 0.87090665, -0.45366672, -0.5929979, 0.2670371, 0.7596346, 0.78271663, 0.4125687, 0.46598476, 0.56067073, -0.28610605, 2.0272841)
+transform = Transform3D(-0.18896626, 0.87090665, -0.45366672, -0.5929979, 0.2670371, 0.7596347, 0.78271663, 0.4125687, 0.46598476, 0.56067073, -0.28610605, 2.0272841)
 joint_type = 5
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.994448e-06, 1.114438e-06, 0.41946575)
-body_offset = Transform3D(1.0000002, -2.503395e-06, 6.854534e-06, 6.7949295e-06, 2.4735928e-06, -0.9999998, 2.592802e-06, 1, 2.4586916e-06, 1.1920929e-07, 0.41946566, -2.1457672e-06)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0069486e-06, 1.1269392e-06, 0.41946572)
+body_offset = Transform3D(1.0000002, -2.503395e-06, 6.8843365e-06, 6.7949295e-06, 2.4735928e-06, -0.9999999, 2.592802e-06, 1, 2.4288893e-06, 1.1920929e-07, 0.41946566, -2.1457672e-06)
 linear_damp = 1.0
 angular_damp = 1.0
 bone_name = "UpperArm.L"
