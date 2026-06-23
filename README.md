@@ -45,6 +45,13 @@ O projeto segue o padrão de Versionamento Semântico (SemVer).
 
 ---
 
+### [1.4.0]
+
+**Features**
+* Substituição da engine de física nativa da Godot pelo Jolt Physics para maior estabilidade e precisão no cálculo de colisões estruturais e simulação do ambiente.
+* Implementação de rotinas de failsafe no sistema de ragdoll, estabilizando as juntas 6DOF e prevenindo a separação visual de ossos (bug de física elástica) durante o estado de nocaute.
+* Refinamento das variáveis de velocidade e aceleração das entidades inimigas para melhor balanceamento de combate.
+
 ### [1.3.0]
 
 **Features**
