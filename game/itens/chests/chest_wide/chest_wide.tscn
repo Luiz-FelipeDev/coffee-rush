@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://pftapsqwugox"]
+
+[ext_resource type="Script" uid="uid://b8hc2twjfj24t" path="res://game/itens/chests/chest.gd" id="1_88w6f"]
+[ext_resource type="PackedScene" uid="uid://khr7wr276fp0" path="res://assets/third_party/Ultimate Space Kit-glb/Bullets Pickup.glb" id="2_yj052"]
+[ext_resource type="PackedScene" uid="uid://bhgniqwrtyfnb" path="res://game/itens/guns/blaster_g/blaster_g.tscn" id="3_qsb6s"]
+[ext_resource type="ArrayMesh" uid="uid://3hyitn42tv8g" path="res://game/particles/smoke.res" id="6_ovx08"]
+[ext_resource type="PackedScene" uid="uid://bqyuwougy5xub" path="res://assets/third_party/Kenney/crate-wide.glb" id="7_amxt5"]
+
+[sub_resource type="Curve" id="Curve_fuf00"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5bwdi"]
+curve = SubResource("Curve_fuf00")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fuf00"]
+lifetime_randomness = 0.12
+emission_shape = 1
+emission_sphere_radius = 2.56
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_min = 3.0
+initial_velocity_max = 6.0
+gravity = Vector3(0, 1, 0)
+scale_min = 2.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_5bwdi")
+turbulence_enabled = true
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4lji1"]
+radius = 5.762
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4lji1"]
+size = Vector3(0.67889404, 0.7270107, 1.5959473)
+
+[node name="Chest" type="Area3D" unique_id=511865735 node_paths=PackedStringArray("smoke_particles", "animation_player", "item_spawn_marker", "interact_prompt")]
+collision_layer = 0
+script = ExtResource("1_88w6f")
+smoke_particles = NodePath("ItemSpawnMarker/SmokeParticles")
+animation_player = NodePath("CollisionShape3D/crate-wide2/AnimationPlayer")
+item_scenes = Array[PackedScene]([ExtResource("2_yj052"), ExtResource("3_qsb6s")])
+item_spawn_marker = NodePath("ItemSpawnMarker")
+interact_prompt = NodePath("InteractPromp")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1587592489]
+transform = Transform3D(1, 0, 0, 0, -0.0077911722, -0.99996966, 0, 0.99996966, -0.0077911722, 0, 0, 0)
+light_energy = 11.133
+light_indirect_energy = 5.267
+light_volumetric_fog_energy = 16.0
+spot_range = 6.252
+spot_attenuation = 2.28
+spot_angle = 90.0
+
+[node name="ItemSpawnMarker" type="Marker3D" parent="." unique_id=347053646]
+transform = Transform3D(1, 0, 0, 0, 2.0605757, 0, 0, 0, 1, 0, 0.5719231, 0)
+
+[node name="SmokeParticles" type="GPUParticles3D" parent="ItemSpawnMarker" unique_id=133246465]
+transform = Transform3D(1, 0, 0, 0, 0.48530126, 0, 0, 0, 1, 0, -0.09909128, -0.23074746)
+emitting = false
+amount = 15
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_fuf00")
+draw_pass_1 = ExtResource("6_ovx08")
+
+[node name="InteractPromp" type="Label3D" parent="." unique_id=423146205]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.68793386, 0)
+visible = false
+billboard = 1
+no_depth_test = true
+text = "[ E ] Open"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2102350120]
+shape = SubResource("SphereShape3D_4lji1")
+
+[node name="crate-wide2" parent="CollisionShape3D" unique_id=156888443 instance=ExtResource("7_amxt5")]
+
+[node name="crate-wide" parent="CollisionShape3D/crate-wide2" index="0" unique_id=1523153803]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="lid" parent="CollisionShape3D/crate-wide2/crate-wide" index="0" unique_id=1157089133]
+transform = Transform3D(0.9999999, 5.231802e-16, 0, -5.231802e-16, 0.9999999, 0, 0, 0, 1, 0.25, 0.19, -5.4143357e-16)
+
+[node name="AnimationPlayer" parent="CollisionShape3D/crate-wide2" index="1" unique_id=1061714914]
+autoplay = &"close"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="CollisionShape3D/crate-wide2" unique_id=2053852668]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionShape3D/crate-wide2/StaticBody3D" unique_id=1338957956]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0016784668, 0.36360073, 0.0015869141)
+shape = SubResource("BoxShape3D_4lji1")
+
+[editable path="CollisionShape3D/crate-wide2"]

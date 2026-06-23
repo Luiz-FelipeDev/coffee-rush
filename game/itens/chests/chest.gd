@@ -2,6 +2,9 @@ extends Area3D
 
 signal chest_opened
 
+@export_group("Loot Configuration")
+@export var possible_items: Array[PackedScene]
+
 @export_group("effects")
 @export var smoke_particles: GPUParticles3D
 
@@ -108,18 +111,18 @@ func _spawn_random_item() -> void:
 		# Kinematic fallback trajectory
 		# Multiplicamos o target_offset por 1.5 para "jogar" o item mais longe
 		var target_offset: Vector3 = random_dir * (force * 1.5)
-		var target_position: Vector3 = spawn_pos + Vector3(target_offset.x, target_offset.z, target_offset.z)
-		var peak_height: float = spawn_pos.y + (force * 1) # Altura do 	pico do salto
+		var target_position: Vector3 = spawn_pos + Vector3(target_offset.x, 0.0, target_offset.z)
+		var peak_height: float = spawn_pos.y + (force * 1) # Altura do pico do salto
 		
-		# Move X and Z in parallel
-		var tween: Tween = create_tween().set_parallel(true)
-		tween.tween_property(item_instance, "global_position:x", target_position.x, 0.5).set_trans(Tween.TRANS_LINEAR)
-		tween.tween_property(item_instance, "global_position:z", target_position.z, 0.5).set_trans(Tween.TRANS_LINEAR)
+		# Tween horizontal (X e Z) roda em paralelo durante toda a duração do arco
+		var horizontal_tween: Tween = create_tween().set_parallel(true)
+		horizontal_tween.tween_property(item_instance, "global_position:x", target_position.x, 0.5).set_trans(Tween.TRANS_LINEAR)
+		horizontal_tween.tween_property(item_instance, "global_position:z", target_position.z, 0.5).set_trans(Tween.TRANS_LINEAR)
 		
-		# Move Y (up then down) in sequence on the same tween
-		tween.set_parallel(false)
-		tween.tween_property(item_instance, "global_position:y", peak_height, 0.25).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-		tween.tween_property(item_instance, "global_position:y", target_position.y, 0.25).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+		# Tween vertical (sobe e desce) roda separado, simultâneo ao horizontal, formando a parábola
+		var vertical_tween: Tween = create_tween()
+		vertical_tween.tween_property(item_instance, "global_position:y", peak_height, 0.25).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		vertical_tween.tween_property(item_instance, "global_position:y", target_position.y, 0.25).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 
 # Callback function executed by the AnimationPlayer track
 func trigger_smoke_burst() -> void:

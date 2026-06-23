@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bhgniqwrtyfnb"]
+
+[ext_resource type="PackedScene" uid="uid://dwssdb6k1rxs" path="res://assets/third_party/Kenney/blaster-g.glb" id="1_gnwps"]
+
+[node name="BlasterG" type="Node3D" unique_id=1674375490]
+
+[node name="blaster-g2" parent="." unique_id=1679671154 instance=ExtResource("1_gnwps")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
