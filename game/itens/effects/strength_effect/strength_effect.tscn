@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dcw518mn8a86b"]
+
+[ext_resource type="Script" uid="uid://dqyyptwgkrql1" path="res://game/itens/item_pickup.gd" id="1_dvehx"]
+[ext_resource type="PackedScene" uid="uid://c3hp7oq35j0m5" path="res://assets/Ultimate Space Kit-glb/root_scene2.tscn" id="1_rfl02"]
+[ext_resource type="Resource" uid="uid://dg8xngkdxxll1" path="res://game/itens/effects/strength_effect/strength_effect_data.tres" id="2_endte"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_i2fm2"]
+
+[node name="StrengthEffect" type="Area3D" unique_id=684590648]
+script = ExtResource("1_dvehx")
+item_data = ExtResource("2_endte")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=179391529]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0)
+shape = SubResource("SphereShape3D_i2fm2")
+
+[node name="Root Scene" parent="." unique_id=926897590 instance=ExtResource("1_rfl02")]

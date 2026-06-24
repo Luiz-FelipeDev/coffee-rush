@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://jbr7nsopfd16"]
+
+[ext_resource type="Script" uid="uid://dqyyptwgkrql1" path="res://game/itens/item_pickup.gd" id="1_8nwuv"]
+[ext_resource type="PackedScene" uid="uid://bn4t4ov11b4i4" path="res://assets/third_party/Ultimate Space Kit-glb/Pickup Jar.glb" id="1_i64v4"]
+[ext_resource type="Resource" uid="uid://ckjkojf4qacw2" path="res://game/itens/effects/invincibility_effect/invincibility_effect_data.tres" id="2_cnr70"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_krv5d"]
+radius = 0.38427734
+height = 1.3354492
+
+[node name="Area3D" type="Area3D" unique_id=2066066699]
+script = ExtResource("1_8nwuv")
+item_data = ExtResource("2_cnr70")
+
+[node name="Root Scene" parent="." unique_id=1381537520 instance=ExtResource("1_i64v4")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=616812999]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.078976154, 0)
+shape = SubResource("CapsuleShape3D_krv5d")

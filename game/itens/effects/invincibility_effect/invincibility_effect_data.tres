@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://ckjkojf4qacw2"]
+
+[ext_resource type="Script" uid="uid://d2belrt1kfdg5" path="res://game/itens/effects/item_effect.gd" id="1_bxrfv"]
+[ext_resource type="Resource" uid="uid://es1i3fhsbta4" path="res://game/itens/effects/invincibility_effect/invincibility_effect.tres" id="2_gp1pg"]
+[ext_resource type="Script" uid="uid://mp155plrfswe" path="res://game/itens/item_data.gd" id="2_pdqya"]
+
+[resource]
+script = ExtResource("2_pdqya")
+item_id = &"invincibility_effect"
+display_name = "Invincibility Effect"
+item_type = 1
+effects = Array[ExtResource("1_bxrfv")]([ExtResource("2_gp1pg")])
+metadata/_custom_type_script = "uid://mp155plrfswe"

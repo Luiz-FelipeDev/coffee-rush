@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dg8xngkdxxll1"]
+
+[ext_resource type="Script" uid="uid://d2belrt1kfdg5" path="res://game/itens/effects/item_effect.gd" id="1_a7b46"]
+[ext_resource type="Resource" uid="uid://ca80au2togydj" path="res://game/itens/effects/strength_effect/strength_effect.tres" id="2_fp6pd"]
+[ext_resource type="Script" uid="uid://mp155plrfswe" path="res://game/itens/item_data.gd" id="2_hdimh"]
+
+[resource]
+script = ExtResource("2_hdimh")
+item_id = &"strength_effect"
+display_name = "Strength Effect"
+effects = Array[ExtResource("1_a7b46")]([ExtResource("2_fp6pd")])
+metadata/_custom_type_script = "uid://mp155plrfswe"
