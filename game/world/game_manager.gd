@@ -87,13 +87,16 @@ func _on_terrain_generated() -> void:
 	var occupied_positions: Array[Vector3] = []
 	
 	if current_biome:
-		spawn_surface_props(rng, current_biome.tree_scenes, tree_count, min_tree_scale, max_tree_scale, occupied_positions)
+		await spawn_surface_props(rng, current_biome.tree_scenes, tree_count, min_tree_scale, max_tree_scale, occupied_positions)
 		
-	spawn_surface_props(rng, surface_rock_scenes, surface_rock_count, min_surface_scale, max_surface_scale, occupied_positions)
-	spawn_surface_props(rng, chest_scenes, chest_count, 1.0, 1.0, occupied_positions)
+	# são gerados os elementos globais na mesma lista de verificação de espaço
+	await spawn_surface_props(rng, surface_rock_scenes, surface_rock_count, min_surface_scale, max_surface_scale, occupied_positions)
+	
+	# Spawns chests globally using a fixed scale to preserve Kenney asset proportions
+	await spawn_surface_props(rng, chest_scenes, chest_count, 1.0, 1.0, occupied_positions)
 	
 	spawn_floating_rocks(rng)
-	spawn_surface_props(rng, branch_scenes, 20, 0.8, 1.2, occupied_positions)
+	await spawn_surface_props(rng, branch_scenes, 20, 0.8, 1.2, occupied_positions)
 	
 	var player_pos: Vector3 = spawn_player()
 
@@ -156,7 +159,9 @@ func spawn_surface_props(rng: RandomNumberGenerator, prop_scenes: Array[PackedSc
 
 	while props_planted < count and attempts < max_attempts:
 		attempts += 1
-
+		if attempts % 20 == 0:
+			await get_tree().process_frame
+			
 		var rand_x: float = rng.randf_range(-half_size, half_size)
 		var rand_z: float = rng.randf_range(-half_size, half_size)
 
@@ -284,6 +289,8 @@ func spawn_enemies(rng: RandomNumberGenerator, occupied_positions: Array[Vector3
 
 	while enemies_planted < enemy_count and attempts < max_attempts:
 		attempts += 1
+		if attempts % 20 == 0:
+			await get_tree().process_frame
 
 		var rand_x: float = rng.randf_range(-half_size, half_size)
 		var rand_z: float = rng.randf_range(-half_size, half_size)
@@ -349,6 +356,8 @@ func spawn_boss(rng: RandomNumberGenerator, occupied_positions: Array[Vector3], 
 
 	while attempts < max_attempts:
 		attempts += 1
+		if attempts % 20 == 0:
+			await get_tree().process_frame
 
 		var rand_x: float = rng.randf_range(-half_size, half_size)
 		var rand_z: float = rng.randf_range(-half_size, half_size)

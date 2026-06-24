@@ -23,6 +23,7 @@ config/icon="res://icon.svg"
 
 SlowMotionManager="*uid://boydrg0j2lx4s"
 GlobalCatalog="*uid://bljqvnw8howy3"
+LoadingScreen="*res://game/ui/loading_screen.tscn"
 
 [display]
 
@@ -105,6 +106,11 @@ action_use_item={
 action_scan={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":82,"key_label":0,"unicode":114,"location":0,"echo":false,"script":null)
+]
+}
+action_stealth={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194326,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
 

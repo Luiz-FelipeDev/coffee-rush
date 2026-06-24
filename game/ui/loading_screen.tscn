@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://bdngr44rijygb"]
+
+[ext_resource type="Script" uid="uid://dx2gxjwl2ky8u" path="res://game/ui/loading_screen.gd" id="1_root"]
+[ext_resource type="Script" uid="uid://dmpb0pd4qwsv5" path="res://game/ui/loading_spinner.gd" id="2_spinner"]
+
+[node name="LoadingScreen" type="CanvasLayer" unique_id=181014070]
+layer = 128
+script = ExtResource("1_root")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1606100678]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.85)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1443476811]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=122916138]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Spinner" type="Control" parent="CenterContainer/VBoxContainer" unique_id=1165513249]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+script = ExtResource("2_spinner")
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1693576957]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Carregando..."
+horizontal_alignment = 1

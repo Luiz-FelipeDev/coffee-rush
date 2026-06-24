@@ -1,7 +1,14 @@
 extends CharacterBody3D
 
 @onready var status_manager: StatusEffectManager = $StatusEffectManager
+
 signal atlas_updated(registry: Dictionary)
+
+@export_group("stealth settings")
+@export var crouch_speed: float = 4.0
+@export var crouch_camera_y_drop: float = -0.6
+var is_crouching: bool = false
+
 @export_group("health settings")
 @export var max_health: int = 100
 var current_health: int
@@ -254,6 +261,7 @@ func _physics_process(delta: float) -> void:
 	handle_scanning(delta)
 	
 	move_and_slide()
+	handle_crouch()
 	update_ui()
 
 func equip_item(item: ItemData) -> void:
@@ -290,6 +298,8 @@ func _unhandled_input(event: InputEvent) -> void:
 func handle_state_speeds() -> void:
 	if hook_controller.is_hook_launched and not is_on_floor():
 		current_max_speed = hook_speed
+	elif is_crouching:
+		current_max_speed = crouch_speed
 	elif Input.is_action_pressed("action_run") and is_on_floor():
 		current_max_speed = run_speed
 	else:
@@ -381,11 +391,16 @@ func handle_wallrun(movement_direction: Vector2, delta: float) -> void:
 func handle_camera_effects(movement_direction: Vector2, delta: float) -> void:
 	var target_cam_pos: Vector3 = Vector3.ZERO
 
+	# Applies smooth vertical offset when stealthing
+	if is_crouching:
+		target_cam_pos.y = crouch_camera_y_drop
+
+	# é calculada a oscilação estabilizada da visão com seno e cosseno
 	if is_on_floor() and movement_direction.length() > 0.0 and not is_book_open:
 		var speed_ratio: float = velocity.length() / walk_speed
 		bob_time += delta * bob_frequency * speed_ratio
 		
-		target_cam_pos.y = sin(bob_time) * bob_amplitude
+		target_cam_pos.y += sin(bob_time) * bob_amplitude
 		target_cam_pos.x = cos(bob_time * 0.5) * bob_amplitude
 
 	camera.position.y = lerpf(camera.position.y, target_cam_pos.y, delta * 10.0)
@@ -475,3 +490,10 @@ func toggle_binoculos() -> void:
 			
 		if anim_binoculo:
 			anim_binoculo.play_backwards("put_on")
+      
+func handle_crouch() -> void:
+	# Activates stealth mode while the key is held and the player is grounded
+	if Input.is_action_pressed("action_stealth") and is_on_floor():
+		is_crouching = true
+	else:
+		is_crouching = false

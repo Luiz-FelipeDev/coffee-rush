@@ -12,6 +12,15 @@ enum EnemyRole {MELEE, RANGED}
 @export_group("deteccao")
 @export var detection_radius: float = 20.0
 @export var lose_target_radius: float = 30.0
+# Defines the vision cone angle in degrees
+@export var fov_angle_degrees: float = 90.0
+# Defines the height required to trigger the 2x detection penalty
+@export var height_bonus_threshold: float = 5.0
+# Defines the radius where the enemy can hear the player from behind if not sneaking
+@export var proximity_detection_radius: float = 4.0
+# Defines the absolute radius where physical contact triggers instant detection
+@export var touch_radius: float = 1.2
+@onready var detection_sound: AudioStreamPlayer3D = $Node3D/detection_sound
 
 @export_group("combate")
 @export var attack_range: float = 2.5
@@ -145,17 +154,70 @@ func _find_player() -> void:
 		return
 
 	var closest: Node3D = null
-	var closest_dist: float = detection_radius
+	# Uses INF instead of detection_radius to allow dynamic radius expansion
+	var closest_dist: float = INF 
 
 	# é calculada a distancia para encontrar o jogador mais proximo.
 	for p: Node in players:
-		if p is Node3D:
+		if p is Node3D and _can_see_target(p):
 			var dist: float = global_position.distance_to(p.global_position)
 			if dist <= closest_dist:
 				closest = p
 				closest_dist = dist
 
+	if player == null and closest != null:
+		_play_detection_sound()
+
 	player = closest
+
+func _can_see_target(target: Node3D) -> bool:
+	var to_target: Vector3 = target.global_position - global_position
+	var distance_to_target: float = to_target.length()
+	
+	# Absolute physical contact check
+	if distance_to_target <= touch_radius:
+		return true
+	
+	# Calculates vertical delta to check for flying/grappling players
+	var height_difference: float = target.global_position.y - global_position.y
+	
+	# Dynamically scales the detection radius if the target is high up
+	var current_max_range: float = detection_radius
+	if height_difference >= height_bonus_threshold:
+		current_max_range *= 2.0
+
+	# Drops detection immediately if out of dynamic range
+	if distance_to_target > current_max_range:
+		return false
+
+	# Vision Cone validation
+	var enemy_forward_vector: Vector3 = -global_transform.basis.z.normalized()
+	var direction_to_target: Vector3 = to_target.normalized()
+	
+	var angle_to_target: float = enemy_forward_vector.angle_to(direction_to_target)
+	var half_fov_radians: float = deg_to_rad(fov_angle_degrees / 2.0)
+
+	# Player is inside the forward vision cone
+	if angle_to_target <= half_fov_radians:
+		return true
+		
+	# Proximity/Hearing check from behind if the player is moving and not stealthing
+	if distance_to_target <= proximity_detection_radius:
+		var is_sneaking: bool = false
+		if target.get("is_crouching") != null:
+			is_sneaking = target.get("is_crouching")
+		elif Input.is_action_pressed("action_stealth"):
+			is_sneaking = true
+			
+		var is_moving: bool = false
+		if target is CharacterBody3D:
+			var horizontal_velocity: Vector2 = Vector2(target.velocity.x, target.velocity.z)
+			is_moving = horizontal_velocity.length() > 0.1
+			
+		if is_moving and not is_sneaking:
+			return true
+
+	return false
 
 func _chase_player(delta: float) -> void:
 	if not is_instance_valid(player) or not player.is_inside_tree():
@@ -163,9 +225,15 @@ func _chase_player(delta: float) -> void:
 		return
 
 	var distance: float = global_position.distance_to(player.global_position)
+	
+	# Scales the losing target radius dynamically to match the detection logic
+	var current_lose_radius: float = lose_target_radius
+	var height_difference: float = player.global_position.y - global_position.y
+	if height_difference >= height_bonus_threshold:
+		current_lose_radius *= 2.0
 
 	# é perdido o alvo caso a distancia seja maior que o limite de fuga.
-	if distance > lose_target_radius:
+	if distance > current_lose_radius:
 		player = null
 		_apply_gravity_only(delta)
 		return
@@ -378,3 +446,8 @@ func perform_attack() -> void:
 	if can_hit and player.has_method("take_damage"):
 		# é computado o golpe no oponente.
 		player.take_damage(attack_damage)
+		
+func _play_detection_sound() -> void:
+	if is_instance_valid(detection_sound) and not is_knocked_out:
+		if not detection_sound.playing:
+			detection_sound.play()

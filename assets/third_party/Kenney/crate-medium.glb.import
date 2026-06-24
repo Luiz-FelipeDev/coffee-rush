@@ -2099,7 +2099,7 @@ _subresources={
 },
 "open-close": {
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://game/itens/chest/open_close.res",
+"save_to_file/fallback_path": "res://game/itens/chests/medium_chest/open_close.res",
 "save_to_file/keep_custom_tracks": true,
 "save_to_file/path": "uid://d1jesbxteisru",
 "settings/loop_mode": 0,
