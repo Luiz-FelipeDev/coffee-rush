@@ -4,8 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://khr7wr276fp0" path="res://assets/third_party/Ultimate Space Kit-glb/Bullets Pickup.glb" id="2_yj052"]
 [ext_resource type="PackedScene" uid="uid://bhgniqwrtyfnb" path="res://game/itens/guns/blaster_g/blaster_g.tscn" id="3_qsb6s"]
 [ext_resource type="PackedScene" uid="uid://jbr7nsopfd16" path="res://game/itens/effects/invincibility_effect/invincibility_effect.tscn" id="4_pjtqi"]
+[ext_resource type="PackedScene" uid="uid://dqunmlas00unt" path="res://game/itens/effects/invisibility_effect/invisibility_effect.tscn" id="5_3k20f"]
+[ext_resource type="PackedScene" uid="uid://dcw518mn8a86b" path="res://game/itens/effects/strength_effect/strength_effect.tscn" id="6_7stgy"]
 [ext_resource type="ArrayMesh" uid="uid://3hyitn42tv8g" path="res://game/particles/smoke.res" id="6_ovx08"]
 [ext_resource type="PackedScene" uid="uid://bqyuwougy5xub" path="res://assets/third_party/Kenney/crate-wide.glb" id="7_amxt5"]
+[ext_resource type="PackedScene" uid="uid://cq3awo8nhsmxr" path="res://game/itens/effects/slow_motion_effect/slow_motion.tscn" id="7_h8m2r"]
 
 [sub_resource type="Curve" id="Curve_fuf00"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -39,7 +42,7 @@ collision_layer = 0
 script = ExtResource("1_88w6f")
 smoke_particles = NodePath("ItemSpawnMarker/SmokeParticles")
 animation_player = NodePath("CollisionShape3D/crate-wide2/AnimationPlayer")
-item_scenes = Array[PackedScene]([ExtResource("2_yj052"), ExtResource("3_qsb6s"), ExtResource("4_pjtqi")])
+item_scenes = Array[PackedScene]([ExtResource("2_yj052"), ExtResource("3_qsb6s"), ExtResource("4_pjtqi"), ExtResource("5_3k20f"), ExtResource("6_7stgy"), ExtResource("7_h8m2r")])
 item_spawn_marker = NodePath("ItemSpawnMarker")
 interact_prompt = NodePath("InteractPromp")
 
@@ -76,13 +79,13 @@ shape = SubResource("SphereShape3D_4lji1")
 
 [node name="crate-wide2" parent="CollisionShape3D" unique_id=156888443 instance=ExtResource("7_amxt5")]
 
-[node name="crate-wide" parent="CollisionShape3D/crate-wide2" index="0" unique_id=1468167395]
+[node name="crate-wide" parent="CollisionShape3D/crate-wide2" index="0" unique_id=1523153803]
 transform = Transform3D(1.9999512, -0.0004872849, 0.0139540145, 0, 1.9987817, 0.06979899, -0.01396252, -0.06979729, 1.9987329, 0, 0, 0)
 
-[node name="lid" parent="CollisionShape3D/crate-wide2/crate-wide" index="0" unique_id=1382342545]
+[node name="lid" parent="CollisionShape3D/crate-wide2/crate-wide" index="0" unique_id=1157089133]
 transform = Transform3D(0.85113716, 0.5249431, 0, -0.5249431, 0.85113716, 0, 0, 0, 1, 0.25, 0.19, -5.4143357e-16)
 
-[node name="AnimationPlayer" parent="CollisionShape3D/crate-wide2" index="1" unique_id=1148709063]
+[node name="AnimationPlayer" parent="CollisionShape3D/crate-wide2" index="1" unique_id=1061714914]
 autoplay = &"close"
 
 [node name="StaticBody3D" type="StaticBody3D" parent="CollisionShape3D/crate-wide2" unique_id=2053852668]
