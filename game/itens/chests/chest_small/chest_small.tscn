@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b8hc2twjfj24t" path="res://game/itens/chests/chest.gd" id="1_og5v0"]
 [ext_resource type="PackedScene" uid="uid://3qts6lmfayu5" path="res://game/itens/effects/speed_boost_effect/speed_boost_effect.tscn" id="3_hgbqk"]
-[ext_resource type="PackedScene" uid="uid://bo5nfs66lbeuc" path="res://assets/third_party/Ultimate Space Kit-glb/Pickup Health.glb" id="5_v5t3l"]
+[ext_resource type="PackedScene" uid="uid://dr7qqcyffvr07" path="res://game/itens/effects/heal_effect/heal_item.tscn" id="3_m18x5"]
 [ext_resource type="ArrayMesh" uid="uid://3hyitn42tv8g" path="res://game/particles/smoke.res" id="6_2gi8x"]
 [ext_resource type="PackedScene" uid="uid://c0ngacs06wdcv" path="res://assets/third_party/Kenney/crate-small.glb" id="7_tl6ab"]
 
@@ -38,7 +38,7 @@ collision_layer = 0
 script = ExtResource("1_og5v0")
 smoke_particles = NodePath("ItemSpawnMarker/SmokeParticles")
 animation_player = NodePath("CollisionShape3D/crate-small2/AnimationPlayer")
-item_scenes = Array[PackedScene]([ExtResource("5_v5t3l"), ExtResource("3_hgbqk")])
+item_scenes = Array[PackedScene]([ExtResource("3_hgbqk"), ExtResource("3_m18x5")])
 item_spawn_marker = NodePath("ItemSpawnMarker")
 interact_prompt = NodePath("InteractPromp")
 
@@ -76,13 +76,13 @@ shape = SubResource("SphereShape3D_4lji1")
 [node name="crate-small2" parent="CollisionShape3D" unique_id=879136475 instance=ExtResource("7_tl6ab")]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
 
-[node name="crate-small" parent="CollisionShape3D/crate-small2" index="0" unique_id=328327581]
+[node name="crate-small" parent="CollisionShape3D/crate-small2" index="0" unique_id=519215821]
 transform = Transform3D(0.9999756, -0.00024364244, 0.006977007, 0, 0.9993908, 0.03489949, -0.00698126, -0.034898642, 0.9993664, 0, 0, 0)
 
-[node name="lid" parent="CollisionShape3D/crate-small2/crate-small" index="0" unique_id=1283529113]
+[node name="lid" parent="CollisionShape3D/crate-small2/crate-small" index="0" unique_id=1501712052]
 transform = Transform3D(0.5232371, 0.852187, 0, -0.852187, 0.5232371, 0, 0, 0, 1, 0.25, 0.19, -7.219114e-16)
 
-[node name="AnimationPlayer" parent="CollisionShape3D/crate-small2" index="1" unique_id=987510721]
+[node name="AnimationPlayer" parent="CollisionShape3D/crate-small2" index="1" unique_id=1870485826]
 autoplay = &"close"
 
 [node name="StaticBody3D" type="StaticBody3D" parent="CollisionShape3D/crate-small2" unique_id=2053852668]

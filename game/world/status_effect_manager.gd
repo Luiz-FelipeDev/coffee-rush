@@ -105,6 +105,13 @@ func add_invisibility(duration: float) -> void:
 	_invisibility_entries.append({"remaining": duration})
 	_recalculate_all()
 
+func heal(amount: int) -> void:
+	var player = get_parent() # Assume que o manager é filho do player
+	if player and player.has_method("heal"):
+		player.heal(amount)
+	else:
+		push_warning("StatusEffectManager: Não encontrou o método heal() no Player!")
+
 # ========================================================== #
 # Limpeza total — chamada pelo player.gd em morte/respawn/knockdown.
 # Resolve o cenário de "morrer no meio da coleta": como tudo aqui é

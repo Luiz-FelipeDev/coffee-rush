@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dr7qqcyffvr07"]
+
+[ext_resource type="Script" uid="uid://dqyyptwgkrql1" path="res://game/itens/item_pickup.gd" id="1_3lg74"]
+[ext_resource type="PackedScene" uid="uid://bo5nfs66lbeuc" path="res://assets/third_party/Ultimate Space Kit-glb/Pickup Health.glb" id="2_jt5pg"]
+[ext_resource type="Resource" uid="uid://de0isievdof2" path="res://game/itens/effects/heal_effect/heal_data.tres" id="2_sjxbg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4lji1"]
+
+[node name="HealItem" type="Area3D" unique_id=1864652550]
+script = ExtResource("1_3lg74")
+item_data = ExtResource("2_sjxbg")
+
+[node name="Root Scene" parent="." unique_id=1714896916 instance=ExtResource("2_jt5pg")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1821640637]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_4lji1")

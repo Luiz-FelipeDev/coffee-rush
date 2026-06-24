@@ -641,3 +641,13 @@ func handle_crouch() -> void:
 		is_crouching = true
 	else:
 		is_crouching = false
+
+func heal(amount: int) -> void:
+    # Soma a vida, mas garante que não passe do limite (max_health)
+	current_health = mini(current_health + amount, max_health)
+
+    # Atualiza a interface (a barra de vida)
+	if health_bar:
+		health_bar.value = current_health
+    
+	print("Vida curada! Vida atual: ", current_health)

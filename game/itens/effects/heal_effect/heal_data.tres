@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://de0isievdof2"]
+
+[ext_resource type="Script" uid="uid://d2belrt1kfdg5" path="res://game/itens/effects/item_effect.gd" id="1_eo24i"]
+[ext_resource type="Resource" uid="uid://kdvptaufaddt" path="res://game/itens/effects/heal_effect/heal_effect.tres" id="2_11r1q"]
+[ext_resource type="Script" uid="uid://mp155plrfswe" path="res://game/itens/item_data.gd" id="2_qe5wk"]
+
+[resource]
+script = ExtResource("2_qe5wk")
+item_id = &"heal"
+display_name = "Primeiros Socorros"
+effects = Array[ExtResource("1_eo24i")]([ExtResource("2_11r1q")])
+metadata/_custom_type_script = "uid://mp155plrfswe"
