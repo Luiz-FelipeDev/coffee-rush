@@ -12,7 +12,6 @@ func _process(delta: float) -> void:
 
 
 func _on_start_btn_pressed() -> void:
-	LoadingScreen.show_loading()
 	get_tree().change_scene_to_file("res://game/world/world.tscn")
 
 

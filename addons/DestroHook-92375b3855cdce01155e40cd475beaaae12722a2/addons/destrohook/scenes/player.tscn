@@ -449,6 +449,7 @@ target_position = Vector3(0, 0, -50)
 
 [node name="WeaponBranch" type="MeshInstance3D" parent="CameraHolder/Camera" unique_id=63734454]
 transform = Transform3D(0.98810476, -0.06887776, -0.13749151, 0.088053085, 0.986419, 0.13865156, 0.1260742, -0.1491089, 0.98075056, 0.4608845, -0.32398582, -0.6772031)
+visible = false
 mesh = SubResource("CylinderMesh_ay61g")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CameraHolder/Camera/WeaponBranch" unique_id=708577427]
