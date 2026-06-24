@@ -39,7 +39,7 @@
 [ext_resource type="PackedScene" uid="uid://2vt6g7da0ffd" path="res://game/portal/portal.tscn" id="27_4owp7"]
 [ext_resource type="PackedScene" uid="uid://bd7xayygh2b8c" path="res://game/things/nave3.tscn" id="27_or2bb"]
 [ext_resource type="PackedScene" uid="uid://b84h1suhkxllw" path="res://game/things/nave4.tscn" id="28_b36sv"]
-[ext_resource type="PackedScene" uid="uid://calq74itf5ujh" path="res://game/title_screen/title_screen.tscn" id="28_ypy5f"]
+[ext_resource type="PackedScene" uid="uid://3lq6ljq1sdji" path="res://game/title_screen/credits/credits_screen.tscn" id="40_8amd8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6xmxd"]
 sky_top_color = Color(0.3991176, 0.6658924, 0.90956515, 1)
@@ -165,5 +165,7 @@ cluster_radius = 50.0
 min_floating_height = 25.0
 max_floating_height = 150.0
 max_floating_scale = 7.0
+enemy_count = 60
+enemy_min_distance_from_player = 40.0
 portal_scene = ExtResource("27_4owp7")
-title_screen_scene = ExtResource("28_ypy5f")
+title_screen_scene = ExtResource("40_8amd8")

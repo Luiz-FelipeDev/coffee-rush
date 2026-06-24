@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://ctv0n4mxoabab"]
+[gd_scene format=3 uid="uid://wkat6qv1qlf"]
 
 [ext_resource type="Script" uid="uid://c1g6v10gllcpb" path="res://game/enemies/enemy_basic.gd" id="1_script"]
 [ext_resource type="PackedScene" uid="uid://chly3lxfn0o78" path="res://assets/Ultimate Space Kit-glb/Mech-lagarta.glb" id="2_model"]

@@ -1,6 +1,5 @@
 [gd_resource type="Resource" script_class="BiomeData" format=3 uid="uid://bixdr5csoih47"]
 
-[ext_resource type="PackedScene" uid="uid://ctv0n4mxoabab" path="res://game/enemies/enemy_boss.tscn" id="1_7o78j"]
 [ext_resource type="Script" uid="uid://bnm6pnn7qblm8" path="res://game/world/biome_data.gd" id="1_qxem6"]
 [ext_resource type="PackedScene" uid="uid://bkq5padckuq73" path="res://game/enemies/enemy_astronaut.tscn" id="1_w01b6"]
 [ext_resource type="PackedScene" uid="uid://cmjgq14f0odpu" path="res://assets/nature/trees/blob/tree_b_1.tscn" id="2_twtkd"]
@@ -18,5 +17,4 @@ water_color = Color(0, 0.41207284, 0.35334137, 1)
 sky_top_color = Color(0.61144865, 0.40012515, 0.93146545, 1)
 tree_scenes = Array[PackedScene]([ExtResource("2_twtkd"), ExtResource("3_o52p6"), ExtResource("4_6qwv0"), ExtResource("5_uiqm1"), ExtResource("6_vgyek")])
 enemy_scenes = Array[PackedScene]([ExtResource("1_w01b6"), ExtResource("3_sj56j")])
-boss_scene = ExtResource("1_7o78j")
 metadata/_custom_type_script = "uid://bnm6pnn7qblm8"
