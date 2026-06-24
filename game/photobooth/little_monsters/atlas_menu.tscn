@@ -15,22 +15,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_46nce")
-lista_criaturas = Array[ExtResource("2_64u8n")]([ExtResource("3_hqbvf"), ExtResource("4_2t1tp")])
+creature_database = Array[ExtResource("2_64u8n")]([ExtResource("4_2t1tp"), ExtResource("3_hqbvf")])
 slot_prefab = ExtResource("5_mtlti")
 photobooth_scene = ExtResource("6_66a56")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1368137431]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=438697497]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 6
 
-[node name="GradeItens" type="GridContainer" parent="ScrollContainer" unique_id=2018238269]
+[node name="GradeEsquerda" type="GridContainer" parent="HBoxContainer" unique_id=2003698181]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/h_separation = 20
-theme_override_constants/v_separation = 20
-columns = 4
+columns = 2
+
+[node name="GradeDireita" type="GridContainer" parent="HBoxContainer" unique_id=2117052079]
+layout_mode = 2
+columns = 2

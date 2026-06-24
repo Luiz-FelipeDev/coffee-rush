@@ -1,5 +1,3 @@
-#game_manager.gd
-
 extends Node
 
 @export var player_scene: PackedScene
@@ -43,27 +41,20 @@ extends Node
 @export var min_floating_scale: float = 2.0
 @export var max_floating_scale: float = 8.0
 
-@export_group("enemy generation")
-@export var enemy_scenes: Array[PackedScene]
+@export_group("enemy spawn rules")
 @export var enemy_count: int = 80
 @export var enemy_min_distance_from_player: float = 30.0
-
-@export_subgroup("randomization control")
-#@export var world_seed: int = 98765
-@export var world_seed: int = 0
-
-# caminho de spawn próprio e separado para o boss
-@export_group("boss")
-@export var boss_scene: PackedScene
 @export var boss_min_distance_from_player: float = 50.0
 
+@export_subgroup("randomization control")
+@export var world_seed: int = 0
 
 # ========================================================== #
 # INICIALIZAÇÃO
 # ========================================================== #
 
 func _ready() -> void:
-	# Chama a função que cuida de toda a lógica da seed
+	# é acionada a geracao da semente aleatoria.
 	generate_seed()
 	
 	if not available_biomes.is_empty():
@@ -72,9 +63,7 @@ func _ready() -> void:
 		var random_index: int = biome_rng.randi_range(0, available_biomes.size() - 1)
 		current_biome = available_biomes[random_index]
 
-	# é verificada a dependência do gerador de terreno
 	if terrain_generator:
-		# são transferidas as propriedades visuais do bioma antes da execução
 		if current_biome:
 			terrain_generator.grass_color = current_biome.grass_color
 			terrain_generator.sand_color = current_biome.sand_color
@@ -85,22 +74,18 @@ func _ready() -> void:
 					sky_mat.sky_top_color = current_biome.sky_top_color
 					sky_mat.sky_horizon_color = current_biome.sky_horizon_color
 
-		# é conectado o sinal e iniciada a geração
 		terrain_generator.terrain_generated.connect(_on_terrain_generated)
 		terrain_generator.generate_terrain()
 
 func _on_terrain_generated() -> void:
-	# é aguardado um frame físico para registro global
+	# é aguardado um frame fisico para registro global.
 	await get_tree().physics_frame
 	
-	# é instanciado o gerador de números local
 	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 	rng.seed = world_seed
 	
-	# é criado o registro espacial para impedir sobreposição de objetos
 	var occupied_positions: Array[Vector3] = []
 	
-	# é garantida a geração da flora apenas se houver bioma definido
 	if current_biome:
 		await spawn_surface_props(rng, current_biome.tree_scenes, tree_count, min_tree_scale, max_tree_scale, occupied_positions)
 		
@@ -113,29 +98,47 @@ func _on_terrain_generated() -> void:
 	spawn_floating_rocks(rng)
 	await spawn_surface_props(rng, branch_scenes, 20, 0.8, 1.2, occupied_positions)
 	
-	# é gerado o jogador e guardada a sua posição no mundo
 	var player_pos: Vector3 = spawn_player()
 
-	# são gerados os inimigos recebendo a posição do jogador como referência
-	await spawn_enemies(rng, occupied_positions, player_pos)
-	await spawn_boss(rng, occupied_positions, player_pos)
-	LoadingScreen.hide_loading()
+	spawn_enemies(rng, occupied_positions, player_pos)
+	spawn_boss(rng, occupied_positions, player_pos)
+	
+	# é compilada a lista de entidades unicas baseada no bioma sorteado.
+	var scan_targets: Array[String] = []
+	
+	if current_biome:
+		# são adicionados os inimigos comuns do bioma.
+		if current_biome.get("enemy_scenes"):
+			for scene in current_biome.enemy_scenes:
+				if scene:
+					var target_name: String = scene.resource_path.get_file().get_basename()
+					if not scan_targets.has(target_name):
+						scan_targets.append(target_name)
+				
+		# é adicionado o chefe do bioma, se houver.
+		if current_biome.get("boss_scene") and current_biome.boss_scene:
+			var boss_name: String = current_biome.boss_scene.resource_path.get_file().get_basename()
+			if not scan_targets.has(boss_name):
+				scan_targets.append(boss_name)
+			
+	# é iniciada a lista do atlas no jogador.
+	var player_node: Node3D = get_tree().get_first_node_in_group("player")
+	if player_node and player_node.has_method("initialize_atlas"):
+		player_node.initialize_atlas(scan_targets)
+
 # ========================================================== #
 # FUNÇÕES DE CONFIGURAÇÃO
 # ========================================================== #
 
 func generate_seed() -> void:
-	# Só faz o sorteio se a seed estiver em 0 no Inspector
 	if world_seed == 0:
 		var matriculas: Array[int] = [540353, 580410, 535946, 571390, 571518, 540863, 565732]
 		var temp_rng: RandomNumberGenerator = RandomNumberGenerator.new()
 		temp_rng.randomize() 
 		
-		# Sorteia um número de 0.0 a 1.0. Se for menor ou igual a 0.5 (50%), usa a matrícula
 		if temp_rng.randf() <= 0.5:
 			world_seed = matriculas.pick_random()
 		else:
-			# Sorteia qualquer número de 6 dígitos (de 100.000 até 999.999)
 			world_seed = temp_rng.randi_range(100000, 999999)
 
 # ========================================================== #
@@ -199,7 +202,6 @@ func spawn_surface_props(rng: RandomNumberGenerator, prop_scenes: Array[PackedSc
 				occupied_positions.append(hit_position)
 				props_planted += 1
 
-
 func spawn_floating_rocks(rng: RandomNumberGenerator) -> void:
 	if floating_rock_scenes.is_empty() or floating_cluster_count <= 0:
 		return
@@ -240,7 +242,6 @@ func spawn_floating_rocks(rng: RandomNumberGenerator) -> void:
 			tween.tween_property(prop_instance, "global_position:y", up_y, hover_duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 			tween.tween_property(prop_instance, "global_position:y", start_y, hover_duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
-
 # ========================================================== #
 # GERAÇÃO DE ENTIDADES (JOGADOR E INIMIGOS)
 # ========================================================== #
@@ -253,19 +254,17 @@ func spawn_player() -> Vector3:
 	var player: Node3D = player_scene.instantiate()
 	add_child(player)
 
-	# é adicionado ao grupo "player" para facilitar o acesso global
 	player.add_to_group("player")
 
-	# é definida a posição do jogador
 	var safe_spawn_height: float = terrain_generator.height_multiplier + spawn_height_offset
 	var final_pos: Vector3 = Vector3(0, safe_spawn_height, 0)
 	
 	player.global_position = final_pos
 	return final_pos
 
-
 func spawn_enemies(rng: RandomNumberGenerator, occupied_positions: Array[Vector3], player_pos: Vector3) -> void:
-	if enemy_scenes.is_empty() or enemy_count <= 0:
+	# é verificado se o bioma possui uma lista valida de inimigos.
+	if not current_biome or not current_biome.get("enemy_scenes") or current_biome.enemy_scenes.is_empty() or enemy_count <= 0:
 		return
 
 	var space_state: PhysicsDirectSpaceState3D = terrain_generator.get_world_3d().direct_space_state
@@ -276,16 +275,14 @@ func spawn_enemies(rng: RandomNumberGenerator, occupied_positions: Array[Vector3
 	var attempts: int = 0
 	var max_attempts: int = enemy_count * 15
 
-	# é extraída a posição 2D do jogador baseada no parâmetro recebido
 	var player_spawn_pos_2d: Vector2 = Vector2(player_pos.x, player_pos.z)
 	
-	# a lista de cores é mantida fora do laço para otimização de memória
 	var color_options: Array[String] = [
-		"ff0000",  # Vermelho
-		"006400",  # Verde escuro
-		"00ffff",  # Ciano
-		"ff9900",   # Laranja
-		"8a2be2"   # Roxo
+		"ff0000",  
+		"006400",  
+		"00ffff",  
+		"ff9900",   
+		"8a2be2"   
 	]
 	
 	var paintable_mobs: Array[String] = ["enemy_basic", "enemy_large"]
@@ -324,13 +321,17 @@ func spawn_enemies(rng: RandomNumberGenerator, occupied_positions: Array[Vector3
 				if is_too_close:
 					continue
 
-				# Instantiation and configuration
-				var random_enemy_scene: PackedScene = enemy_scenes.pick_random()
+				# é instanciado um inimigo da lista exclusiva do bioma atual.
+				var random_enemy_scene: PackedScene = current_biome.enemy_scenes.pick_random()
+				
+				# é evitado o crash caso algum slot do bioma no inspector esteja vazio.
+				if not random_enemy_scene:
+					continue
+					
 				var enemy_instance: Node3D = random_enemy_scene.instantiate()
 				add_child(enemy_instance)
 				enemy_instance.global_position = hit_position
 
-				# Random color application with authorization list
 				var random_index: int = rng.randi_range(0, color_options.size() - 1)
 				var chosen_color: String = color_options[random_index]
 
@@ -340,13 +341,9 @@ func spawn_enemies(rng: RandomNumberGenerator, occupied_positions: Array[Vector3
 				occupied_positions.append(hit_position)
 				enemies_planted += 1
 
-
 func spawn_boss(rng: RandomNumberGenerator, occupied_positions: Array[Vector3], player_pos: Vector3) -> void:
-	# tenta até 200 vezes achar um ponto válido (longe do jogador, 
-	#sem sobrepor outro objeto) e, ao conseguir, instancia o Boss uma única vez 
-	
-	
-	if not boss_scene:
+	# é verificado se o bioma atual possui um chefe exclusivo configurado.
+	if not current_biome or not current_biome.get("boss_scene") or not current_biome.boss_scene:
 		return
 
 	var space_state: PhysicsDirectSpaceState3D = terrain_generator.get_world_3d().direct_space_state
@@ -390,7 +387,8 @@ func spawn_boss(rng: RandomNumberGenerator, occupied_positions: Array[Vector3], 
 				if is_too_close:
 					continue
 
-				var boss_instance: Node3D = boss_scene.instantiate()
+				# é instanciada a cena do chefe pertencente a este bioma.
+				var boss_instance: Node3D = current_biome.boss_scene.instantiate()
 				add_child(boss_instance)
 				boss_instance.global_position = hit_position
 				occupied_positions.append(hit_position)

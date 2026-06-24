@@ -15,3 +15,11 @@ stretch_mode = 6
 
 [node name="NomeLabel" type="Label" parent="." unique_id=680801377]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.42352942)
+theme_override_colors/font_outline_color = Color(0.5037685, 0.5037685, 0.50376844, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1

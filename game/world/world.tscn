@@ -15,15 +15,12 @@
 [ext_resource type="Resource" uid="uid://c3tuhmb6d41tv" path="res://game/world/biomes/biome_lava.tres" id="9_par4i"]
 [ext_resource type="PackedScene" uid="uid://b74xcutef4bcx" path="res://assets/nature/stones/stone_5.tscn" id="10_h8lre"]
 [ext_resource type="Resource" uid="uid://cta73kl0xa5fn" path="res://game/world/biomes/biome_spike.tres" id="10_m774e"]
-[ext_resource type="PackedScene" uid="uid://e7aqmpe7yc8q" path="res://game/itens/branch.tscn" id="11_lj0gc"]
+[ext_resource type="PackedScene" uid="uid://e7aqmpe7yc8q" path="res://game/itens/melee/branch/branch.tscn" id="11_lj0gc"]
 [ext_resource type="PackedScene" uid="uid://tw256hryko4w" path="res://assets/nature/stones/stone_6.tscn" id="11_ysn08"]
 [ext_resource type="PackedScene" uid="uid://jfihh0eik04r" path="res://assets/nature/stones/stone_7.tscn" id="12_m0cxt"]
-[ext_resource type="PackedScene" uid="uid://dmuihmi77leto" path="res://game/enemies/enemy_large.tscn" id="13_ocfjn"]
-[ext_resource type="PackedScene" uid="uid://bkq5padckuq73" path="res://game/enemies/enemy_astronaut.tscn" id="14_hmqds"]
 [ext_resource type="PackedScene" uid="uid://cn46meh6p3meh" path="res://game/itens/chests/medium_chest/chest_medium.tscn" id="16_lj0gc"]
 [ext_resource type="PackedScene" uid="uid://c4fl4boots01v" path="res://game/itens/chests/chest_small/chest_small.tscn" id="17_m774e"]
 [ext_resource type="PackedScene" uid="uid://pftapsqwugox" path="res://game/itens/chests/chest_wide/chest_wide.tscn" id="18_tykcr"]
-[ext_resource type="PackedScene" uid="uid://ctv0n4mxoabab" path="res://game/enemies/enemy_boss.tscn" id="20_lj0gc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6xmxd"]
 sky_top_color = Color(0.3991176, 0.6658924, 0.90956515, 1)
@@ -146,5 +143,3 @@ cluster_radius = 50.0
 min_floating_height = 25.0
 max_floating_height = 150.0
 max_floating_scale = 7.0
-enemy_scenes = Array[PackedScene]([ExtResource("13_ocfjn"), ExtResource("14_hmqds")])
-boss_scene = ExtResource("20_lj0gc")

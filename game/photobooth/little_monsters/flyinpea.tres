@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3 uid="uid://ctjnwp1ude5m0"]
+
+[ext_resource type="PackedScene" uid="uid://um2prp18ok5a" path="res://game/enemies/flyingpea.tscn" id="1_1tlw6"]
+[ext_resource type="Script" uid="uid://blygghmfw06be" path="res://game/photobooth/creature_data.gd" id="1_erajs"]
+
+[resource]
+script = ExtResource("1_erajs")
+creature_name = "Flyinpea"
+model_scene = ExtResource("1_1tlw6")
+metadata/_custom_type_script = "uid://blygghmfw06be"
