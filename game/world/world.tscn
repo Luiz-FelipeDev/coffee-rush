@@ -18,12 +18,29 @@
 [ext_resource type="PackedScene" uid="uid://e7aqmpe7yc8q" path="res://game/itens/melee/branch/branch.tscn" id="11_lj0gc"]
 [ext_resource type="PackedScene" uid="uid://tw256hryko4w" path="res://assets/nature/stones/stone_6.tscn" id="11_ysn08"]
 [ext_resource type="PackedScene" uid="uid://jfihh0eik04r" path="res://assets/nature/stones/stone_7.tscn" id="12_m0cxt"]
-[ext_resource type="PackedScene" uid="uid://dmuihmi77leto" path="res://game/enemies/enemy_large.tscn" id="13_ocfjn"]
-[ext_resource type="PackedScene" uid="uid://bkq5padckuq73" path="res://game/enemies/enemy_astronaut.tscn" id="14_hmqds"]
+[ext_resource type="PackedScene" uid="uid://cvapss4seqrai" path="res://game/things/casa1.tscn" id="12_ypy5f"]
+[ext_resource type="PackedScene" uid="uid://cvkcr5l746n5r" path="res://game/things/casa2.tscn" id="13_gf1gx"]
+[ext_resource type="PackedScene" uid="uid://d0st7rw535p70" path="res://game/things/casa3.tscn" id="14_33e2v"]
+[ext_resource type="PackedScene" uid="uid://bqhqrkuaddlmv" path="res://game/things/casa4.tscn" id="15_688oh"]
+[ext_resource type="PackedScene" uid="uid://dog2eh8tpjdve" path="res://game/things/coisa1.tscn" id="16_csybm"]
 [ext_resource type="PackedScene" uid="uid://cn46meh6p3meh" path="res://game/itens/chests/medium_chest/chest_medium.tscn" id="16_lj0gc"]
+[ext_resource type="PackedScene" uid="uid://s1y1t2u72lke" path="res://game/things/coisa6.tscn" id="17_8amd8"]
+[ext_resource type="PackedScene" uid="uid://x2ch18a3msat" path="res://game/things/coisa2.tscn" id="17_lliwa"]
 [ext_resource type="PackedScene" uid="uid://c4fl4boots01v" path="res://game/itens/chests/chest_small/chest_small.tscn" id="17_m774e"]
 [ext_resource type="PackedScene" uid="uid://pftapsqwugox" path="res://game/itens/chests/chest_wide/chest_wide.tscn" id="18_tykcr"]
 [ext_resource type="PackedScene" uid="uid://wkat6qv1qlf" path="res://game/enemies/enemy_boss.tscn" id="20_lj0gc"]
+[ext_resource type="PackedScene" uid="uid://dh2s1340x31f0" path="res://game/things/coisa3.tscn" id="18_ujd3c"]
+[ext_resource type="PackedScene" uid="uid://bjw5y8piepui7" path="res://game/things/coisa4.tscn" id="19_qmrmb"]
+[ext_resource type="PackedScene" uid="uid://v65lgw4knpxn" path="res://game/things/casa5.tscn" id="21_26yp7"]
+[ext_resource type="PackedScene" uid="uid://bc4vpqmbm2mqc" path="res://game/things/carro1.tscn" id="22_cmhcy"]
+[ext_resource type="PackedScene" uid="uid://bosowuru2j4nd" path="res://game/things/carro2.tscn" id="23_fxuiv"]
+[ext_resource type="PackedScene" uid="uid://dpwglwebsj2qp" path="res://game/things/carro3.tscn" id="24_776n1"]
+[ext_resource type="PackedScene" uid="uid://bs57ipv33tbd8" path="res://game/things/nave1.tscn" id="25_yc6ra"]
+[ext_resource type="PackedScene" uid="uid://dwp5jhe34fklm" path="res://game/things/nave2.tscn" id="26_wn6t0"]
+[ext_resource type="PackedScene" uid="uid://2vt6g7da0ffd" path="res://game/portal/portal.tscn" id="27_4owp7"]
+[ext_resource type="PackedScene" uid="uid://bd7xayygh2b8c" path="res://game/things/nave3.tscn" id="27_or2bb"]
+[ext_resource type="PackedScene" uid="uid://b84h1suhkxllw" path="res://game/things/nave4.tscn" id="28_b36sv"]
+[ext_resource type="PackedScene" uid="uid://calq74itf5ujh" path="res://game/title_screen/title_screen.tscn" id="28_ypy5f"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6xmxd"]
 sky_top_color = Color(0.3991176, 0.6658924, 0.90956515, 1)
@@ -50,22 +67,24 @@ glow_strength = 0.3
 glow_bloom = 0.24
 glow_blend_mode = 0
 fog_enabled = true
-fog_light_color = Color(0.7008488, 0.81366724, 0.97763175, 1)
+fog_light_color = Color(0.5257814, 0.69538283, 1, 1)
 fog_light_energy = 0.98
 fog_sun_scatter = 0.04
 fog_density = 0.001
 fog_sky_affect = 0.247
 fog_height = -44.04
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.0005
-volumetric_fog_albedo = Color(0.93248576, 0.9441769, 0.9610897, 1)
+volumetric_fog_density = 0.005
+volumetric_fog_albedo = Color(1, 0.94509804, 0.9607843, 1)
 volumetric_fog_emission_energy = 0.0
-volumetric_fog_gi_inject = 0.11
-volumetric_fog_anisotropy = -0.03
-volumetric_fog_length = 403.25
+volumetric_fog_gi_inject = 0.84
+volumetric_fog_anisotropy = -0.18
+volumetric_fog_length = 608.05
 volumetric_fog_detail_spread = 2.5226896
-volumetric_fog_ambient_inject = 1.66
-volumetric_fog_sky_affect = 0.613
+volumetric_fog_ambient_inject = 2.76
+volumetric_fog_temporal_reprojection_amount = 0.967
+adjustment_enabled = true
+adjustment_saturation = 0.75
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_h5o24"]
 noise_type = 0
@@ -130,6 +149,7 @@ player_scene = ExtResource("4_mad0u")
 current_biome = ExtResource("5_prd21")
 available_biomes = Array[ExtResource("6_mqk4b")]([ExtResource("7_lj0gc"), ExtResource("8_3rfcy"), ExtResource("9_par4i"), ExtResource("10_m774e"), ExtResource("5_prd21")])
 branch_scenes = Array[PackedScene]([ExtResource("11_lj0gc")])
+global_scannable_items = Array[PackedScene]([ExtResource("16_csybm"), ExtResource("12_ypy5f"), ExtResource("17_lliwa"), ExtResource("18_ujd3c"), ExtResource("19_qmrmb"), ExtResource("17_8amd8"), ExtResource("12_ypy5f"), ExtResource("13_gf1gx"), ExtResource("14_33e2v"), ExtResource("15_688oh"), ExtResource("21_26yp7"), ExtResource("22_cmhcy"), ExtResource("23_fxuiv"), ExtResource("24_776n1"), ExtResource("25_yc6ra"), ExtResource("26_wn6t0"), ExtResource("27_or2bb"), ExtResource("28_b36sv")])
 tree_count = 300
 min_tree_scale = 1.0
 max_tree_scale = 4.0
@@ -148,3 +168,5 @@ enemy_scenes = Array[PackedScene]([ExtResource("13_ocfjn"), ExtResource("14_hmqd
 boss_scene = ExtResource("20_lj0gc")
 terrain_generator = NodePath("../islandGenerator")
 world_environment = NodePath("../WorldEnvironment")
+portal_scene = ExtResource("27_4owp7")
+title_screen_scene = ExtResource("28_ypy5f")

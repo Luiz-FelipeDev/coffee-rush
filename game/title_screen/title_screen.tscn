@@ -1,8 +1,85 @@
 [gd_scene format=3 uid="uid://calq74itf5ujh"]
 
 [ext_resource type="Script" uid="uid://vvds2frmqmi6" path="res://game/title_screen/title_screen.gd" id="1_g0tek"]
-[ext_resource type="Texture2D" uid="uid://bnp3d66m5y0oq" path="res://assets/images/coffee_rush_logo.png" id="1_nv36f"]
 [ext_resource type="Texture2D" uid="uid://de01hwq58w028" path="res://assets/images/title_screen_backgrounds/espiral_biome_screen.png" id="2_50scn"]
+[ext_resource type="Texture2D" uid="uid://fx7l6seuo4oe" path="res://assets/images/title_screen_backgrounds/blob_biome_screen.png" id="2_w00cp"]
+[ext_resource type="Texture2D" uid="uid://bq5xc7633tarm" path="res://assets/images/title_screen_backgrounds/ice_biome_screen.png" id="4_1mp02"]
+[ext_resource type="Texture2D" uid="uid://dwj2bj36knny2" path="res://assets/images/title_screen_backgrounds/lava_biome_screen.png" id="5_rokh0"]
+[ext_resource type="Texture2D" uid="uid://dn7de1qjssh14" path="res://assets/images/title_screen_backgrounds/spike_biome_screen.png" id="6_7xfm1"]
+[ext_resource type="Texture2D" uid="uid://yt4vy6h44tot" path="res://assets/images/Atlas_Escape_logo.png" id="7_w00cp"]
+[ext_resource type="Texture2D" uid="uid://uxwka4m7fteo" path="res://assets/ui-texture/panel-009.png" id="9_7xfm1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1mp02"]
+texture = ExtResource("9_7xfm1")
+texture_margin_left = 25.0
+texture_margin_top = 25.0
+texture_margin_right = 25.0
+texture_margin_bottom = 25.0
+modulate_color = Color(0.94509804, 0.45490196, 0, 0.6117647)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rokh0"]
+texture = ExtResource("9_7xfm1")
+texture_margin_left = 25.0
+texture_margin_top = 25.0
+texture_margin_right = 25.0
+texture_margin_bottom = 25.0
+modulate_color = Color(0.94509804, 0.45490196, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7xfm1"]
+texture = ExtResource("9_7xfm1")
+texture_margin_left = 25.0
+texture_margin_top = 25.0
+texture_margin_right = 25.0
+texture_margin_bottom = 25.0
+modulate_color = Color(0.94509804, 0.45490196, 0, 0.8235294)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gth6j"]
+texture = ExtResource("9_7xfm1")
+texture_margin_left = 25.0
+texture_margin_top = 25.0
+texture_margin_right = 25.0
+texture_margin_bottom = 25.0
+modulate_color = Color(0, 0.6484184, 0.98393255, 0.6117647)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mx344"]
+texture = ExtResource("9_7xfm1")
+texture_margin_left = 25.0
+texture_margin_top = 25.0
+texture_margin_right = 25.0
+texture_margin_bottom = 25.0
+modulate_color = Color(0, 0.64705884, 0.9843137, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6g2mi"]
+texture = ExtResource("9_7xfm1")
+texture_margin_left = 25.0
+texture_margin_top = 25.0
+texture_margin_right = 25.0
+texture_margin_bottom = 25.0
+modulate_color = Color(0, 0.64705884, 0.9843137, 0.84313726)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5f66h"]
+texture = ExtResource("9_7xfm1")
+texture_margin_left = 25.0
+texture_margin_top = 25.0
+texture_margin_right = 25.0
+texture_margin_bottom = 25.0
+modulate_color = Color(0, 0.6484184, 0.98393255, 0.6117647)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_258m3"]
+texture = ExtResource("9_7xfm1")
+texture_margin_left = 25.0
+texture_margin_top = 25.0
+texture_margin_right = 25.0
+texture_margin_bottom = 25.0
+modulate_color = Color(0, 0.64705884, 0.9843137, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k4jqy"]
+texture = ExtResource("9_7xfm1")
+texture_margin_left = 25.0
+texture_margin_top = 25.0
+texture_margin_right = 25.0
+texture_margin_bottom = 25.0
+modulate_color = Color(0, 0.64705884, 0.9843137, 0.84313726)
 
 [node name="TitleScreen" type="Control" unique_id=183833914]
 layout_mode = 3
@@ -12,6 +89,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_g0tek")
+background_images = Array[Texture2D]([ExtResource("2_w00cp"), ExtResource("2_50scn"), ExtResource("4_1mp02"), ExtResource("5_rokh0"), ExtResource("6_7xfm1")])
 
 [node name="Bg" type="TextureRect" parent="." unique_id=929387515]
 layout_mode = 0
@@ -43,7 +121,7 @@ size_flags_vertical = 4
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("1_nv36f")
+texture = ExtResource("7_w00cp")
 
 [node name="Control" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1230851370]
 custom_minimum_size = Vector2(0, 50)
@@ -53,16 +131,27 @@ size_flags_vertical = 3
 [node name="start_btn" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=821927697]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "START"
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxTexture_1mp02")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_rokh0")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7xfm1")
+text = "START "
 
 [node name="credits_btn" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=429910774]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxTexture_gth6j")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_mx344")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6g2mi")
 text = "CREDITS"
 
 [node name="quit_btn" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=44388107]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxTexture_5f66h")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_258m3")
+theme_override_styles/hover = SubResource("StyleBoxTexture_k4jqy")
 text = "QUIT"
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/start_btn" to="." method="_on_start_btn_pressed"]

@@ -10,3 +10,9 @@ extends Resource
 
 @export_group("flora")
 @export var tree_scenes: Array[PackedScene]
+
+@export_group("biome entities")
+# são definidos os inimigos que pertencem exclusivamente a este bioma.
+@export var enemy_scenes: Array[PackedScene]
+# é definido o chefe exclusivo deste bioma.
+@export var boss_scene: PackedScene

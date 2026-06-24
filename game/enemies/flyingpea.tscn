@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://um2prp18ok5a"]
+
+[ext_resource type="PackedScene" uid="uid://clae3o38onvuk" path="res://assets/monsters/flyinpea.glb" id="1_grw28"]
+
+[node name="Root Scene" unique_id=1325260725 instance=ExtResource("1_grw28")]
+
+[node name="Skeleton3D" parent="RootNode/CharacterArmature" parent_id_path=PackedInt32Array(560513534) index="0" unique_id=1787907353]
+bones/1/position = Vector3(3.197184e-05, 0.0143151535, -0.0011103946)
+bones/1/rotation = Quaternion(-0.014627182, -0.0009377924, 0.0032875577, 0.99988717)
+bones/2/rotation = Quaternion(0.23638543, 0.00018450998, -0.0034135175, 0.97165334)
+bones/3/rotation = Quaternion(0.5716656, -0.00022643423, -0.00015693658, 0.8204867)
+bones/4/position = Vector3(3.197184e-05, 0.014346371, -0.001112804)
+bones/4/rotation = Quaternion(0.9996196, -0.012443873, -0.008295721, -0.023173423)
+
+[node name="Head" parent="RootNode/CharacterArmature/Skeleton3D" index="0" unique_id=1069430856]
+transform = Transform3D(0.99999976, 1.148544e-08, -0.0005504951, 5.1850686e-05, -0.9955561, 0.094168484, -0.00054804835, -0.094168395, -0.99555594, -6.3837733e-06, -0.00072172727, 0.022193491)
+
+[node name="Body1" parent="RootNode/CharacterArmature/Skeleton3D" index="1" unique_id=1710547891]
+transform = Transform3D(0.99955755, -0.02526278, -0.016009135, 0.017162427, 0.046122856, 0.9988046, -0.024493914, -0.9986163, 0.046536554, 1.8856615e-05, 0.001113949, 0.014322217)

@@ -17,12 +17,13 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="coffee-rush"
 run/main_scene="uid://calq74itf5ujh"
 config/features=PackedStringArray("4.7", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://drwwer1s0wkjk"
 
 [autoload]
 
 SlowMotionManager="*uid://boydrg0j2lx4s"
 Global="*uid://c0h1v4a1rbe4"
+GlobalCatalog="*uid://bljqvnw8howy3"
 LoadingScreen="*res://game/ui/loading_screen.tscn"
 PauseMenu="*uid://ckk5uhdskiog"
 
@@ -31,6 +32,11 @@ PauseMenu="*uid://ckk5uhdskiog"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=2
+
+[global_group]
+
+scannables=""
+
 
 [input]
 
@@ -102,6 +108,11 @@ action_toggle_book={
 action_use_item={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":81,"key_label":0,"unicode":81,"location":0,"echo":false,"script":null)
+]
+}
+action_scan={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":82,"key_label":0,"unicode":114,"location":0,"echo":false,"script":null)
 ]
 }
 action_stealth={

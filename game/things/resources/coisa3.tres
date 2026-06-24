@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3 uid="uid://bg1vy4bkgg1ac"]
+
+[ext_resource type="PackedScene" uid="uid://dh2s1340x31f0" path="res://game/things/coisa3.tscn" id="1_ltxlm"]
+[ext_resource type="Script" uid="uid://blygghmfw06be" path="res://game/photobooth/creature_data.gd" id="1_uxd4j"]
+
+[resource]
+script = ExtResource("1_uxd4j")
+creature_name = "Antena"
+model_scene = ExtResource("1_ltxlm")
+metadata/_custom_type_script = "uid://blygghmfw06be"
