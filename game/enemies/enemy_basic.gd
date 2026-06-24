@@ -20,6 +20,7 @@ enum EnemyRole {MELEE, RANGED}
 @export var proximity_detection_radius: float = 4.0
 # Defines the absolute radius where physical contact triggers instant detection
 @export var touch_radius: float = 1.2
+@onready var detection_sound: AudioStreamPlayer3D = $Node3D/detection_sound
 
 @export_group("combate")
 @export var attack_range: float = 2.5
@@ -163,6 +164,9 @@ func _find_player() -> void:
 			if dist <= closest_dist:
 				closest = p
 				closest_dist = dist
+
+	if player == null and closest != null:
+		_play_detection_sound()
 
 	player = closest
 
@@ -442,3 +446,8 @@ func perform_attack() -> void:
 	if can_hit and player.has_method("take_damage"):
 		# é computado o golpe no oponente.
 		player.take_damage(attack_damage)
+		
+func _play_detection_sound() -> void:
+	if is_instance_valid(detection_sound) and not is_knocked_out:
+		if not detection_sound.playing:
+			detection_sound.play()
