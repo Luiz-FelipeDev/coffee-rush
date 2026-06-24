@@ -20,7 +20,6 @@ enum EnemyRole {MELEE, RANGED}
 @export var proximity_detection_radius: float = 4.0
 # Defines the absolute radius where physical contact triggers instant detection
 @export var touch_radius: float = 1.2
-@onready var detection_sound: AudioStreamPlayer3D = $Node3D/detection_sound
 
 @export_group("combate")
 @export var attack_range: float = 2.5
@@ -69,6 +68,10 @@ var _space_state: PhysicsDirectSpaceState3D
 
 # é referenciado o simulador condicionalmente caso o esqueleto exista.
 @onready var bone_simulator: PhysicalBoneSimulator3D = skeleton.get_node_or_null("PhysicalBoneSimulator3D") if skeleton != null else null
+
+@onready var detection_sound: AudioStreamPlayer3D =	$AudioPlayers/DetectionSound
+@onready var footstep_sound: AudioStreamPlayer3D = $AudioPlayers/FootstepSound
+@onready var attack_sound: AudioStreamPlayer3D = $AudioPlayers/AttackSound
 
 @export_group("ragdoll failsafe")
 # é definida a velocidade maxima aceitavel antes de considerar falha fisica.
@@ -451,3 +454,14 @@ func _play_detection_sound() -> void:
 	if is_instance_valid(detection_sound) and not is_knocked_out:
 		if not detection_sound.playing:
 			detection_sound.play()
+
+func play_footstep() -> void:
+    # Plays a random footstep sound
+	if is_instance_valid(footstep_sound):
+		footstep_sound.play()
+
+func play_attack_sound() -> void:
+    # Plays a random attack sound
+	if is_instance_valid(attack_sound):
+		attack_sound.play()
+
