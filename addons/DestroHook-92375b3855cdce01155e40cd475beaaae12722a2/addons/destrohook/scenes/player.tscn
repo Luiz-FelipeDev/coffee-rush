@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://djo0ecnrdrmih" path="res://assets/hud/Book.glb" id="5_ktl0y"]
 [ext_resource type="Texture2D" uid="uid://dw00efp6b3fn8" path="res://addons/DestroHook-92375b3855cdce01155e40cd475beaaae12722a2/addons/destrohook/textures/gray_checkers.png" id="5_wmoau"]
 [ext_resource type="PackedScene" uid="uid://brisgcwe5iemd" path="res://assets/hud/Book Open.glb" id="6_f7dls"]
+[ext_resource type="Shader" uid="uid://cvly7v837wfhf" path="res://addons/DestroHook-92375b3855cdce01155e40cd475beaaae12722a2/addons/destrohook/scenes/postProcessing.gdshader" id="9_w8m1i"]
 [ext_resource type="Script" uid="uid://ch6wyuf836qgv" path="res://game/world/status_effect_manager.gd" id="10_njh6e"]
 [ext_resource type="PackedScene" uid="uid://ck58fatpumeu5" path="res://game/photobooth/little_monsters/atlas_menu.tscn" id="11_mfwd6"]
 
@@ -270,6 +271,16 @@ top_radius = 0.05
 bottom_radius = 0.05
 height = 1.3158569
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4lji1"]
+shader = ExtResource("9_w8m1i")
+shader_parameter/tape_wave_amount = 0.003
+shader_parameter/tape_wave_speed = 2.0
+shader_parameter/color_displacement = 0.002
+shader_parameter/lines_velocity = 0.1
+shader_parameter/noise_amount = 0.03
+shader_parameter/glitch_intensity = 1.0
+shader_parameter/crt_power_off = 0.0
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hpxpa"]
 albedo_texture = ExtResource("5_wmoau")
 
@@ -379,7 +390,6 @@ shadow_mesh = SubResource("ArrayMesh_b8m46")
 
 [node name="Player" type="CharacterBody3D" unique_id=301777954 node_paths=PackedStringArray("camera", "hook_raycast", "crosshair", "health_bar", "hook_controller", "lente_ui", "anim_binoculo", "scan_ui_label", "left_wall_raycast", "right_wall_raycast")]
 script = ExtResource("1_5t7oi")
-max_health = 1000
 hook_available_texture = ExtResource("3_k3ota")
 hook_not_available_texture = ExtResource("3_ee8s0")
 camera = NodePath("CameraHolder/Camera")
@@ -547,6 +557,18 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.47843137)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 26
+
+[node name="PostProcessingLayer" type="CanvasLayer" parent="HUD" unique_id=443270440]
+layer = 10
+
+[node name="ColorRect" type="ColorRect" parent="HUD/PostProcessingLayer" unique_id=376680403]
+material = SubResource("ShaderMaterial_4lji1")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="ODM" type="Node3D" parent="." unique_id=166023740]
 transform = Transform3D(-0.75, 0, -6.55671e-08, 0, 0.75, 0, 6.55671e-08, 0, -0.75, -0.025331, 1, 0.153343)
