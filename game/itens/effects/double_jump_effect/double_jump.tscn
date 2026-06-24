@@ -16,3 +16,5 @@ item_data = ExtResource("2_qkajw")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1748554833]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 shape = SubResource("BoxShape3D_4lji1")
+
+[editable path="Root Scene"]

@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://3qts6lmfayu5"]
+
+[ext_resource type="PackedScene" uid="uid://cvq7e7m7f606v" path="res://assets/third_party/Ultimate Space Kit-glb/Pickup Crate.glb" id="1_5niws"]
+[ext_resource type="Script" uid="uid://dqyyptwgkrql1" path="res://game/itens/item_pickup.gd" id="1_8f6i0"]
+[ext_resource type="Resource" uid="uid://dshdtfom26cji" path="res://game/itens/effects/speed_boost_effect/speed_boost_effect_data.tres" id="2_ievu5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e4pqn"]
+
+[node name="SpeedBoostEffectItem" type="Area3D" unique_id=370813099]
+script = ExtResource("1_8f6i0")
+item_data = ExtResource("2_ievu5")
+
+[node name="Root Scene" parent="." unique_id=757036226 instance=ExtResource("1_5niws")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1039934685]
+shape = SubResource("BoxShape3D_e4pqn")

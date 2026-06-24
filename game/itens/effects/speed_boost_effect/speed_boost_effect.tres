@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SpeedBoostEffect" format=3 uid="uid://doxlsd3b1i0tr"]
+
+[ext_resource type="Script" uid="uid://cntb4gkaavllc" path="res://game/itens/effects/speed_boost_effect/speed_boost_effect.gd" id="1_tkgy2"]
+
+[resource]
+script = ExtResource("1_tkgy2")
+bonus_multiplier = 2.0
+duration = 5.0
+metadata/_custom_type_script = "uid://cntb4gkaavllc"

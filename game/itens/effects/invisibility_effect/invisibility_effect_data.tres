@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dx2o0gpb8weps"]
+
+[ext_resource type="Script" uid="uid://d2belrt1kfdg5" path="res://game/itens/effects/item_effect.gd" id="1_aooeg"]
+[ext_resource type="Resource" uid="uid://mrctocp7ki4b" path="res://game/itens/effects/invisibility_effect/invisibility_effect.tres" id="2_lx7jv"]
+[ext_resource type="Script" uid="uid://mp155plrfswe" path="res://game/itens/item_data.gd" id="2_ns848"]
+
+[resource]
+script = ExtResource("2_ns848")
+item_id = &"invisibility_effect"
+display_name = "Invisibility Effect"
+effects = Array[ExtResource("1_aooeg")]([ExtResource("2_lx7jv")])
+metadata/_custom_type_script = "uid://mp155plrfswe"

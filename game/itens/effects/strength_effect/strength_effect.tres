@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="StrengthEffect" format=3 uid="uid://ca80au2togydj"]
+
+[ext_resource type="Script" uid="uid://bemfa0qrx3b0c" path="res://game/itens/effects/strength_effect/strength_effect.gd" id="1_5hod1"]
+
+[resource]
+script = ExtResource("1_5hod1")
+bonus_multiplier = 2.0
+duration = 5.0
+metadata/_custom_type_script = "uid://bemfa0qrx3b0c"

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="InvisibilityEffect" format=3 uid="uid://mrctocp7ki4b"]
+
+[ext_resource type="Script" uid="uid://ba4xdupkrocub" path="res://game/itens/effects/invisibility_effect/invisibility_effect.gd" id="1_7idqe"]
+
+[resource]
+script = ExtResource("1_7idqe")
+duration = 4.0
+metadata/_custom_type_script = "uid://ba4xdupkrocub"

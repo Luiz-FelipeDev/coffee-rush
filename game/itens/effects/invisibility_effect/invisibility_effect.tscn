@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dqunmlas00unt"]
+
+[ext_resource type="Script" uid="uid://dqyyptwgkrql1" path="res://game/itens/item_pickup.gd" id="1_edx5t"]
+[ext_resource type="PackedScene" uid="uid://bmbumevrhcuph" path="res://assets/Ultimate Space Kit-glb/root_scene.tscn" id="2_5htgs"]
+[ext_resource type="Resource" uid="uid://dx2o0gpb8weps" path="res://game/itens/effects/invisibility_effect/invisibility_effect_data.tres" id="2_mmdff"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_eokv6"]
+
+[node name="InvisibilityEffectItem" type="Area3D" unique_id=1627006157]
+script = ExtResource("1_edx5t")
+item_data = ExtResource("2_mmdff")
+
+[node name="Root Scene" parent="." unique_id=552464646 instance=ExtResource("2_5htgs")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=31822318]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("SphereShape3D_eokv6")

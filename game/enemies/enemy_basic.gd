@@ -456,12 +456,11 @@ func _play_detection_sound() -> void:
 			detection_sound.play()
 
 func play_footstep() -> void:
-    # Plays a random footstep sound
+	# Plays a random footstep sound
 	if is_instance_valid(footstep_sound):
 		footstep_sound.play()
 
 func play_attack_sound() -> void:
-    # Plays a random attack sound
+	# Plays a random attack sound
 	if is_instance_valid(attack_sound):
 		attack_sound.play()
-

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="InvincibilityEffect" format=3 uid="uid://es1i3fhsbta4"]
+
+[ext_resource type="Script" uid="uid://v6r80ueiegbp" path="res://game/itens/effects/invincibility_effect/invincibility_effect.gd" id="1_nqtv1"]
+
+[resource]
+script = ExtResource("1_nqtv1")
+duration = 3.0
+metadata/_custom_type_script = "uid://v6r80ueiegbp"
