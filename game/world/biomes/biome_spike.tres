@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bnm6pnn7qblm8" path="res://game/world/biome_data.gd" id="1_7qfj8"]
 [ext_resource type="PackedScene" uid="uid://bkq5padckuq73" path="res://game/enemies/enemy_astronaut.tscn" id="1_aeny2"]
+[ext_resource type="PackedScene" uid="uid://wkat6qv1qlf" path="res://game/enemies/enemy_boss.tscn" id="1_iyxtb"]
+[ext_resource type="PackedScene" uid="uid://dmuihmi77leto" path="res://game/enemies/enemy_large.tscn" id="2_ey6iw"]
 [ext_resource type="PackedScene" uid="uid://vkgihuypmxml" path="res://assets/nature/trees/spikes/tree_sk_1.tscn" id="2_ytaoj"]
 [ext_resource type="PackedScene" uid="uid://ecbs1kq6gtj2" path="res://assets/nature/trees/spikes/tree_sk_2.tscn" id="3_7jncf"]
 
@@ -11,5 +13,6 @@ grass_color = Color(0.19626635, 0.4215673, 0.11129249, 1)
 sand_color = Color(0.86089504, 0.7992555, 0.60711205, 1)
 sky_top_color = Color(0.21400458, 0.59596306, 0.66851854, 1)
 tree_scenes = Array[PackedScene]([ExtResource("2_ytaoj"), ExtResource("3_7jncf")])
-enemy_scenes = Array[PackedScene]([ExtResource("1_aeny2")])
+enemy_scenes = Array[PackedScene]([ExtResource("1_aeny2"), ExtResource("2_ey6iw")])
+boss_scene = ExtResource("1_iyxtb")
 metadata/_custom_type_script = "uid://bnm6pnn7qblm8"

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3 uid="uid://dqdjd8ojll7ad"]
+
+[ext_resource type="PackedScene" uid="uid://x2ch18a3msat" path="res://game/things/coisa2.tscn" id="1_2qxbh"]
+[ext_resource type="Script" uid="uid://blygghmfw06be" path="res://game/photobooth/creature_data.gd" id="1_6cpti"]
+
+[resource]
+script = ExtResource("1_6cpti")
+creature_name = "Painel Solar Grande"
+model_scene = ExtResource("1_2qxbh")
+metadata/_custom_type_script = "uid://blygghmfw06be"

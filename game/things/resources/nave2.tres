@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3 uid="uid://da6sioplayx0r"]
+
+[ext_resource type="Script" uid="uid://blygghmfw06be" path="res://game/photobooth/creature_data.gd" id="1_pvt7t"]
+[ext_resource type="PackedScene" uid="uid://dwp5jhe34fklm" path="res://game/things/nave2.tscn" id="1_qx3bp"]
+
+[resource]
+script = ExtResource("1_pvt7t")
+model_scene = ExtResource("1_qx3bp")
+metadata/_custom_type_script = "uid://blygghmfw06be"

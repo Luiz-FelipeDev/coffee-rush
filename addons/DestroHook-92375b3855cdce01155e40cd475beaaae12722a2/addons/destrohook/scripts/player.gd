@@ -96,7 +96,12 @@ var is_charging_attack: bool = false
 var has_branch: bool = false 
 var equipped_item: ItemData = null
 
-@onready var weapon_mesh: MeshInstance3D = $CameraHolder/Camera/WeaponBranch
+var combo_step: int = 1
+var is_swinging: bool = false
+var queued_attack: bool = false
+var pending_damage: int = 0
+
+@onready var weapon_mesh: Node3D = $CameraHolder/Camera/WeaponBranch
 @onready var weapon_anim: AnimationPlayer = $CameraHolder/Camera/WeaponBranch/AnimationPlayer
 
 var current_max_speed: float = 15.0
@@ -169,18 +174,28 @@ func handle_scanning(delta: float) -> void:
 
 	var collider: Node3D = hook_raycast.get_collider() as Node3D
 
-	# é validado se o objeto mirado é um inimigo.
-	if collider and collider.is_in_group("enemies"):
+	# é procurada a raiz da entidade subindo na arvore (caso o colisor seja um filho do modelo principal).
+	var target_node: Node = collider
+	var is_valid_target: bool = false
+	var entity_id: String = ""
+
+	while target_node and target_node != get_tree().root:
+		if target_node.is_in_group("enemies") or target_node.is_in_group("scannables"):
+			is_valid_target = true
+			# é extraido o id da entidade diretamente da raiz encontrada.
+			entity_id = target_node.scene_file_path.get_file().get_basename()
+			break
+		target_node = target_node.get_parent()
+
+	# é validado se um alvo foi encontrado e se ele possui um nome de arquivo valido.
+	if is_valid_target and entity_id != "":
 		
-		# é extraido o id da entidade diretamente da cena original para evitar bugs de numeracao de instanciacao.
-		var entity_id: String = collider.scene_file_path.get_file().get_basename()
-		
-		# é verificado se a entidade pertence ao bioma e se ainda nao foi descoberta.
+		# é verificado se a entidade pertence ao bioma e se ainda nao foi descoberta no dicionario.
 		if atlas_registry.has(entity_id) and not atlas_registry[entity_id]:
 			
 			# é reiniciado o temporizador se o jogador mudar de alvo.
-			if current_scan_target != collider:
-				current_scan_target = collider
+			if current_scan_target != (target_node as Node3D):
+				current_scan_target = target_node as Node3D
 				current_scan_time = 0.0
 				
 			# é incrementado o tempo de foco no alvo.
@@ -188,7 +203,7 @@ func handle_scanning(delta: float) -> void:
 			
 			# é calculada e formatada a porcentagem para a interface.
 			var progress: int = int((current_scan_time / required_scan_time) * 100)
-			_update_scan_ui("< ESCANEANDO... >" + str(progress) + "%")
+			_update_scan_ui("< ESCANEANDO... > " + str(progress) + "%")
 			
 			# é efetivada a descoberta caso o tempo seja atingido.
 			if current_scan_time >= required_scan_time:
@@ -197,7 +212,7 @@ func handle_scanning(delta: float) -> void:
 			_update_scan_ui("< SALVO NO ATLAS > ")
 			current_scan_time = 0.0
 	else:
-		# é resetado o estado se olhar para o cenario.
+		# é resetado o estado se olhar para o cenario ou ceu.
 		_reset_scan_state()
 		_update_scan_ui("< SCANNER FUNCIONANDO >")
 
@@ -234,33 +249,61 @@ func handle_attack(delta: float) -> void:
 	if not has_branch or is_book_open or is_scanning:
 		return
 
+	# Se o botão foi clicado
 	if Input.is_action_just_pressed("LMB"):
-		is_charging_attack = true
-		attack_hold_time = 0.0
-		
-		if weapon_anim:
-			weapon_anim.play("heavy_charge")
+		if is_swinging:
+			# Se já está no meio de um ataque, "guarda" esse clique para a próxima animação
+			queued_attack = true
+		else:
+			_start_attack_charge()
 
+	# Conta o tempo de carga apenas se estiver carregando
 	if is_charging_attack:
 		attack_hold_time += delta
 
+	# Se soltou o botão enquanto carregava, executa o golpe
 	if Input.is_action_just_released("LMB") and is_charging_attack:
-		is_charging_attack = false
-		
-		var damage: int = 50
+		_execute_attack_swing()
 
-		if attack_hold_time >= 0.5:
-			damage = 100
-			if weapon_anim:
-				weapon_anim.play("heavy_swing")
-		else:
-			if weapon_anim:
-				weapon_anim.play("quick_swing")
+func _start_attack_charge() -> void:
+	is_charging_attack = true
+	attack_hold_time = 0.0
+	
+	# O segundo parâmetro (0.2) é o blend_time. Ele interpola suavemente
+	# do idle para o charge, evitando trancos na animação.
+	if weapon_anim:
+		weapon_anim.play("heavy_charge", 0.2)
 
-		if status_manager:
-			damage = int(damage * status_manager.damage_multiplier)
+func _execute_attack_swing() -> void:
+	is_charging_attack = false
+	is_swinging = true
+	
+	var base_damage: int = 50
+	var anim_to_play: String = ""
 
-		perform_melee_attack(damage)
+	# Avalia se segurou o suficiente para o ataque forte
+	if attack_hold_time >= 0.5:
+		base_damage = 100
+		anim_to_play = "heavy_swing"
+		combo_step = 1 # Reseta o combo se o jogador der um ataque pesado
+	else:
+		# Define a animação atual (quick_swing_1, _2 ou _3)
+		anim_to_play = "quick_swing_" + str(combo_step)
+        
+		# Avança o combo. Se passar de 3, volta para o início (1)
+		combo_step += 1
+		if combo_step > 3:
+			combo_step = 1
+
+	# Armazena o dano para ser aplicado APENAS quando a animação mandar
+	pending_damage = base_damage
+	if status_manager:
+		pending_damage = int(base_damage * status_manager.damage_multiplier)
+
+	if weapon_anim:
+		# MAGIA AQUI: O 0.15 de blend time pega a posição exata onde o 
+		# galho estava durante o "heavy_charge" e desce batendo dali mesmo.
+		weapon_anim.play(anim_to_play, 0.15)
 
 func perform_melee_attack(damage: int) -> void:
 	var space_state = get_world_3d().direct_space_state
@@ -276,6 +319,21 @@ func perform_melee_attack(damage: int) -> void:
 	if result and result.collider.is_in_group("enemies"):
 		if result.collider.has_method("take_damage"):
 			result.collider.take_damage(damage)
+
+# Chamada pela Animação no frame exato em que o galho bate no meio da tela
+func deal_pending_damage() -> void:
+	perform_melee_attack(pending_damage)
+
+# Chamada pela Animação no ÚLTIMO frame do ataque
+func finish_attack_swing() -> void:
+	is_swinging = false
+    
+    # Se o jogador espamou o clique durante o golpe, já começamos o próximo na mesma hora
+	if queued_attack:
+		queued_attack = false
+		_start_attack_charge()
+		# Chama a execução imediata para ele fazer o próximo combo rápido
+		_execute_attack_swing()
 	
 func _physics_process(delta: float) -> void:
 	if current_dash_cooldown > 0.0:
@@ -576,7 +634,7 @@ func toggle_binoculos() -> void:
 			
 		if anim_binoculo:
 			anim_binoculo.play_backwards("put_on")
-      
+	  
 func handle_crouch() -> void:
 	# Activates stealth mode while the key is held and the player is grounded
 	if Input.is_action_pressed("action_stealth") and is_on_floor():

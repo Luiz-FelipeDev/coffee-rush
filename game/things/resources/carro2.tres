@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3 uid="uid://iplrc5hnuswg"]
+
+[ext_resource type="PackedScene" uid="uid://bosowuru2j4nd" path="res://game/things/carro2.tscn" id="1_4tlcm"]
+[ext_resource type="Script" uid="uid://blygghmfw06be" path="res://game/photobooth/creature_data.gd" id="1_81k24"]
+
+[resource]
+script = ExtResource("1_81k24")
+model_scene = ExtResource("1_4tlcm")
+metadata/_custom_type_script = "uid://blygghmfw06be"

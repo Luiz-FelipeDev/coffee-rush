@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://djo0ecnrdrmih" path="res://assets/hud/Book.glb" id="5_ktl0y"]
 [ext_resource type="Texture2D" uid="uid://dw00efp6b3fn8" path="res://addons/DestroHook-92375b3855cdce01155e40cd475beaaae12722a2/addons/destrohook/textures/gray_checkers.png" id="5_wmoau"]
 [ext_resource type="PackedScene" uid="uid://brisgcwe5iemd" path="res://assets/hud/Book Open.glb" id="6_f7dls"]
+[ext_resource type="PackedScene" uid="uid://6jq5xnulhq2b" path="res://game/itens/melee/branch/branch.glb" id="7_57l0a"]
 [ext_resource type="Shader" uid="uid://cvly7v837wfhf" path="res://addons/DestroHook-92375b3855cdce01155e40cd475beaaae12722a2/addons/destrohook/scenes/postProcessing.gdshader" id="9_w8m1i"]
 [ext_resource type="Script" uid="uid://ch6wyuf836qgv" path="res://game/world/status_effect_manager.gd" id="10_njh6e"]
 [ext_resource type="PackedScene" uid="uid://ck58fatpumeu5" path="res://game/photobooth/little_monsters/atlas_menu.tscn" id="11_mfwd6"]
@@ -266,10 +267,249 @@ _data = {
 [sub_resource type="ViewportTexture" id="ViewportTexture_w8m1i"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_ay61g"]
-top_radius = 0.05
-bottom_radius = 0.05
-height = 1.3158569
+[sub_resource type="Animation" id="Animation_57l0a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.8812842, 0.0013546944, -1.2660242)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.13909972, -0.13928242, 0.089029476)]
+}
+
+[sub_resource type="Animation" id="Animation_dhi31"]
+resource_name = "heavy_charge"
+length = 0.43333334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.43333334),
+"transitions": PackedFloat32Array(1, 3.8637443),
+"update": 0,
+"values": [Vector3(0.8812842, 0.0013546944, -1.2660242), Vector3(0.62148076, 0.7048836, -1.0275278)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.43333334),
+"transitions": PackedFloat32Array(1, 3.8637443),
+"update": 0,
+"values": [Vector3(-0.13909972, -0.13928242, 0.089029476), Vector3(0.49869567, -0.15720616, -0.0060751084)]
+}
+
+[sub_resource type="Animation" id="Animation_345mj"]
+resource_name = "heavy_swing"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25333333, 0.52),
+"transitions": PackedFloat32Array(0.29730174, 0.29730174, 0.29730174),
+"update": 0,
+"values": [Vector3(0.62148076, 0.7048836, -1.0275278), Vector3(0.14805457, 0.2458229, -2.1343532), Vector3(0.8812842, 0.0013546944, -1.2660242)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25333333, 0.52),
+"transitions": PackedFloat32Array(0.29730174, 0.29730174, 0.29730174),
+"update": 0,
+"values": [Vector3(0.49869567, -0.15720616, -0.0060751084), Vector3(-0.72558534, 0.055339217, 0.19303176), Vector3(-0.13909972, -0.13928242, 0.089029476)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2379187, 0.5045854),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"deal_pending_damage"
+}, {
+"args": [],
+"method": &"finish_attack_swing"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_j274l"]
+resource_name = "quick_swing_1"
+length = 2.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.21333334, 0.46666667, 0.73333335),
+"transitions": PackedFloat32Array(0.10511191, 0.10511191, 0.10511191, 0.10511191),
+"update": 0,
+"values": [Vector3(0.8812842, 0.0013546944, -1.2660242), Vector3(0.62148076, 0.7048836, -1.0275278), Vector3(0.14805457, 0.2458229, -2.1343532), Vector3(0.8812842, 0.0013546944, -1.2660242)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.21333334, 0.46666667, 0.73333335),
+"transitions": PackedFloat32Array(0.10511191, 0.10511191, 0.10511191, 0.10511191),
+"update": 0,
+"values": [Vector3(-0.13909972, -0.13928242, 0.089029476), Vector3(0.49869567, -0.15720616, -0.0060751084), Vector3(-0.72558534, 0.055339217, 0.19303176), Vector3(-0.13909972, -0.13928242, 0.089029476)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.4711723, 0.737839),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"deal_pending_damage"
+}, {
+"args": [],
+"method": &"finish_attack_swing"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_kx7w3"]
+resource_name = "quick_swing_2"
+length = 2.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.21333334, 0.46666667, 0.73333335),
+"transitions": PackedFloat32Array(0.10511191, 0.10511191, 0.10511191, 0.10511191),
+"update": 0,
+"values": [Vector3(0.8812842, 0.0013546944, -1.2660242), Vector3(0.266, 0.42, -0.743), Vector3(-0.077, -0.559, -2.134), Vector3(0.8812842, 0.0013546944, -1.2660242)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.21333334, 0.46666667, 0.73333335),
+"transitions": PackedFloat32Array(0.10511191, 0.10511191, 0.10511191, 0.10511191),
+"update": 0,
+"values": [Vector3(-0.13909972, -0.13928242, 0.089029476), Vector3(0.7347836, -0.15707964, -0.0052359877), Vector3(-0.95294976, 0.055850536, 0.19373155), Vector3(-0.13909972, -0.13928242, 0.089029476)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.46666667, 0.73333335),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"deal_pending_damage"
+}, {
+"args": [],
+"method": &"finish_attack_swing"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_i6ext"]
+resource_name = "quick_swing_3"
+length = 2.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.21333334, 0.46666667, 0.73333335),
+"transitions": PackedFloat32Array(0.10511191, 0.10511191, 0.10511191, 0.10511191),
+"update": 0,
+"values": [Vector3(0.8812842, 0.0013546944, -1.2660242), Vector3(-0.589, 0.255, -0.793), Vector3(0.148, -0.104, -2.134), Vector3(0.8812842, 0.0013546944, -1.2660242)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.21333334, 0.46666667, 0.73333335),
+"transitions": PackedFloat32Array(0.10511191, 0.10511191, 0.10511191, 0.10511191),
+"update": 0,
+"values": [Vector3(-0.13909972, -0.13928242, 0.089029476), Vector3(0.699877, -0.38397244, -0.0052359877), Vector3(-0.699877, -0.5899213, 0.3159046), Vector3(-0.13909972, -0.13928242, 0.089029476)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.46666667, 0.73333335),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"deal_pending_damage"
+}, {
+"args": [],
+"method": &"finish_attack_swing"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dhi31"]
+_data = {
+&"RESET": SubResource("Animation_57l0a"),
+&"heavy_charge": SubResource("Animation_dhi31"),
+&"heavy_swing": SubResource("Animation_345mj"),
+&"quick_swing_1": SubResource("Animation_j274l"),
+&"quick_swing_2": SubResource("Animation_kx7w3"),
+&"quick_swing_3": SubResource("Animation_i6ext")
+}
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4lji1"]
 shader = ExtResource("9_w8m1i")
@@ -278,8 +518,10 @@ shader_parameter/tape_wave_speed = 2.0
 shader_parameter/color_displacement = 0.002
 shader_parameter/lines_velocity = 0.1
 shader_parameter/noise_amount = 0.03
+shader_parameter/vignette_strength = 0.35
 shader_parameter/glitch_intensity = 1.0
 shader_parameter/crt_power_off = 0.0
+shader_parameter/pixel_size = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hpxpa"]
 albedo_texture = ExtResource("5_wmoau")
@@ -457,12 +699,13 @@ texture = SubResource("ViewportTexture_w8m1i")
 [node name="Hook Raycast" type="RayCast3D" parent="CameraHolder/Camera" unique_id=1374161625]
 target_position = Vector3(0, 0, -50)
 
-[node name="WeaponBranch" type="MeshInstance3D" parent="CameraHolder/Camera" unique_id=63734454]
-transform = Transform3D(0.98810476, -0.06887776, -0.13749151, 0.088053085, 0.986419, 0.13865156, 0.1260742, -0.1491089, 0.98075056, 0.4608845, -0.32398582, -0.6772031)
+[node name="WeaponBranch" parent="CameraHolder/Camera" unique_id=1121058352 instance=ExtResource("7_57l0a")]
+transform = Transform3D(0.790484, -0.05510221, -0.10999326, 0.0704425, 0.7891351, 0.11092126, 0.100859426, -0.11928712, 0.7846005, 0.8812842, 0.0013546944, -1.2660242)
 visible = false
-mesh = SubResource("CylinderMesh_ay61g")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CameraHolder/Camera/WeaponBranch" unique_id=708577427]
+libraries/ = SubResource("AnimationLibrary_dhi31")
+speed_scale = 1.5
 
 [node name="CameraBasedRaycasts" type="Node3D" parent="." unique_id=436684338]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
@@ -489,7 +732,7 @@ hook_scene = ExtResource("3_ruq25")
 player_body = NodePath("..")
 hook_raycast = NodePath("../CameraHolder/Camera/Hook Raycast")
 hook_source = NodePath("../ODM/HookRopeStart")
-hook_max_range = 1000.0
+hook_max_range = 100.0
 auto_pull_speed = 80.0
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1992446716]
