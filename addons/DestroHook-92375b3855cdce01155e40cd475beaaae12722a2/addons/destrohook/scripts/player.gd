@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 @onready var status_manager: StatusEffectManager = $StatusEffectManager
+@onready var vhs_glitch: ColorRect = $HUD/PostProcessingLayer/ColorRect
 
 signal atlas_updated(registry: Dictionary)
 
@@ -111,6 +112,38 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	if camera:
 		camera.fov = base_fov
+
+	trigger_power_on_glitch()
+
+func trigger_power_on_glitch() -> void:
+	if not is_instance_valid(vhs_glitch) or not vhs_glitch.material:
+		return
+
+	# é forçado um estado limpo antes de animar -- o material pode estar em
+	# cache com valores deixados pelo tween de morte da execucao anterior
+	# (reload_current_scene NAO recria o ShaderMaterial do zero).
+	vhs_glitch.material.set_shader_parameter("crt_power_off", 1.0)
+	vhs_glitch.material.set_shader_parameter("glitch_intensity", 1.0)
+	vhs_glitch.material.set_shader_parameter("pixel_size", 1.0)
+
+	var tween: Tween = create_tween()
+
+	# a tela "liga" -- a linha fina (crt_power_off = 1.0) se expande até a
+	# imagem cheia (crt_power_off = 0.0)
+	tween.tween_property(
+		vhs_glitch.material,
+		"shader_parameter/crt_power_off",
+		0.0,
+		0.6
+	).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+
+	# pico de ruido acompanhando o ligamento, assentando em 1.0 (idle)
+	tween.parallel().tween_property(
+		vhs_glitch.material,
+		"shader_parameter/glitch_intensity",
+		1.0,
+		0.6
+	).from(8.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 
 func initialize_atlas(entities_list: Array[String]) -> void:
 	# é resetado o registro do atlas para a nova fase.
@@ -449,6 +482,63 @@ func take_damage(amount: int) -> void:
 
 	if current_health <= 0:
 		die()
+	else:
+		trigger_damage_glitch(amount)
+
+func trigger_damage_glitch(amount: int) -> void:
+	if not is_instance_valid(vhs_glitch) or not vhs_glitch.material:
+		return
+
+	# normaliza o dano relativo a vida maxima (evita divisao por zero se max_health for 0)
+	var damage_ratio: float = clampf(float(amount) / float(max(max_health, 1)), 0.0, 1.0)
+	var peak_glitch: float = lerpf(3.0, 9.0, damage_ratio)
+	var glitch_duration: float = 0.4 + damage_ratio * 0.3
+
+	var tween: Tween = create_tween()
+
+	tween.tween_property(
+		vhs_glitch.material,
+		"shader_parameter/glitch_intensity",
+		1.0,
+		glitch_duration
+	).from(peak_glitch).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
+
+	# hits pesados (>60% do dano relativo) ganham um burst extra de pixelizacao em paralelo
+	if damage_ratio > 0.6:
+		var peak_pixel: float = lerpf(3.0, 7.0, damage_ratio)
+		tween.parallel().tween_property(
+			vhs_glitch.material,
+			"shader_parameter/pixel_size",
+			1.0,
+			0.25
+		).from(peak_pixel).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+
+func die() -> void:
+	if not is_instance_valid(vhs_glitch) or not vhs_glitch.material:
+		get_tree().reload_current_scene()
+		return
+		
+	var tween: Tween = create_tween()
+	
+	# Rapidly spikes the static noise right before the screen dies
+	tween.tween_property(
+		vhs_glitch.material,
+		"shader_parameter/glitch_intensity",
+		10.0,
+		0.1
+	)
+	
+	# Triggers the CRT TV shutdown effect over 0.5 seconds
+	tween.tween_property(
+		vhs_glitch.material,
+		"shader_parameter/crt_power_off",
+		1.0,
+		0.5
+	).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+	
+	# Waits for the shutdown animation to finish before reloading
+	await tween.finished
+	get_tree().reload_current_scene()
 
 func equip_branch() -> void:
 	has_branch = true
@@ -456,10 +546,6 @@ func equip_branch() -> void:
 		weapon_mesh.visible = true
 	if weapon_anim:
 		weapon_anim.play("RESET")
-
-func die() -> void:
-	get_tree().reload_current_scene()
-
 func toggle_book() -> void:
 	if animation_player == null:
 		print("🚨 [ERRO FATAL] AnimationPlayer não encontrado!")
