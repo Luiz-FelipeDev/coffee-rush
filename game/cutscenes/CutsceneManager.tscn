@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://xt7c6o5uhutd"]
+
+[ext_resource type="Script" uid="uid://bp5g6rawndvjj" path="res://game/cutscenes/cutscene_manager.gd" id="1_xlhd2"]
+[ext_resource type="FontFile" uid="uid://7de6vgxxrbrn" path="res://game/fonts/Punk Typewriter.otf" id="2_el8cj"]
+[ext_resource type="FontFile" uid="uid://b44x84s8patc4" path="res://game/fonts/Coolvetica Rg.otf" id="3_p01sq"]
+
+[sub_resource type="Theme" id="Theme_xlhd2"]
+
+[node name="CutsceneManager" type="CanvasLayer" unique_id=914841961]
+script = ExtResource("1_xlhd2")
+text_list = Array[String](["Já descobriram o que está acontecendo com os animais?", "Não, ainda pesquisando", "A gente tá ficando sem tempo", "[ Porta abre ]", "Senhor, recebemos uma transmissão!", "Dezenas de Terabytes de dados dos biomas corrompidos", "e um vídeo."])
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1521540577]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.012617188, 0.012617188, 0.012617188, 1)
+
+[node name="Label" type="Label" parent="." unique_id=2063457270]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -664.0
+offset_top = 407.0
+offset_right = 654.0
+offset_bottom = 489.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_xlhd2")
+theme_type_variation = &"TooltipLabel"
+theme_override_fonts/font = ExtResource("2_el8cj")
+theme_override_font_sizes/font_size = 61
+horizontal_alignment = 1
+
+[node name="SkipLabel" type="Label" parent="." unique_id=398625843]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -339.0
+offset_top = -70.0
+offset_right = -19.0
+offset_bottom = -34.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_p01sq")
+theme_override_font_sizes/font_size = 20
+text = "[ENTER] ou [CLIQUE] para pular"
+horizontal_alignment = 1
