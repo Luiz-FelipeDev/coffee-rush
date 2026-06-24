@@ -53,11 +53,16 @@ enum EnemyRole {MELEE, RANGED}
 @export_group("saúde e ragdoll")
 @export var max_health: int = 100
 
+@export_group("comportamento social")
+@export var is_pacifist: bool = false        # true no enemy_large
+@export var anim_wave: String = "CharacterArmature|Wave"
+
 # é alterada a inicializacao da saude para zero para permitir heranca no respawn.
 var current_health: int = 0
 var is_knocked_out: bool = false
 var player: Node3D = null
 var _space_state: PhysicsDirectSpaceState3D
+static var pack_alerted: bool = false
 
 @onready var enemy_model: Node3D = $EnemyModel
 @onready var anim_player: AnimationPlayer = $EnemyModel/AnimationPlayer
@@ -222,9 +227,111 @@ func _can_see_target(target: Node3D) -> bool:
 
 	return false
 
+@export_group("animacoes ociosas")
+@export var idle_animations: Array[String] = []   # pool de idles aleatorios (ex: No, Idle_Gun)
+@export var 	idle_wander_chance: float = 0.35      # chance de andar em vez de ficar parado
+@export var idle_decision_interval: float = 4.0   # segundos entre trocas de comportamento
+
+@export_group("comportamento social")  # (mesmo grupo da secao 1, so adicionando aqui)
+@export var social_tag: String = ""          # "astronaut" ou "large" -- identifica o tipo
+@export var greet_partner_tag: String = ""   # tag do tipo que ele acena ao encontrar
+@export var greet_radius: float = 6.0
+
+enum EnemyIdleState {STANDING, WANDERING}
+var _idle_state: EnemyIdleState = EnemyIdleState.STANDING
+var _idle_timer: float = 0.0
+var _wander_direction: Vector3 = Vector3.ZERO
+var _current_idle_anim: String = ""
+
+func _idle_behavior(delta: float) -> void:
+	# cumprimento entre NPCs tem prioridade sobre qualquer outro idle
+	var partner: Node3D = _find_greet_partner()
+	if partner:
+		_idle_state = EnemyIdleState.STANDING
+		velocity.x = lerpf(velocity.x, 0.0, acceleration * delta)
+		velocity.z = lerpf(velocity.z, 0.0, acceleration * delta)
+		_face_target(partner.global_position, delta)
+		if not is_on_floor():
+			velocity.y -= gravity * delta
+		if anim_player and anim_wave != "":
+			anim_player.play(anim_wave)
+		return
+
+	_idle_timer -= delta
+	if _idle_timer <= 0.0:
+		_idle_timer = randf_range(idle_decision_interval * 0.6, idle_decision_interval * 1.4)
+		_pick_new_idle_behavior()
+
+	if _idle_state == EnemyIdleState.WANDERING:
+		velocity.x = lerpf(velocity.x, _wander_direction.x * move_speed * 0.5, acceleration * delta)
+		velocity.z = lerpf(velocity.z, _wander_direction.z * move_speed * 0.5, acceleration * delta)
+		if _wander_direction.length_squared() > 0.001:
+			var target_transform: Transform3D = transform.looking_at(global_position + _wander_direction, Vector3.UP)
+			quaternion = quaternion.slerp(target_transform.basis.get_rotation_quaternion(), rotation_speed * delta)
+		if anim_player:
+			anim_player.play(anim_walk)
+	else:
+		velocity.x = lerpf(velocity.x, 0.0, acceleration * delta)
+		velocity.z = lerpf(velocity.z, 0.0, acceleration * delta)
+		if anim_player:
+			anim_player.play(_current_idle_anim if _current_idle_anim != "" else anim_idle)
+
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+
+func _pick_new_idle_behavior() -> void:
+	if randf() < idle_wander_chance:
+		_idle_state = EnemyIdleState.STANDING
+		var random_angle: float = randf_range(0.0, TAU)
+		_wander_direction = Vector3(cos(random_angle), 0.0, sin(random_angle))
+	else:
+		_idle_state = EnemyIdleState.STANDING
+		_current_idle_anim = idle_animations[randi() % idle_animations.size()] if not idle_animations.is_empty() else anim_idle
+
+func _find_greet_partner() -> Node3D:
+	if greet_partner_tag == "" or social_tag == "":
+		return null
+
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		if enemy == self or not (enemy is Node3D):
+			continue
+		if enemy.get("social_tag") != greet_partner_tag:
+			continue
+		if enemy.get("is_knocked_out") == true or enemy.get("player") != null:
+			continue  # nao interrompe combate, perseguicao ou ragdoll do outro
+		if global_position.distance_to(enemy.global_position) <= greet_radius:
+			return enemy
+
+	return null
+
+func _face_target(target_position: Vector3, delta: float) -> void:
+	var direction: Vector3 = target_position - global_position
+	direction.y = 0.0
+	if direction.length_squared() > 0.001:
+		direction = direction.normalized()
+		var target_transform: Transform3D = transform.looking_at(global_position + direction, Vector3.UP)
+		quaternion = quaternion.slerp(target_transform.basis.get_rotation_quaternion(), rotation_speed * delta)
+
+func _greet_player(delta: float) -> void:
+	velocity.x = lerpf(velocity.x, 0.0, acceleration * delta)
+	velocity.z = lerpf(velocity.z, 0.0, acceleration * delta)
+	
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+	
+	_face_target(player.global_position, delta)
+	
+	if anim_player and anim_wave != "":
+		anim_player.play(anim_wave)
+
 func _chase_player(delta: float) -> void:
 	if not is_instance_valid(player) or not player.is_inside_tree():
-		_apply_gravity_only(delta)
+		_idle_behavior(delta)   # renomeado -- ver secao 2
+		return
+
+	# pacificos so acenam ao ver o jogador, a menos que a matilha esteja alertada
+	if is_pacifist and not pack_alerted:
+		_greet_player(delta)
 		return
 
 	var distance: float = global_position.distance_to(player.global_position)
@@ -324,6 +431,10 @@ func take_damage(amount: int) -> void:
 	# é ignorado o dano caso o inimigo já esteja desmaiado.
 	if is_knocked_out:
 		return
+
+	# qualquer inimigo que leva dano avisa a matilha inteira -- inclusive
+	# os pacificos, que a partir daqui podem atacar tambem
+	pack_alerted = true
 
 	# é contabilizado o dano na vida atual.
 	current_health -= amount

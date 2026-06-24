@@ -2,20 +2,24 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://r87hi616ecls"
-path="res://.godot/imported/atlas_icon_nohook.png-96c8667d4e08cbad0fb97150db1bd440.ctex"
+uid="uid://b1kgj8v0e41wh"
+path.s3tc="res://.godot/imported/branch_PUSHILIN_tree_branch.png-91cca6773c977b2d74d059dfba8912c8.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "465af5cc79f22bde70c98c3ba0213322"
 }
 
 [deps]
 
-source_file="res://atlas_icon_nohook.png"
-dest_files=["res://.godot/imported/atlas_icon_nohook.png-96c8667d4e08cbad0fb97150db1bd440.ctex"]
+source_file="res://game/itens/melee/branch/branch_PUSHILIN_tree_branch.png"
+dest_files=["res://.godot/imported/branch_PUSHILIN_tree_branch.png-91cca6773c977b2d74d059dfba8912c8.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -23,7 +27,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -37,4 +41,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

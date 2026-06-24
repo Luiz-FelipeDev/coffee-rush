@@ -170,7 +170,7 @@ func _on_terrain_generated() -> void:
 	await spawn_surface_props(rng, chest_scenes, chest_count, 1.0, 1.0, occupied_positions)
 	
 	spawn_floating_rocks(rng)
-	await spawn_surface_props(rng, branch_scenes, 20, 0.8, 1.2, occupied_positions)
+	await spawn_surface_props(rng, branch_scenes, 30, 0.8, 1.2, occupied_positions)
 	
 	var player_pos: Vector3 = spawn_player()
 

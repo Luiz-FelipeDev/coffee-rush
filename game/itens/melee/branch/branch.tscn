@@ -1,23 +1,18 @@
 [gd_scene format=3 uid="uid://e7aqmpe7yc8q"]
 
 [ext_resource type="Script" uid="uid://b565lbuder0it" path="res://game/itens/melee/branch/branch.tscn.gd" id="1_6eh42"]
+[ext_resource type="PackedScene" uid="uid://6jq5xnulhq2b" path="res://game/itens/melee/branch/branch.glb" id="2_qoux4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jhopr"]
-radius = 0.1
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4lji1"]
-albedo_color = Color(0.87569255, 0.5312425, 0.28737673, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_4lji1"]
+radius = 0.3
+height = 2.6987305
 
 [node name="Branch" type="Area3D" unique_id=1899454058]
 script = ExtResource("1_6eh42")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1067850644]
-transform = Transform3D(1.5186961e-05, -0.9999619, -0.008726521, 0.99999845, -4.371132e-08, 0.0017453284, -0.0017452623, -0.008726535, 0.99996036, 0, 0, 0)
+transform = Transform3D(1.5186961e-05, -0.9999619, -0.008726521, 0.99999845, -4.371132e-08, 0.0017453284, -0.0017452623, -0.008726535, 0.99996036, -0.34935194, -1.5271215e-08, -0.003048748)
 shape = SubResource("CapsuleShape3D_jhopr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1541948270]
-transform = Transform3D(-4.3711386e-09, 0, -1.9676791, 0, 0.020057254, 0, 0.1, 0, -8.601e-08, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_4lji1")
-mesh = SubResource("CylinderMesh_4lji1")
+[node name="branch" parent="." unique_id=1121058352 instance=ExtResource("2_qoux4")]
+transform = Transform3D(0.010250226, 0.9999475, 0, -0.9999475, 0.010250226, 0, 0, 0, 1, 0, 0, 0)
