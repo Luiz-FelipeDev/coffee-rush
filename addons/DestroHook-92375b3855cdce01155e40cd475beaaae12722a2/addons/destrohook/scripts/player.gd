@@ -576,7 +576,7 @@ func toggle_binoculos() -> void:
 			
 		if anim_binoculo:
 			anim_binoculo.play_backwards("put_on")
-      
+	  
 func handle_crouch() -> void:
 	# Activates stealth mode while the key is held and the player is grounded
 	if Input.is_action_pressed("action_stealth") and is_on_floor():
