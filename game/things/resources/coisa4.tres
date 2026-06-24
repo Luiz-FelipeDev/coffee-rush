@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3 uid="uid://2agpeuaiss1s"]
+
+[ext_resource type="PackedScene" uid="uid://bjw5y8piepui7" path="res://game/things/coisa4.tscn" id="1_r4gp7"]
+[ext_resource type="Script" uid="uid://blygghmfw06be" path="res://game/photobooth/creature_data.gd" id="1_y2y5l"]
+
+[resource]
+script = ExtResource("1_y2y5l")
+creature_name = "Cubo Dimensional"
+model_scene = ExtResource("1_r4gp7")
+metadata/_custom_type_script = "uid://blygghmfw06be"

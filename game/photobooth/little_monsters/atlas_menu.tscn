@@ -4,8 +4,26 @@
 [ext_resource type="Script" uid="uid://blygghmfw06be" path="res://game/photobooth/creature_data.gd" id="2_64u8n"]
 [ext_resource type="Resource" uid="uid://4rc6fcqlhjj6" path="res://game/photobooth/little_monsters/monstro_sapo.tres" id="3_hqbvf"]
 [ext_resource type="Resource" uid="uid://qrxchqa1t3tm" path="res://game/photobooth/little_monsters/monstro_planta.tres" id="4_2t1tp"]
+[ext_resource type="Resource" uid="uid://bo3u4ex73cntg" path="res://game/things/resources/coisa1.tres" id="5_hqbvf"]
 [ext_resource type="PackedScene" uid="uid://dmx51sg6x4wo" path="res://game/photobooth/little_monsters/atlas_slot.tscn" id="5_mtlti"]
+[ext_resource type="Resource" uid="uid://cd0lvbo4mte8i" path="res://game/things/resources/casa2.tres" id="6_1m7iu"]
 [ext_resource type="PackedScene" uid="uid://cxy8r106iarvf" path="res://game/photobooth/photobooth.tscn" id="6_66a56"]
+[ext_resource type="Resource" uid="uid://bac2bjglbiq06" path="res://game/things/resources/casa1.tres" id="6_pfyis"]
+[ext_resource type="Resource" uid="uid://cl0cuwtbse3ym" path="res://game/things/resources/casa3.tres" id="7_otv7s"]
+[ext_resource type="Resource" uid="uid://dqdjd8ojll7ad" path="res://game/things/resources/coisa2.tres" id="7_yv7ok"]
+[ext_resource type="Resource" uid="uid://cm6h142bw40r5" path="res://game/things/resources/casa4.tres" id="8_34in3"]
+[ext_resource type="Resource" uid="uid://bg1vy4bkgg1ac" path="res://game/things/resources/coisa3.tres" id="8_fvig0"]
+[ext_resource type="Resource" uid="uid://2agpeuaiss1s" path="res://game/things/resources/coisa4.tres" id="9_3ewww"]
+[ext_resource type="Resource" uid="uid://bsqw4m50aafyc" path="res://game/things/resources/casa5.tres" id="9_5b4lj"]
+[ext_resource type="Resource" uid="uid://dxllyqh0p72jy" path="res://game/things/resources/coisa5.tres" id="14_8lso2"]
+[ext_resource type="Resource" uid="uid://sjeik54qvwfj" path="res://game/things/resources/coisa6.tres" id="15_itbeq"]
+[ext_resource type="Resource" uid="uid://da3km2jips263" path="res://game/things/resources/nave1.tres" id="16_o7qgt"]
+[ext_resource type="Resource" uid="uid://da6sioplayx0r" path="res://game/things/resources/nave2.tres" id="17_po51x"]
+[ext_resource type="Resource" uid="uid://ppsiilrcumc" path="res://game/things/resources/nave3.tres" id="18_ov1va"]
+[ext_resource type="Resource" uid="uid://dveo6mky121gv" path="res://game/things/resources/nave4.tres" id="19_yqem3"]
+[ext_resource type="Resource" uid="uid://caeflepmonaow" path="res://game/things/resources/carro1.tres" id="20_r3vdq"]
+[ext_resource type="Resource" uid="uid://iplrc5hnuswg" path="res://game/things/resources/carro2.tres" id="21_doo0k"]
+[ext_resource type="Resource" uid="uid://c77c8k0fy8vlr" path="res://game/things/resources/carro3.tres" id="22_xdf1w"]
 
 [node name="AtlasMenu" type="Control" unique_id=1888481577]
 layout_mode = 3
@@ -15,7 +33,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_46nce")
-creature_database = Array[ExtResource("2_64u8n")]([ExtResource("4_2t1tp"), ExtResource("3_hqbvf")])
+creature_database = Array[ExtResource("2_64u8n")]([ExtResource("4_2t1tp"), ExtResource("3_hqbvf"), ExtResource("6_pfyis"), ExtResource("6_1m7iu"), ExtResource("7_otv7s"), ExtResource("8_34in3"), ExtResource("9_5b4lj"), ExtResource("5_hqbvf"), ExtResource("7_yv7ok"), ExtResource("8_fvig0"), ExtResource("9_3ewww"), ExtResource("14_8lso2"), ExtResource("15_itbeq"), ExtResource("16_o7qgt"), ExtResource("17_po51x"), ExtResource("18_ov1va"), ExtResource("19_yqem3"), ExtResource("20_r3vdq"), ExtResource("21_doo0k"), ExtResource("22_xdf1w")])
 slot_prefab = ExtResource("5_mtlti")
 photobooth_scene = ExtResource("6_66a56")
 

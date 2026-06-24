@@ -169,18 +169,28 @@ func handle_scanning(delta: float) -> void:
 
 	var collider: Node3D = hook_raycast.get_collider() as Node3D
 
-	# é validado se o objeto mirado é um inimigo.
-	if collider and collider.is_in_group("enemies"):
+	# é procurada a raiz da entidade subindo na arvore (caso o colisor seja um filho do modelo principal).
+	var target_node: Node = collider
+	var is_valid_target: bool = false
+	var entity_id: String = ""
+
+	while target_node and target_node != get_tree().root:
+		if target_node.is_in_group("enemies") or target_node.is_in_group("scannables"):
+			is_valid_target = true
+			# é extraido o id da entidade diretamente da raiz encontrada.
+			entity_id = target_node.scene_file_path.get_file().get_basename()
+			break
+		target_node = target_node.get_parent()
+
+	# é validado se um alvo foi encontrado e se ele possui um nome de arquivo valido.
+	if is_valid_target and entity_id != "":
 		
-		# é extraido o id da entidade diretamente da cena original para evitar bugs de numeracao de instanciacao.
-		var entity_id: String = collider.scene_file_path.get_file().get_basename()
-		
-		# é verificado se a entidade pertence ao bioma e se ainda nao foi descoberta.
+		# é verificado se a entidade pertence ao bioma e se ainda nao foi descoberta no dicionario.
 		if atlas_registry.has(entity_id) and not atlas_registry[entity_id]:
 			
 			# é reiniciado o temporizador se o jogador mudar de alvo.
-			if current_scan_target != collider:
-				current_scan_target = collider
+			if current_scan_target != (target_node as Node3D):
+				current_scan_target = target_node as Node3D
 				current_scan_time = 0.0
 				
 			# é incrementado o tempo de foco no alvo.
@@ -188,7 +198,7 @@ func handle_scanning(delta: float) -> void:
 			
 			# é calculada e formatada a porcentagem para a interface.
 			var progress: int = int((current_scan_time / required_scan_time) * 100)
-			_update_scan_ui("< ESCANEANDO... >" + str(progress) + "%")
+			_update_scan_ui("< ESCANEANDO... > " + str(progress) + "%")
 			
 			# é efetivada a descoberta caso o tempo seja atingido.
 			if current_scan_time >= required_scan_time:
@@ -197,7 +207,7 @@ func handle_scanning(delta: float) -> void:
 			_update_scan_ui("< SALVO NO ATLAS > ")
 			current_scan_time = 0.0
 	else:
-		# é resetado o estado se olhar para o cenario.
+		# é resetado o estado se olhar para o cenario ou ceu.
 		_reset_scan_state()
 		_update_scan_ui("< SCANNER FUNCIONANDO >")
 

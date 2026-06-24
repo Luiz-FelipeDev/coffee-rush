@@ -1,0 +1,123 @@
+[gd_scene format=3 uid="uid://2vt6g7da0ffd"]
+
+[ext_resource type="PackedScene" uid="uid://5yeq4tuumyhw" path="res://game/portal/sculptjanuary2021_-_day_05_-_magic_gate.glb" id="1_yv4rs"]
+[ext_resource type="Script" uid="uid://dvfpqx5xxyqj" path="res://game/portal/portal.gd" id="2_ct72a"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ay61g"]
+size = Vector3(2.511963, 2.0998535, 8.425781)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3wkd0"]
+size = Vector3(56.353516, 723.72156, 622.1758)
+
+[sub_resource type="Animation" id="Animation_ct72a"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.03, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.03, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.03, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_iyrdr"]
+resource_name = "apper"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.15, 0.0050000004, 0.03, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.9)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.15, 0.0050000004, 0.03, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.9)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.15, 0.0050000004, 0.03, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.9)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wo0a0"]
+_data = {
+&"RESET": SubResource("Animation_ct72a"),
+&"apper": SubResource("Animation_iyrdr")
+}
+
+[node name="Sketchfab_Scene" unique_id=570337182 instance=ExtResource("1_yv4rs")]
+transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 0, 0, 0)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Sketchfab_model/Day 05 - Magic Gate optim2_fbx/Object_2/RootNode/gate/gate_rock_0" parent_id_path=PackedInt32Array(1610808413) index="0" unique_id=1009381005]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.1375713, 4.0706944)
+visible = false
+shape = SubResource("BoxShape3D_ay61g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sketchfab_model/Day 05 - Magic Gate optim2_fbx/Object_2/RootNode/gate/gate_rock_0" parent_id_path=PackedInt32Array(1610808413) index="1" unique_id=626788519]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.154614, 3.712891)
+visible = false
+shape = SubResource("BoxShape3D_ay61g")
+
+[node name="ring_001" parent="Sketchfab_model/Day 05 - Magic Gate optim2_fbx/Object_2/RootNode" parent_id_path=PackedInt32Array(1139870851) index="1" unique_id=12907539]
+transform = Transform3D(-35.524662, 16.238749, 92.05595, -93.400764, -10.150225, -34.253086, 3.7816153, -98.149254, 18.77294, -11.828303, 417.80685, 3.7188768)
+
+[node name="Mball_002" parent="Sketchfab_model/Day 05 - Magic Gate optim2_fbx/Object_2/RootNode" parent_id_path=PackedInt32Array(1139870851) index="3" unique_id=1495510224]
+transform = Transform3D(-5.866962, -5.6586714, -2.4734837e-07, 0, -3.5629958e-07, 8.151184, -5.6586714, 5.866962, 2.5645306e-07, -57.765152, 100.02999, 0.734251)
+
+[node name="ring_002" parent="Sketchfab_model/Day 05 - Magic Gate optim2_fbx/Object_2/RootNode" parent_id_path=PackedInt32Array(1139870851) index="4" unique_id=340750725]
+transform = Transform3D(-0.07810714, 0.45147255, 99.99895, -99.946365, -3.2745383, -0.063282244, 3.2742186, -99.94536, 0.45378795, -11.828303, 417.80685, 3.7188768)
+
+[node name="ring_003" parent="Sketchfab_model/Day 05 - Magic Gate optim2_fbx/Object_2/RootNode" parent_id_path=PackedInt32Array(1139870851) index="5" unique_id=142165417]
+transform = Transform3D(52.818897, 46.925095, 70.76865, -84.3207, 19.16149, 50.22806, 10.009239, -86.2025, 49.688465, -11.828303, 417.80685, 3.7188768)
+
+[node name="Area3D" type="Area3D" parent="." index="2" unique_id=1355770435]
+script = ExtResource("2_ct72a")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0" unique_id=1478773193]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.49950004, 361.36078, 0)
+shape = SubResource("BoxShape3D_3wkd0")
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="." index="3" unique_id=1906656822]
+libraries/ = SubResource("AnimationLibrary_wo0a0")

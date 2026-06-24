@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CreatureData" format=3 uid="uid://dxllyqh0p72jy"]
+
+[ext_resource type="PackedScene" uid="uid://0ldbhewpxxce" path="res://game/things/coisa5.tscn" id="1_k2n5r"]
+[ext_resource type="Script" uid="uid://blygghmfw06be" path="res://game/photobooth/creature_data.gd" id="1_wvhnk"]
+
+[resource]
+script = ExtResource("1_wvhnk")
+model_scene = ExtResource("1_k2n5r")
+metadata/_custom_type_script = "uid://blygghmfw06be"
