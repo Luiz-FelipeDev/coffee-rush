@@ -10,7 +10,7 @@ uniform float noise_amount : hint_range(0.0, 0.5) = 0.03;
 uniform float vignette_strength : hint_range(0.0, 1.0) = 0.35;
 
 // Dynamic triggers controlled by script
-uniform float glitch_intensity : hint_range(1.0, 10.0) = 1.0;
+uniform float glitch_intensity : hint_range(1.0, 20.0) = 1.0;
 uniform float crt_power_off : hint_range(0.0, 1.0) = 0.0;
 uniform float pixel_size : hint_range(1.0, 12.0) = 1.0; // 1.0 = sem efeito de pixelizacao
 

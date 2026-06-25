@@ -539,7 +539,7 @@ func trigger_damage_glitch(amount: int) -> void:
 
 	# normaliza o dano relativo a vida maxima (evita divisao por zero se max_health for 0)
 	var damage_ratio: float = clampf(float(amount) / float(max(max_health, 1)), 0.0, 1.0)
-	var peak_glitch: float = lerpf(3.0, 9.0, damage_ratio)
+	var peak_glitch: float = lerpf(3.0, 9.0, damage_ratio) * 2.0
 	var glitch_duration: float = 0.4 + damage_ratio * 0.3
 
 	var tween: Tween = create_tween()
