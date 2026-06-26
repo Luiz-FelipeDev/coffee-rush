@@ -39,8 +39,7 @@ O controlador base e o algoritmo geográfico estão estruturados. As tarefas seg
 * Desenvolver a mecânica de tiro. É necessário incorporar a malha do blaster (referência Kenney) no HUD do jogador. O modelo precisará de dois canos: um operando como emissor contínuo de projéteis básicos e o outro servindo como o novo nó de ancoragem visual para a corda do gancho.
 * Criar a rotina de instanciamento para inimigos. A densidade de oponentes deve ser elevada para criar pressão mecânica contínua.
 * Configurar o sistema de saúde do jogador no GameManager. A integridade estrutural deve ser limitada para punir aproximações estáticas e favorecer a mobilidade.
-* Distribuir os consumíveis pelo mapa. O jogador precisará localizar o café (que pode utilizar sprites em billboard para otimização). 
-* Atrelar a coleta do café à manipulação da escala de tempo da engine, ativando a câmera lenta vitalícia para lidar com o combate de alta velocidade. A arquitetura futura poderá suportar múltiplos grãos com modificadores de status diferentes.
+* Atribuir característica a alguns consumíveis nos baús do mapa.
 
 ## 5. Histórico de Versões (Changelog)
 
